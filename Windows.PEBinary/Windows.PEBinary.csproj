@@ -1,0 +1,161 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Release</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{56624361-C877-4706-9002-A5C7B3A6CDAF}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Toolkit.Windows</RootNamespace>
+    <AssemblyName>Toolkit.Windows.PEBinary</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), solution.props))\solution.props" Condition="Exists('$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), solution.props))\solution.props')" />
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <DefineConstants>$(DefineConstants);DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <DefineConstants>$(DefineConstants);TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Enumerations\ButtonControlStyles.cs" />
+    <Compile Include="Enumerations\CertSectionType.cs" />
+    <Compile Include="Enumerations\DialogStyles.cs" />
+    <Compile Include="Enumerations\DIBColors.cs" />
+    <Compile Include="Enumerations\EditControlStyles.cs" />
+    <Compile Include="Enumerations\ExtendedDialogStyles.cs" />
+    <Compile Include="Enumerations\ManifestType.cs" />
+    <Compile Include="Enumerations\MenuFlags.cs" />
+    <Compile Include="Enumerations\MenuResourceType.cs" />
+    <Compile Include="Enumerations\ResourceHeaderType.cs" />
+    <Compile Include="Enumerations\ResourceTypes.cs" />
+    <Compile Include="Enumerations\StaticControlStyles.cs" />
+    <Compile Include="Enumerations\VirtualKeys.cs" />
+    <Compile Include="Enumerations\WindowStyles.cs" />
+    <Compile Include="Flags\AcceleratorVirtualKey.cs" />
+    <Compile Include="ImageHlp.cs" />
+    <Compile Include="Mscoree.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resource\Accelerator.cs" />
+    <Compile Include="Resource\AcceleratorResource.cs" />
+    <Compile Include="Resource\BitmapFile.cs" />
+    <Compile Include="Resource\BitmapResource.cs" />
+    <Compile Include="Resource\CursorDirectoryResource.cs" />
+    <Compile Include="Resource\CursorResource.cs" />
+    <Compile Include="Resource\DeviceIndependentBitmap.cs" />
+    <Compile Include="Resource\DialogExTemplate.cs" />
+    <Compile Include="Resource\DialogExTemplateControl.cs" />
+    <Compile Include="Resource\DialogResource.cs" />
+    <Compile Include="Resource\DialogTemplate.cs" />
+    <Compile Include="Resource\DialogTemplateBase.cs" />
+    <Compile Include="Resource\DialogTemplateControl.cs" />
+    <Compile Include="Resource\DialogTemplateControlBase.cs" />
+    <Compile Include="Resource\DialogTemplateUtil.cs" />
+    <Compile Include="Resource\DirectoryResource.cs" />
+    <Compile Include="Resource\FixedFileInfo.cs" />
+    <Compile Include="Resource\FontDirectoryEntry.cs" />
+    <Compile Include="Resource\FontDirectoryResource.cs" />
+    <Compile Include="Resource\FontResource.cs" />
+    <Compile Include="Resource\GenericResource.cs" />
+    <Compile Include="Resource\IconDirectoryResource.cs" />
+    <Compile Include="Resource\IconFile.cs" />
+    <Compile Include="Resource\IconFileIcon.cs" />
+    <Compile Include="Resource\IconImageResource.cs" />
+    <Compile Include="Resource\IconResource.cs" />
+    <Compile Include="Resource\LoadException.cs" />
+    <Compile Include="Resource\ManifestResource.cs" />
+    <Compile Include="Resource\MenuExTemplate.cs" />
+    <Compile Include="Resource\MenuExTemplateItem.cs" />
+    <Compile Include="Resource\MenuExTemplateItemCollection.cs" />
+    <Compile Include="Resource\MenuExTemplateItemCommand.cs" />
+    <Compile Include="Resource\MenuExTemplateItemPopup.cs" />
+    <Compile Include="Resource\MenuResource.cs" />
+    <Compile Include="Resource\MenuTemplate.cs" />
+    <Compile Include="Resource\MenuTemplateBase.cs" />
+    <Compile Include="Resource\MenuTemplateItem.cs" />
+    <Compile Include="Resource\MenuTemplateItemCollection.cs" />
+    <Compile Include="Resource\MenuTemplateItemCommand.cs" />
+    <Compile Include="Resource\MenuTemplateItemPopup.cs" />
+    <Compile Include="Resource\Resource.cs" />
+    <Compile Include="Resource\ResourceId.cs" />
+    <Compile Include="Resource\ResourceInfo.cs" />
+    <Compile Include="Resource\ResourceTableHeader.cs" />
+    <Compile Include="Resource\ResourceUtil.cs" />
+    <Compile Include="Resource\StringFileInfo.cs" />
+    <Compile Include="Resource\StringResource.cs" />
+    <Compile Include="Resource\StringTable.cs" />
+    <Compile Include="Resource\StringTableEntry.cs" />
+    <Compile Include="Resource\VarFileInfo.cs" />
+    <Compile Include="Resource\VarTable.cs" />
+    <Compile Include="Resource\VersionResource.cs" />
+    <Compile Include="Structures\Accel.cs" />
+    <Compile Include="Structures\BitmapFileHeader.cs" />
+    <Compile Include="Structures\DialogExItemTemplate.cs" />
+    <Compile Include="Structures\DialogExTemplate.cs" />
+    <Compile Include="Structures\DialogItemClass.cs" />
+    <Compile Include="Structures\DialogItemTemplate.cs" />
+    <Compile Include="Structures\Dialogtemplate.cs" />
+    <Compile Include="Structures\FileGrpIconDir.cs" />
+    <Compile Include="Structures\FileGrpIconDirEntry.cs" />
+    <Compile Include="Structures\FontDirEntry.cs" />
+    <Compile Include="Structures\GrpIconDir.cs" />
+    <Compile Include="Structures\GrpIconDirEntry.cs" />
+    <Compile Include="Structures\ImageCoffHeader.cs" />
+    <Compile Include="Structures\ImageCor20Header.cs" />
+    <Compile Include="Structures\ImageDataDirectory.cs" />
+    <Compile Include="Structures\ImageOptionalHeaderNt.cs" />
+    <Compile Include="Structures\ImageSectionHeader.cs" />
+    <Compile Include="Structures\MenuExItemTemplate.cs" />
+    <Compile Include="Structures\MenuExTemplate.cs" />
+    <Compile Include="Structures\MenuItemTemplate.cs" />
+    <Compile Include="Structures\MenuTemplate.cs" />
+    <Compile Include="Structures\ResourceHeader.cs" />
+    <Compile Include="Structures\VarHeader.cs" />
+    <Compile Include="Structures\VsFixedfileinfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Windows.Core\Windows.Core.csproj">
+      <Project>{BA2E2AC8-13ED-4F31-BBD6-355A05ADCE50}</Project>
+      <Name>Windows.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Windows.UI\Windows.UI.csproj">
+      <Project>{321D78F0-C1DD-4EBF-8C04-BB517806C252}</Project>
+      <Name>Windows.UI</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resource\License.txt" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), solution.targets))\solution.targets" Condition="Exists('$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), solution.targets))\solution.targets')" />
+
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
