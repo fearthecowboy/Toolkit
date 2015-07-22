@@ -1,16 +1,17 @@
-﻿//-----------------------------------------------------------------------
-// <copyright company="CoApp Project">
-//     Copyright (c) 2010-2013 Garrett Serack and CoApp Contributors. 
-//     Contributors can be discovered using the 'git log' command.
-//     All rights reserved.
-// </copyright>
-// <license>
-//     The software is licensed under the Apache 2.0 License (the "License")
-//     You may not use the software except in compliance with the License. 
-// </license>
-//-----------------------------------------------------------------------
+﻿// 
+//  Licensed under the Apache License, Version 2.0 (the "License");
+//  you may not use this file except in compliance with the License.
+//  You may obtain a copy of the License at
+//  http://www.apache.org/licenses/LICENSE-2.0
+//  
+//  Unless required by applicable law or agreed to in writing, software
+//  distributed under the License is distributed on an "AS IS" BASIS,
+//  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//  See the License for the specific language governing permissions and
+//  limitations under the License.
+//  
 
-namespace Toolkit.Windows {
+namespace FearTheCowboy.Windows {
     using System;
     using System.Runtime.InteropServices;
     using System.Security.AccessControl;
@@ -35,10 +36,9 @@ namespace Toolkit.Windows {
 
         public const UInt32 TOKEN_ALL_ACCESS =
             (STANDARD_RIGHTS_REQUIRED | TOKEN_ASSIGN_PRIMARY | TOKEN_DUPLICATE | TOKEN_IMPERSONATE | TOKEN_QUERY | TOKEN_QUERY_SOURCE | TOKEN_ADJUST_PRIVILEGES |
-                TOKEN_ADJUST_GROUPS | TOKEN_ADJUST_DEFAULT | TOKEN_ADJUST_SESSIONID);
+             TOKEN_ADJUST_GROUPS | TOKEN_ADJUST_DEFAULT | TOKEN_ADJUST_SESSIONID);
 
         public const Int32 ERROR_INSUFFICIENT_BUFFER = 122;
-
         // Integrity Levels
 
         public const Int32 SECURITY_MANDATORY_UNTRUSTED_RID = 0x00000000;
@@ -67,7 +67,10 @@ namespace Toolkit.Windows {
         ///     The function creates a new access token that duplicates one already in existence.
         /// </summary>
         /// <param name="ExistingTokenHandle"> A handle to an access token opened with TOKEN_DUPLICATE access. </param>
-        /// <param name="ImpersonationLevel"> Specifies a SECURITY_IMPERSONATION_LEVEL enumerated type that supplies the impersonation level of the new token. </param>
+        /// <param name="ImpersonationLevel">
+        ///     Specifies a SECURITY_IMPERSONATION_LEVEL enumerated type that supplies the
+        ///     impersonation level of the new token.
+        /// </param>
         /// <param name="DuplicateTokenHandle"> Outputs a handle to the duplicate token. </param>
         /// <returns> </returns>
         [DllImport("advapi32.dll", CharSet = CharSet.Auto, SetLastError = true)]
@@ -75,13 +78,23 @@ namespace Toolkit.Windows {
             out SafeTokenHandle DuplicateTokenHandle);
 
         /// <summary>
-        ///     The function retrieves a specified type of information about an access token. The calling process must have appropriate access rights to obtain the information.
+        ///     The function retrieves a specified type of information about an access token. The calling process must have
+        ///     appropriate access rights to obtain the information.
         /// </summary>
         /// <param name="hToken"> A handle to an access token from which information is retrieved. </param>
-        /// <param name="tokenInfoClass"> Specifies a value from the TOKEN_INFORMATION_CLASS enumerated type to identify the type of information the function retrieves. </param>
+        /// <param name="tokenInfoClass">
+        ///     Specifies a value from the TOKEN_INFORMATION_CLASS enumerated type to identify the type
+        ///     of information the function retrieves.
+        /// </param>
         /// <param name="pTokenInfo"> A pointer to a buffer the function fills with the requested information. </param>
-        /// <param name="tokenInfoLength"> Specifies the size, in bytes, of the buffer pointed to by the TokenInformation parameter. </param>
-        /// <param name="returnLength"> A pointer to a variable that receives the number of bytes needed for the buffer pointed to by the TokenInformation parameter. </param>
+        /// <param name="tokenInfoLength">
+        ///     Specifies the size, in bytes, of the buffer pointed to by the TokenInformation
+        ///     parameter.
+        /// </param>
+        /// <param name="returnLength">
+        ///     A pointer to a variable that receives the number of bytes needed for the buffer pointed to
+        ///     by the TokenInformation parameter.
+        /// </param>
         /// <returns> </returns>
         [DllImport("advapi32.dll", CharSet = CharSet.Auto, SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
@@ -94,11 +107,20 @@ namespace Toolkit.Windows {
             out Int32 returnLength);
 
         /// <summary>
-        ///     The function returns a pointer to a specified subauthority in a security identifier (SID). The subauthority value is a relative identifier (RID).
+        ///     The function returns a pointer to a specified subauthority in a security identifier (SID). The subauthority value
+        ///     is a relative identifier (RID).
         /// </summary>
         /// <param name="pSid"> A pointer to the SID structure from which a pointer to a subauthority is to be returned. </param>
-        /// <param name="nSubAuthority"> Specifies an index value identifying the subauthority array element whose address the function will return. </param>
-        /// <returns> If the function succeeds, the return value is a pointer to the specified SID subauthority. To get extended error information, call GetLastError. If the function fails, the return value is undefined. The function fails if the specified SID structure is not valid or if the index value specified by the nSubAuthority parameter is out of bounds. </returns>
+        /// <param name="nSubAuthority">
+        ///     Specifies an index value identifying the subauthority array element whose address the
+        ///     function will return.
+        /// </param>
+        /// <returns>
+        ///     If the function succeeds, the return value is a pointer to the specified SID subauthority. To get extended
+        ///     error information, call GetLastError. If the function fails, the return value is undefined. The function fails if
+        ///     the specified SID structure is not valid or if the index value specified by the nSubAuthority parameter is out of
+        ///     bounds.
+        /// </returns>
         [DllImport("advapi32.dll", CharSet = CharSet.Auto, SetLastError = true)]
         public static extern IntPtr GetSidSubAuthority(IntPtr pSid, UInt32 nSubAuthority);
 

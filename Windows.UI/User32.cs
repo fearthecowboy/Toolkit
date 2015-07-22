@@ -1,16 +1,17 @@
-﻿//-----------------------------------------------------------------------
-// <copyright company="CoApp Project">
-//     Copyright (c) 2010-2013 Garrett Serack and CoApp Contributors. 
-//     Contributors can be discovered using the 'git log' command.
-//     All rights reserved.
-// </copyright>
-// <license>
-//     The software is licensed under the Apache 2.0 License (the "License")
-//     You may not use the software except in compliance with the License. 
-// </license>
-//-----------------------------------------------------------------------
+﻿// 
+//  Licensed under the Apache License, Version 2.0 (the "License");
+//  you may not use this file except in compliance with the License.
+//  You may obtain a copy of the License at
+//  http://www.apache.org/licenses/LICENSE-2.0
+//  
+//  Unless required by applicable law or agreed to in writing, software
+//  distributed under the License is distributed on an "AS IS" BASIS,
+//  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//  See the License for the specific language governing permissions and
+//  limitations under the License.
+//  
 
-namespace Toolkit.Windows {
+namespace FearTheCowboy.Windows {
     using System;
     using System.Runtime.InteropServices;
     using Structures;
@@ -35,7 +36,8 @@ namespace Toolkit.Windows {
         public static extern int SendMessage(IntPtr hwnd, int wMsg, IntPtr wParam, IntPtr lParam);
 
         /// <summary>
-        ///     Sends the specified message to a window or windows. The function calls the window procedure for the specified window and does not return until the window procedure has processed the message.
+        ///     Sends the specified message to a window or windows. The function calls the window procedure for the specified
+        ///     window and does not return until the window procedure has processed the message.
         /// </summary>
         /// <param name="hWnd"> Handle to the window whose window procedure will receive the message. </param>
         /// <param name="Msg"> Specifies the message to be sent. </param>
@@ -81,7 +83,7 @@ namespace Toolkit.Windows {
 
         [DllImport("user32.dll")]
         public static extern Int32 GetMenuItemCount(IntPtr hMenu);
-        
+
         [DllImport("user32.dll", CharSet = CharSet.Unicode)]
         public static extern bool GetMenuItemInfo(IntPtr hMenu, Int32 item, bool bByPosition, [MarshalAs(UnmanagedType.LPStruct)] [In] [Out] MenuItemInfo mii);
 
@@ -100,8 +102,14 @@ namespace Toolkit.Windows {
         /// <summary>
         ///     Retrieve a handle to a device context (DC) for the client area of a specified window or for the entire screen.
         /// </summary>
-        /// <param name="hWnd"> A handle to the window whose DC is to be retrieved. If this value is NULL, GetDC retrieves the DC for the entire screen. </param>
-        /// <returns> If the function succeeds, the return value is a handle to the DC for the specified window's client area. If the function fails, the return value is NULL. </returns>
+        /// <param name="hWnd">
+        ///     A handle to the window whose DC is to be retrieved. If this value is NULL, GetDC retrieves the DC
+        ///     for the entire screen.
+        /// </param>
+        /// <returns>
+        ///     If the function succeeds, the return value is a handle to the DC for the specified window's client area. If
+        ///     the function fails, the return value is NULL.
+        /// </returns>
         [DllImport("user32.dll", SetLastError = true)]
         public static extern IntPtr GetDC(IntPtr hWnd);
 
@@ -110,7 +118,10 @@ namespace Toolkit.Windows {
         /// </summary>
         /// <param name="hWnd"> A handle to the window whose DC is to be released. </param>
         /// <param name="hDC"> A handle to the DC to be released. </param>
-        /// <returns> The return value indicates whether the DC was released. If the DC was released, the return value is 1. If the DC was not released, the return value is zero. </returns>
+        /// <returns>
+        ///     The return value indicates whether the DC was released. If the DC was released, the return value is 1. If the
+        ///     DC was not released, the return value is zero.
+        /// </returns>
         [DllImport("user32.dll", SetLastError = true)]
         public static extern IntPtr ReleaseDC(IntPtr hWnd, IntPtr hDC);
 
@@ -126,7 +137,10 @@ namespace Toolkit.Windows {
         ///     Creates an icon or cursor from an ICONINFO structure.
         /// </summary>
         /// <param name="piconInfo"> Pointer to an ICONINFO structure the function uses to create the icon or cursor. </param>
-        /// <returns> If the function succeeds, the return value is a handle to the icon or cursor that is created. If the function fails, the return value is NULL. </returns>
+        /// <returns>
+        ///     If the function succeeds, the return value is a handle to the icon or cursor that is created. If the function
+        ///     fails, the return value is NULL.
+        /// </returns>
         [DllImport("user32.dll", SetLastError = true)]
         public static extern IntPtr CreateIconIndirect(ref Iconinfo piconInfo);
 
@@ -135,6 +149,5 @@ namespace Toolkit.Windows {
 
         [DllImport("user32.dll", CharSet = CharSet.Auto, ExactSpelling = true, CallingConvention = CallingConvention.Winapi)]
         public static extern short GetKeyState(int keyCode);
-
     }
 }

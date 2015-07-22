@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
-    <id>FearTheCowboy.Toolkit.Windows.PEBinary</id>
+    <id>FearTheCowboy.Windows.PEBinary</id>
     <version>$version$</version>
     <title>FearTheCowboy's Incredibly Useful Toolkit (Windows PE Binary APIs)</title>
     <authors>Garrett Serack</authors>
@@ -17,8 +17,8 @@
     <copyright>Copyright 2015</copyright>
     <tags>Toolkit</tags>
     <dependencies>
-      <dependency id="FearTheCowboy.Toolkit.Windows.Core" version="$version$" />
-      <dependency id="FearTheCowboy.Toolkit.Windows.UI" version="$version$" />
+      <dependency id="FearTheCowboy.Windows.Core" version="$version$" />
+      <dependency id="FearTheCowboy.Windows.UI" version="$version$" />
     </dependencies>
   </metadata>
 </package>

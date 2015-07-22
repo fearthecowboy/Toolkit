@@ -11,7 +11,7 @@
 //  limitations under the License.
 //  
 
-namespace Common.Core {
+namespace FearTheCowboy.Common.Core {
     using System;
     using System.Collections.Generic;
 

@@ -11,7 +11,7 @@
 //  limitations under the License.
 //  
 
-namespace Toolkit.Windows.Resource {
+namespace FearTheCowboy.Windows.Resource {
     using System;
     using System.IO;
     using System.Runtime.InteropServices;

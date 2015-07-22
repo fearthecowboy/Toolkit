@@ -10,7 +10,7 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 //  
-namespace Common.Core {
+namespace FearTheCowboy.Common.Core {
     // 
     // EncodingUtility
     //
@@ -41,7 +41,6 @@ namespace Common.Core {
     // OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
     // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     //
-
     using System;
     using System.Collections;
     using System.Collections.Generic;

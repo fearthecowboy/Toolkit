@@ -11,7 +11,7 @@
 //  limitations under the License.
 //  
 
-namespace Toolkit.Windows.Structures {
+namespace FearTheCowboy.Windows.Structures {
     using System;
 
     public struct DigitalSignContext {

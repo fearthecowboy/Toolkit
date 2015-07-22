@@ -10,7 +10,8 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 //  
-namespace Toolkit.Windows {
+
+namespace FearTheCowboy.Windows {
     using System;
     using System.IO;
     using System.Runtime.InteropServices;
@@ -20,31 +21,32 @@ namespace Toolkit.Windows {
     using Microsoft.Win32.SafeHandles;
     using Structures;
 
-    public static class Kernel32
-    {
-
+    public static class Kernel32 {
         /// <summary>
         ///     Kernel32.dll interop functions.
         /// </summary>
-        public abstract class Constants
-        {
+        public abstract class Constants {
             /// <summary>
-            ///     If this value is used, the system maps the file into the calling process's virtual address space as if it were a data file.
+            ///     If this value is used, the system maps the file into the calling process's virtual address space as if it were a
+            ///     data file.
             /// </summary>
             public const uint LOAD_LIBRARY_AS_DATAFILE = 0x00000002;
 
             /// <summary>
-            ///     If this value is used, and the executable module is a DLL, the system does not call DllMain for process and thread initialization and termination.
+            ///     If this value is used, and the executable module is a DLL, the system does not call DllMain for process and thread
+            ///     initialization and termination.
             /// </summary>
             public const uint DONT_RESOLVE_DLL_REFERENCES = 0x00000001;
 
             /// <summary>
-            ///     If this value is used and lpFileName specifies an absolute path, the system uses the alternate file search strategy.
+            ///     If this value is used and lpFileName specifies an absolute path, the system uses the alternate file search
+            ///     strategy.
             /// </summary>
             public const uint LOAD_WITH_ALTERED_SEARCH_PATH = 0x00000008;
 
             /// <summary>
-            ///     If this value is used, the system does not perform automatic trust comparisons on the DLL or its dependents when they are loaded.
+            ///     If this value is used, the system does not perform automatic trust comparisons on the DLL or its dependents when
+            ///     they are loaded.
             /// </summary>
             public const uint LOAD_IGNORE_CODE_AUTHZ_LEVEL = 0x00000010;
 
@@ -69,25 +71,35 @@ namespace Toolkit.Windows {
             public const UInt16 SUBLANG_ENGLISH_US = 1;
 
             /// <summary>
-            ///     CREATEPROCESS_MANIFEST_RESOURCE_ID is used primarily for EXEs. If an executable has a resource of type RT_MANIFEST, ID CREATEPROCESS_MANIFEST_RESOURCE_ID, Windows will create a process default activation context for the process. The process default activation context will be used by all components running in the process. CREATEPROCESS_MANIFEST_RESOURCE_ID can also used by DLLs. When Windows probe for dependencies, if the dll has a resource of type RT_MANIFEST, ID CREATEPROCESS_MANIFEST_RESOURCE_ID, Windows will use that manifest as the dependency.
+            ///     CREATEPROCESS_MANIFEST_RESOURCE_ID is used primarily for EXEs. If an executable has a resource of type RT_MANIFEST,
+            ///     ID CREATEPROCESS_MANIFEST_RESOURCE_ID, Windows will create a process default activation context for the process.
+            ///     The process default activation context will be used by all components running in the process.
+            ///     CREATEPROCESS_MANIFEST_RESOURCE_ID can also used by DLLs. When Windows probe for dependencies, if the dll has a
+            ///     resource of type RT_MANIFEST, ID CREATEPROCESS_MANIFEST_RESOURCE_ID, Windows will use that manifest as the
+            ///     dependency.
             /// </summary>
             public const UInt16 CREATEPROCESS_MANIFEST_RESOURCE_ID = 1;
 
             /// <summary>
-            ///     ISOLATIONAWARE_MANIFEST_RESOURCE_ID is used primarily for DLLs. It should be used if the dll wants private dependencies other than the process default. For example, if an dll depends on comctl32.dll version 6.0.0.0. It should have a resource of type RT_MANIFEST, ID ISOLATIONAWARE_MANIFEST_RESOURCE_ID to depend on comctl32.dll version 6.0.0.0, so that even if the process executable wants comctl32.dll version 5.1, the dll itself will still use the right version of comctl32.dll.
+            ///     ISOLATIONAWARE_MANIFEST_RESOURCE_ID is used primarily for DLLs. It should be used if the dll wants private
+            ///     dependencies other than the process default. For example, if an dll depends on comctl32.dll version 6.0.0.0. It
+            ///     should have a resource of type RT_MANIFEST, ID ISOLATIONAWARE_MANIFEST_RESOURCE_ID to depend on comctl32.dll
+            ///     version 6.0.0.0, so that even if the process executable wants comctl32.dll version 5.1, the dll itself will still
+            ///     use the right version of comctl32.dll.
             /// </summary>
             public const UInt16 ISOLATIONAWARE_MANIFEST_RESOURCE_ID = 2;
 
             /// <summary>
-            ///     When ISOLATION_AWARE_ENABLED is defined, Windows re-defines certain APIs. For example LoadLibraryExW is redefined to IsolationAwareLoadLibraryExW.
+            ///     When ISOLATION_AWARE_ENABLED is defined, Windows re-defines certain APIs. For example LoadLibraryExW is redefined
+            ///     to IsolationAwareLoadLibraryExW.
             /// </summary>
             public const UInt16 ISOLATIONAWARE_NOSTATICIMPORT_MANIFEST_RESOURCE_ID = 3;
         }
 
         public delegate bool ConsoleHandlerRoutine(ConsoleEvents eventId);
 
-        public delegate CopyProgressResult CopyProgressRoutine(long TotalFileSize, long TotalBytesTransferred, long StreamSize, long StreamBytesTransferred, uint dwStreamNumber, CopyProgressCallbackReason dwCallbackReason, IntPtr hSourceFile, IntPtr hDestinationFile, IntPtr lpData);
-
+        public delegate CopyProgressResult CopyProgressRoutine(
+            long TotalFileSize, long TotalBytesTransferred, long StreamSize, long StreamBytesTransferred, uint dwStreamNumber, CopyProgressCallbackReason dwCallbackReason, IntPtr hSourceFile, IntPtr hDestinationFile, IntPtr lpData);
 
         [DllImport("kernel32.dll", SetLastError = true, CharSet = CharSet.Auto)]
         public static extern uint SearchPath(
@@ -313,7 +325,8 @@ namespace Toolkit.Windows {
         public static extern int WaitForSingleObject(SafeWaitHandle handle, int dwMilliseconds);
 
         /// <summary>
-        ///     Loads the specified module into the address space of the calling process. The specified module may cause other modules to be loaded.
+        ///     Loads the specified module into the address space of the calling process. The specified module may cause other
+        ///     modules to be loaded.
         /// </summary>
         /// <param name="lpFileName"> The name of the module. </param>
         /// <param name="hFile"> This parameter is reserved for future use. </param>
@@ -343,9 +356,18 @@ namespace Toolkit.Windows {
         /// <summary>
         ///     An application-defined callback function used with the EnumResourceTypes and EnumResourceTypesEx functions.
         /// </summary>
-        /// <param name="hModule"> The handle to the module whose executable file contains the resources for which the types are to be enumerated. </param>
-        /// <param name="lpszType"> Pointer to a null-terminated string specifying the type name of the resource for which the type is being enumerated. </param>
-        /// <param name="lParam"> Specifies the application-defined parameter passed to the EnumResourceTypes or EnumResourceTypesEx function. </param>
+        /// <param name="hModule">
+        ///     The handle to the module whose executable file contains the resources for which the types are to
+        ///     be enumerated.
+        /// </param>
+        /// <param name="lpszType">
+        ///     Pointer to a null-terminated string specifying the type name of the resource for which the type
+        ///     is being enumerated.
+        /// </param>
+        /// <param name="lParam">
+        ///     Specifies the application-defined parameter passed to the EnumResourceTypes or
+        ///     EnumResourceTypesEx function.
+        /// </param>
         /// <returns> Returns TRUE if successful; otherwise, FALSE. </returns>
         public delegate bool EnumResourceTypesDelegate(IntPtr hModule, IntPtr lpszType, IntPtr lParam);
 
@@ -353,10 +375,16 @@ namespace Toolkit.Windows {
         ///     Enumerates resources of a specified type within a binary module.
         /// </summary>
         /// <param name="hModule"> Handle to a module to search. </param>
-        /// <param name="lpszType"> Pointer to a null-terminated string specifying the type of the resource for which the name is being enumerated. </param>
+        /// <param name="lpszType">
+        ///     Pointer to a null-terminated string specifying the type of the resource for which the name is
+        ///     being enumerated.
+        /// </param>
         /// <param name="lpEnumFunc"> Pointer to the callback function to be called for each enumerated resource name or ID. </param>
         /// <param name="lParam"> Specifies an application-defined value passed to the callback function. </param>
-        /// <returns> Returns TRUE if the function succeeds or FALSE if the function does not find a resource of the type specified, or if the function fails for another reason. </returns>
+        /// <returns>
+        ///     Returns TRUE if the function succeeds or FALSE if the function does not find a resource of the type
+        ///     specified, or if the function fails for another reason.
+        /// </returns>
         [DllImport("kernel32.dll", EntryPoint = "EnumResourceNamesW", CharSet = CharSet.Unicode, SetLastError = true)]
         public static extern bool EnumResourceNames(IntPtr hModule, IntPtr lpszType, EnumResourceNamesDelegate lpEnumFunc, IntPtr lParam);
 
@@ -366,16 +394,28 @@ namespace Toolkit.Windows {
         /// <param name="hModule"> The handle to the module whose executable file contains the resources that are being enumerated. </param>
         /// <param name="lpszType"> Pointer to a null-terminated string specifying the type of resource that is being enumerated. </param>
         /// <param name="lpszName"> Specifies the name of a resource of the type being enumerated. </param>
-        /// <param name="lParam"> Specifies the application-defined parameter passed to the EnumResourceNames or EnumResourceNamesEx function. </param>
-        /// <returns> Returns TRUE if the function succeeds or FALSE if the function does not find a resource of the type specified, or if the function fails for another reason. </returns>
+        /// <param name="lParam">
+        ///     Specifies the application-defined parameter passed to the EnumResourceNames or
+        ///     EnumResourceNamesEx function.
+        /// </param>
+        /// <returns>
+        ///     Returns TRUE if the function succeeds or FALSE if the function does not find a resource of the type
+        ///     specified, or if the function fails for another reason.
+        /// </returns>
         public delegate bool EnumResourceNamesDelegate(IntPtr hModule, IntPtr lpszType, IntPtr lpszName, IntPtr lParam);
 
         /// <summary>
         ///     Enumerates language-specific resources, of the specified type and name, associated with a binary module.
         /// </summary>
         /// <param name="hModule"> The handle to a module to search. </param>
-        /// <param name="lpszType"> Pointer to a null-terminated string specifying the type of resource for which the language is being enumerated. </param>
-        /// <param name="lpszName"> Pointer to a null-terminated string specifying the name of the resource for which the language is being enumerated. </param>
+        /// <param name="lpszType">
+        ///     Pointer to a null-terminated string specifying the type of resource for which the language is
+        ///     being enumerated.
+        /// </param>
+        /// <param name="lpszName">
+        ///     Pointer to a null-terminated string specifying the name of the resource for which the language
+        ///     is being enumerated.
+        /// </param>
         /// <param name="lpEnumFunc"> Pointer to the callback function to be called for each enumerated resource language. </param>
         /// <param name="lParam"> Specifies an application-defined value passed to the callback function. </param>
         /// <returns> Returns TRUE if successful or FALSE otherwise. </returns>
@@ -386,11 +426,26 @@ namespace Toolkit.Windows {
         /// <summary>
         ///     An application-defined callback function used with the EnumResourceLanguages and EnumResourceLanguagesEx functions.
         /// </summary>
-        /// <param name="hModule"> The handle to the module whose executable file contains the resources for which the languages are being enumerated. </param>
-        /// <param name="lpszType"> Pointer to a null-terminated string specifying the type name of the resource for which the language is being enumerated. </param>
-        /// <param name="lpszName"> Pointer to a null-terminated string specifying the name of the resource for which the language is being enumerated. </param>
-        /// <param name="wIDLanguage"> Specifies the language identifier for the resource for which the language is being enumerated. </param>
-        /// <param name="lParam"> Specifies the application-defined parameter passed to the EnumResourceLanguages or EnumResourceLanguagesEx function. </param>
+        /// <param name="hModule">
+        ///     The handle to the module whose executable file contains the resources for which the languages
+        ///     are being enumerated.
+        /// </param>
+        /// <param name="lpszType">
+        ///     Pointer to a null-terminated string specifying the type name of the resource for which the
+        ///     language is being enumerated.
+        /// </param>
+        /// <param name="lpszName">
+        ///     Pointer to a null-terminated string specifying the name of the resource for which the language
+        ///     is being enumerated.
+        /// </param>
+        /// <param name="wIDLanguage">
+        ///     Specifies the language identifier for the resource for which the language is being
+        ///     enumerated.
+        /// </param>
+        /// <param name="lParam">
+        ///     Specifies the application-defined parameter passed to the EnumResourceLanguages or
+        ///     EnumResourceLanguagesEx function.
+        /// </param>
         /// <returns> Returns TRUE if successful or FALSE otherwise. </returns>
         public delegate bool EnumResourceLanguagesDelegate(IntPtr hModule, IntPtr lpszType, IntPtr lpszName, UInt16 wIDLanguage, IntPtr lParam);
 
@@ -409,7 +464,10 @@ namespace Toolkit.Windows {
         ///     Locks the specified resource in memory.
         /// </summary>
         /// <param name="hResData"> Handle to the resource to be locked. </param>
-        /// <returns> If the loaded resource is locked, the return value is a pointer to the first byte of the resource; otherwise, it is NULL. </returns>
+        /// <returns>
+        ///     If the loaded resource is locked, the return value is a pointer to the first byte of the resource; otherwise,
+        ///     it is NULL.
+        /// </returns>
         [DllImport("kernel32.dll", SetLastError = true)]
         public static extern IntPtr LockResource(IntPtr hResData);
 
@@ -426,7 +484,10 @@ namespace Toolkit.Windows {
         ///     Returns the size, in bytes, of the specified resource.
         /// </summary>
         /// <param name="hInstance"> Handle to the module whose executable file contains the resource. </param>
-        /// <param name="hResInfo"> Handle to the resource. This handle must be created by using the FindResource or FindResourceEx function. </param>
+        /// <param name="hResInfo">
+        ///     Handle to the resource. This handle must be created by using the FindResource or FindResourceEx
+        ///     function.
+        /// </param>
         /// <returns> If the function succeeds, the return value is the number of bytes in the resource. </returns>
         [DllImport("kernel32.dll", SetLastError = true)]
         public static extern int SizeofResource(IntPtr hInstance, IntPtr hResInfo);
@@ -442,19 +503,32 @@ namespace Toolkit.Windows {
 #endif
 
         /// <summary>
-        ///     Returns a handle to either a language-neutral portable executable file (LN file) or a language-specific resource file (.mui file) that can be used by the UpdateResource function to add, delete, or replace resources in a binary module.
+        ///     Returns a handle to either a language-neutral portable executable file (LN file) or a language-specific resource
+        ///     file (.mui file) that can be used by the UpdateResource function to add, delete, or replace resources in a binary
+        ///     module.
         /// </summary>
-        /// <param name="pFileName"> Pointer to a null-terminated string that specifies the binary file in which to update resources. </param>
+        /// <param name="pFileName">
+        ///     Pointer to a null-terminated string that specifies the binary file in which to update
+        ///     resources.
+        /// </param>
         /// <param name="bDeleteExistingResources"> Specifies whether to delete the pFileName parameter's existing resources. </param>
-        /// <returns> If the function succeeds, the return value is a handle that can be used by the UpdateResource and EndUpdateResource functions. </returns>
+        /// <returns>
+        ///     If the function succeeds, the return value is a handle that can be used by the UpdateResource and
+        ///     EndUpdateResource functions.
+        /// </returns>
         [DllImport("kernel32.dll", EntryPoint = "BeginUpdateResourceW", SetLastError = true, CharSet = CharSet.Unicode, ExactSpelling = true,
             CallingConvention = CallingConvention.StdCall)]
         public static extern IntPtr BeginUpdateResource(string pFileName, bool bDeleteExistingResources);
 
         /// <summary>
-        ///     Adds, deletes, or replaces a resource in a portable executable (PE) file. There are some restrictions on resource updates in files that contain Resource Configuration (RC Config) data: language-neutral (LN) files and language-specific resource (.mui) files.
+        ///     Adds, deletes, or replaces a resource in a portable executable (PE) file. There are some restrictions on resource
+        ///     updates in files that contain Resource Configuration (RC Config) data: language-neutral (LN) files and
+        ///     language-specific resource (.mui) files.
         /// </summary>
-        /// <param name="hUpdate"> A module handle returned by the BeginUpdateResource function, referencing the file to be updated. </param>
+        /// <param name="hUpdate">
+        ///     A module handle returned by the BeginUpdateResource function, referencing the file to be
+        ///     updated.
+        /// </param>
         /// <param name="lpType"> Pointer to a null-terminated string specifying the resource type to be updated. </param>
         /// <param name="lpName"> Pointer to a null-terminated string specifying the name of the resource to be updated. </param>
         /// <param name="wLanguage"> Specifies the language identifier of the resource to be updated. </param>
@@ -468,8 +542,14 @@ namespace Toolkit.Windows {
         /// <summary>
         ///     Commits or discards changes made prior to a call to UpdateResource.
         /// </summary>
-        /// <param name="hUpdate"> A module handle returned by the BeginUpdateResource function, and used by UpdateResource, referencing the file to be updated. </param>
-        /// <param name="fDiscard"> Specifies whether to write the resource updates to the file. If this parameter is TRUE, no changes are made. If it is FALSE, the changes are made: the resource updates will take effect. </param>
+        /// <param name="hUpdate">
+        ///     A module handle returned by the BeginUpdateResource function, and used by UpdateResource,
+        ///     referencing the file to be updated.
+        /// </param>
+        /// <param name="fDiscard">
+        ///     Specifies whether to write the resource updates to the file. If this parameter is TRUE, no
+        ///     changes are made. If it is FALSE, the changes are made: the resource updates will take effect.
+        /// </param>
         /// <returns> Returns TRUE if the function succeeds; FALSE otherwise. </returns>
         [DllImport("kernel32.dll", EntryPoint = "EndUpdateResourceW", SetLastError = true, CharSet = CharSet.Unicode, ExactSpelling = true,
             CallingConvention = CallingConvention.StdCall)]

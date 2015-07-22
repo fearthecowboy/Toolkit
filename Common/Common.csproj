@@ -7,8 +7,8 @@
     <ProjectGuid>{BB17618D-C23E-452D-A1A3-E0E8DAA74FCE}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Toolkit.Common</RootNamespace>
-    <AssemblyName>Toolkit.Common</AssemblyName>
+    <RootNamespace>FearTheCowboy.Common</RootNamespace>
+    <AssemblyName>FearTheCowboy.Common</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -39,14 +39,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Collections\Extensions.cs" />
+    <Compile Include="Collections\List.cs" />
     <Compile Include="Collections\MutableEnumerable.cs" />
+    <Compile Include="Collections\OrderedDictionary.cs" />
     <Compile Include="Collections\ReEnumerable.cs" />
     <Compile Include="Core\CompareExtensions.cs" />
     <Compile Include="Core\Comparer.cs" />
     <Compile Include="Core\EncodingExtensions.cs" />
     <Compile Include="Core\EqualityComparer.cs" />
+    <Compile Include="Core\ExceptionExtensions.cs" />
     <Compile Include="Core\RegexExtensions.cs" />
-    <Compile Include="Core\StringEnumerable.cs" />
+    <Compile Include="Core\StringExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -54,7 +57,6 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), solution.targets))\solution.targets" Condition="Exists('$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), solution.targets))\solution.targets')" />
-
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

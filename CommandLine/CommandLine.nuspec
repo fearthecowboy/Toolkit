@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
-    <id>FearTheCowboy.Toolkit.CommandLine</id>
+    <id>FearTheCowboy.CommandLine</id>
     <version>$version$</version>
     <title>FearTheCowboy's Incredibly Useful Toolkit (CommandLine)</title>
     <authors>Garrett Serack</authors>
@@ -17,9 +17,9 @@
     <copyright>Copyright 2015</copyright>
     <tags>Toolkit</tags>
     <dependencies>
-      <dependency id="FearTheCowboy.Toolkit.Common" version="$version$" />
-      <dependency id="FearTheCowboy.Toolkit.Windows.Core" version="$version$" />
-      <dependency id="FearTheCowboy.Toolkit.Windows.UI" version="$version$" />
+      <dependency id="FearTheCowboy.Common" version="$version$" />
+      <dependency id="FearTheCowboy.Windows.Core" version="$version$" />
+      <dependency id="FearTheCowboy.Windows.UI" version="$version$" />
     </dependencies>
   </metadata>
 </package>

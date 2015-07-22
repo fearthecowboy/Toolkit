@@ -1,29 +1,17 @@
-﻿//-----------------------------------------------------------------------
-// <copyright company="CoApp Project">
-//     ResourceLib Original Code from http://resourcelib.codeplex.com
-//     Original Copyright (c) 2008-2009 Vestris Inc.
-//     Changes Copyright (c) 2011 Garrett Serack . All rights reserved.
-// </copyright>
-// <license>
-// MIT License
-// You may freely use and distribute this software under the terms of the following license agreement.
-// 
-// Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
-// documentation files (the "Software"), to deal in the Software without restriction, including without limitation 
-// the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and 
-// to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-// 
-// The above copyright notice and this permission notice shall be included in all copies or substantial portions of 
-// the Software.
-// 
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO 
-// THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE 
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, 
-// TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE
-// </license>
-//-----------------------------------------------------------------------
+﻿// 
+//  Licensed under the Apache License, Version 2.0 (the "License");
+//  you may not use this file except in compliance with the License.
+//  You may obtain a copy of the License at
+//  http://www.apache.org/licenses/LICENSE-2.0
+//  
+//  Unless required by applicable law or agreed to in writing, software
+//  distributed under the License is distributed on an "AS IS" BASIS,
+//  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//  See the License for the specific language governing permissions and
+//  limitations under the License.
+//  
 
-namespace Toolkit.Windows.Enumerations {
+namespace FearTheCowboy.Windows.Enumerations {
     using System;
 
     /// <summary>
@@ -52,17 +40,21 @@ namespace Toolkit.Windows.Enumerations {
             VS_FF_PATCHED = 0x00000004,
 
             /// <summary>
-            ///     The file was not built using standard release procedures. There should be data in the file's "PrivateBuild" version information string.
+            ///     The file was not built using standard release procedures. There should be data in the file's "PrivateBuild" version
+            ///     information string.
             /// </summary>
             VS_FF_PRIVATEBUILD = 0x00000008,
 
             /// <summary>
-            ///     The version information in this structure was not found inside the file, but instead was created when needed based on the best information available. Therefore, this structure's information may differ slightly from what the "real" values are.
+            ///     The version information in this structure was not found inside the file, but instead was created when needed based
+            ///     on the best information available. Therefore, this structure's information may differ slightly from what the "real"
+            ///     values are.
             /// </summary>
             VS_FF_INFOINFERRED = 0x00000010,
 
             /// <summary>
-            ///     The file was built using standard release procedures, but is somehow different from the normal file having the same version number. There should be data in the file's "SpecialBuild" version information string.
+            ///     The file was built using standard release procedures, but is somehow different from the normal file having the same
+            ///     version number. There should be data in the file's "SpecialBuild" version information string.
             /// </summary>
             VS_FF_SPECIALBUILD = 0x00000020,
         }

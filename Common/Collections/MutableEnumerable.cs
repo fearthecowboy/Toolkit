@@ -11,7 +11,7 @@
 //  limitations under the License.
 //  
 
-namespace Common.Collections {
+namespace FearTheCowboy.Common.Collections {
     using System.Collections;
     using System.Collections.Generic;
 

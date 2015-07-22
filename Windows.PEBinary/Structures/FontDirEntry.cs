@@ -1,29 +1,38 @@
-//-----------------------------------------------------------------------
-// <copyright company="CoApp Project">
-//     ResourceLib Original Code from http://resourcelib.codeplex.com
-//     Original Copyright (c) 2008-2009 Vestris Inc.
-//     Changes Copyright (c) 2011 Garrett Serack . All rights reserved.
-// </copyright>
-// <license>
-// MIT License
-// You may freely use and distribute this software under the terms of the following license agreement.
 // 
-// Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
-// documentation files (the "Software"), to deal in the Software without restriction, including without limitation 
-// the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and 
-// to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-// 
-// The above copyright notice and this permission notice shall be included in all copies or substantial portions of 
-// the Software.
-// 
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO 
-// THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE 
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, 
-// TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE
-// </license>
-//-----------------------------------------------------------------------
+//  Licensed under the Apache License, Version 2.0 (the "License");
+//  you may not use this file except in compliance with the License.
+//  You may obtain a copy of the License at
+//  http://www.apache.org/licenses/LICENSE-2.0
+//  
+//  Unless required by applicable law or agreed to in writing, software
+//  distributed under the License is distributed on an "AS IS" BASIS,
+//  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//  See the License for the specific language governing permissions and
+//  limitations under the License.
+//  
 
-namespace Toolkit.Windows.Structures {
+namespace FearTheCowboy.Windows.Structures {
+    //-----------------------------------------------------------------------
+    //     ResourceLib Original Code from http://resourcelib.codeplex.com
+    //     Original Copyright (c) 2008-2009 Vestris Inc.
+    // <license>
+    // MIT License
+    // You may freely use and distribute this software under the terms of the following license agreement.
+    // 
+    // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
+    // documentation files (the "Software"), to deal in the Software without restriction, including without limitation 
+    // the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and 
+    // to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+    // 
+    // The above copyright notice and this permission notice shall be included in all copies or substantial portions of 
+    // the Software.
+    // 
+    // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO 
+    // THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE 
+    // AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, 
+    // TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE
+    // </license>
+    //-----------------------------------------------------------------------
     using System;
     using System.Runtime.InteropServices;
 
@@ -74,7 +83,8 @@ namespace Toolkit.Windows.Structures {
         public UInt16 dfAscent;
 
         /// <summary>
-        ///     Specifies the amount of leading inside the bounds set by the dfPixHeight member. Accent marks and other diacritical characters can occur in this area.
+        ///     Specifies the amount of leading inside the bounds set by the dfPixHeight member. Accent marks and other diacritical
+        ///     characters can occur in this area.
         /// </summary>
         public UInt16 dfInternalLeading;
 
@@ -99,7 +109,8 @@ namespace Toolkit.Windows.Structures {
         public byte dfStrikeOut;
 
         /// <summary>
-        ///     Specifies the weight of the font in the range 0 through 1000. For example, 400 is roman and 700 is bold. If this value is zero, a default weight is used.
+        ///     Specifies the weight of the font in the range 0 through 1000. For example, 400 is roman and 700 is bold. If this
+        ///     value is zero, a default weight is used.
         /// </summary>
         public UInt16 dfWeight;
 
@@ -109,12 +120,15 @@ namespace Toolkit.Windows.Structures {
         public byte dfCharSet;
 
         /// <summary>
-        ///     Specifies the width of the grid on which a vector font was digitized. For raster fonts, if the member is not equal to zero, it represents the width for all the characters in the bitmap. If the member is equal to zero, the font has variable-width characters.
+        ///     Specifies the width of the grid on which a vector font was digitized. For raster fonts, if the member is not equal
+        ///     to zero, it represents the width for all the characters in the bitmap. If the member is equal to zero, the font has
+        ///     variable-width characters.
         /// </summary>
         public UInt16 dfPixWidth;
 
         /// <summary>
-        ///     Specifies the height of the character bitmap for raster fonts or the height of the grid on which a vector font was digitized.
+        ///     Specifies the height of the character bitmap for raster fonts or the height of the grid on which a vector font was
+        ///     digitized.
         /// </summary>
         public UInt16 dfPixHeight;
 
@@ -124,7 +138,8 @@ namespace Toolkit.Windows.Structures {
         public byte dfPitchAndFamily;
 
         /// <summary>
-        ///     Specifies the average width of characters in the font (generally defined as the width of the letter x). This value does not include the overhang required for bold or italic characters.
+        ///     Specifies the average width of characters in the font (generally defined as the width of the letter x). This value
+        ///     does not include the overhang required for bold or italic characters.
         /// </summary>
         public UInt16 dfAvgWidth;
 
@@ -154,12 +169,14 @@ namespace Toolkit.Windows.Structures {
         public byte dfBreakChar;
 
         /// <summary>
-        ///     Specifies the number of bytes in each row of the bitmap. This value is always even so that the rows start on word boundaries. For vector fonts, this member has no meaning.
+        ///     Specifies the number of bytes in each row of the bitmap. This value is always even so that the rows start on word
+        ///     boundaries. For vector fonts, this member has no meaning.
         /// </summary>
         public UInt16 dfWidthBytes;
 
         /// <summary>
-        ///     Specifies the offset in the file to a null-terminated string that specifies a device name. For a generic font, this value is zero.
+        ///     Specifies the offset in the file to a null-terminated string that specifies a device name. For a generic font, this
+        ///     value is zero.
         /// </summary>
         public UInt32 dfDevice;
 

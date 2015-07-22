@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
-    <id>FearTheCowboy.Toolkit.Common</id>
+    <id>FearTheCowboy.Common</id>
     <version>$version$</version>
     <title>FearTheCowboy's Incredibly Useful Toolkit (Common)</title>
     <authors>Garrett Serack</authors>

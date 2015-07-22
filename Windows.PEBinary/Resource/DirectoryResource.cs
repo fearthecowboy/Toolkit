@@ -1,29 +1,38 @@
-﻿//-----------------------------------------------------------------------
-// <copyright company="CoApp Project">
-//     ResourceLib Original Code from http://resourcelib.codeplex.com
-//     Original Copyright (c) 2008-2009 Vestris Inc.
-//     Changes Copyright (c) 2011 Garrett Serack . All rights reserved.
-// </copyright>
-// <license>
-// MIT License
-// You may freely use and distribute this software under the terms of the following license agreement.
-// 
-// Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
-// documentation files (the "Software"), to deal in the Software without restriction, including without limitation 
-// the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and 
-// to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-// 
-// The above copyright notice and this permission notice shall be included in all copies or substantial portions of 
-// the Software.
-// 
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO 
-// THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE 
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, 
-// TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE
-// </license>
-//-----------------------------------------------------------------------
+﻿// 
+//  Licensed under the Apache License, Version 2.0 (the "License");
+//  you may not use this file except in compliance with the License.
+//  You may obtain a copy of the License at
+//  http://www.apache.org/licenses/LICENSE-2.0
+//  
+//  Unless required by applicable law or agreed to in writing, software
+//  distributed under the License is distributed on an "AS IS" BASIS,
+//  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//  See the License for the specific language governing permissions and
+//  limitations under the License.
+//  
 
-namespace Toolkit.Windows.Resource {
+namespace FearTheCowboy.Windows.Resource {
+    //-----------------------------------------------------------------------
+    //     ResourceLib Original Code from http://resourcelib.codeplex.com
+    //     Original Copyright (c) 2008-2009 Vestris Inc.
+    // <license>
+    // MIT License
+    // You may freely use and distribute this software under the terms of the following license agreement.
+    // 
+    // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
+    // documentation files (the "Software"), to deal in the Software without restriction, including without limitation 
+    // the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and 
+    // to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+    // 
+    // The above copyright notice and this permission notice shall be included in all copies or substantial portions of 
+    // the Software.
+    // 
+    // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO 
+    // THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE 
+    // AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, 
+    // TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE
+    // </license>
+    //-----------------------------------------------------------------------
     using System;
     using System.Collections.Generic;
     using System.IO;
@@ -36,7 +45,6 @@ namespace Toolkit.Windows.Resource {
     /// </summary>
     public class DirectoryResource<ImageResourceType> : Resource where ImageResourceType : IconImageResource, new() {
         private GrpIconDir _header;
-        private List<ImageResourceType> _icons = new List<ImageResourceType>();
 
         /// <summary>
         ///     A hardware-independent icon resource.
@@ -73,8 +81,10 @@ namespace Toolkit.Windows.Resource {
         /// <summary>
         ///     Returns the type of the resource in this group.
         /// </summary>
-        public ResourceTypes ResourceType {
-            get {
+        public ResourceTypes ResourceType
+        {
+            get
+            {
                 switch (_header.wType) {
                     case 1:
                         return ResourceTypes.RT_ICON;
@@ -89,14 +99,7 @@ namespace Toolkit.Windows.Resource {
         /// <summary>
         ///     Icons contained in this hardware-independent icon resource.
         /// </summary>
-        public List<ImageResourceType> Icons {
-            get {
-                return _icons;
-            }
-            set {
-                _icons = value;
-            }
-        }
+        public List<ImageResourceType> Icons {get; set;} = new List<ImageResourceType>();
 
         /// <summary>
         ///     Save a hardware-independent icon resource to an executable file.
@@ -105,7 +108,7 @@ namespace Toolkit.Windows.Resource {
         public override void SaveTo(string filename) {
             base.SaveTo(filename);
 
-            foreach (var icon in _icons) {
+            foreach (var icon in Icons) {
                 icon.SaveIconTo(filename);
             }
         }
@@ -117,7 +120,7 @@ namespace Toolkit.Windows.Resource {
         /// <param name="lpRes">Pointer to the beginning of a hardware-independent icon resource.</param>
         /// <returns>Pointer to the end of the hardware-independent icon resource.</returns>
         internal override IntPtr Read(IntPtr hModule, IntPtr lpRes) {
-            _icons.Clear();
+            Icons.Clear();
 
             _header = (GrpIconDir)Marshal.PtrToStructure(lpRes, typeof (GrpIconDir));
 
@@ -126,7 +129,7 @@ namespace Toolkit.Windows.Resource {
             for (UInt16 i = 0; i < _header.wImageCount; i++) {
                 var iconImageResource = new ImageResourceType();
                 pEntry = iconImageResource.Read(hModule, pEntry);
-                _icons.Add(iconImageResource);
+                Icons.Add(iconImageResource);
             }
 
             return pEntry;
@@ -139,9 +142,9 @@ namespace Toolkit.Windows.Resource {
         internal override void Write(BinaryWriter w) {
             w.Write(_header.wReserved);
             w.Write(_header.wType);
-            w.Write((UInt16)_icons.Count);
+            w.Write((UInt16)Icons.Count);
             ResourceUtil.PadToWORD(w);
-            foreach (var icon in _icons) {
+            foreach (var icon in Icons) {
                 icon.Write(w);
             }
         }

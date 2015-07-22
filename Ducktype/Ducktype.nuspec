@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>FearTheCowboy.Ducktype</id>
+    <version>$version$</version>
+    <title>Ducktyping Classes for .NET</title>
+    <authors>Garrett Serack</authors>
+    <owners>Garrett Serack</owners>
+    <licenseUrl>http://opensource.org/licenses/Apache-2.0</licenseUrl>
+    <projectUrl>http://github.com/fearthecowboy/toolkit</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Classes to support run-time ducktyping</description>
+    <summary>Ducktyping.</summary>
+    <releaseNotes></releaseNotes>
+    <copyright>Copyright 2015</copyright>
+    <tags></tags>
+    <dependencies>
+      <dependency id="FearTheCowboy.Common" version="$version$" />
+    </dependencies>
+  </metadata>
+</package>

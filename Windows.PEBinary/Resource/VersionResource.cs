@@ -1,29 +1,38 @@
-//-----------------------------------------------------------------------
-// <copyright company="CoApp Project">
-//     ResourceLib Original Code from http://resourcelib.codeplex.com
-//     Original Copyright (c) 2008-2009 Vestris Inc.
-//     Changes Copyright (c) 2011 Garrett Serack . All rights reserved.
-// </copyright>
-// <license>
-// MIT License
-// You may freely use and distribute this software under the terms of the following license agreement.
 // 
-// Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
-// documentation files (the "Software"), to deal in the Software without restriction, including without limitation 
-// the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and 
-// to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-// 
-// The above copyright notice and this permission notice shall be included in all copies or substantial portions of 
-// the Software.
-// 
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO 
-// THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE 
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, 
-// TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE
-// </license>
-//-----------------------------------------------------------------------
+//  Licensed under the Apache License, Version 2.0 (the "License");
+//  you may not use this file except in compliance with the License.
+//  You may obtain a copy of the License at
+//  http://www.apache.org/licenses/LICENSE-2.0
+//  
+//  Unless required by applicable law or agreed to in writing, software
+//  distributed under the License is distributed on an "AS IS" BASIS,
+//  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//  See the License for the specific language governing permissions and
+//  limitations under the License.
+//  
 
-namespace Toolkit.Windows.Resource {
+namespace FearTheCowboy.Windows.Resource {
+    //-----------------------------------------------------------------------
+    //     ResourceLib Original Code from http://resourcelib.codeplex.com
+    //     Original Copyright (c) 2008-2009 Vestris Inc.
+    // <license>
+    // MIT License
+    // You may freely use and distribute this software under the terms of the following license agreement.
+    // 
+    // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
+    // documentation files (the "Software"), to deal in the Software without restriction, including without limitation 
+    // the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and 
+    // to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+    // 
+    // The above copyright notice and this permission notice shall be included in all copies or substantial portions of 
+    // the Software.
+    // 
+    // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO 
+    // THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE 
+    // AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, 
+    // TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE
+    // </license>
+    //-----------------------------------------------------------------------
     using System;
     using System.Collections.Generic;
     using System.IO;
@@ -39,8 +48,6 @@ namespace Toolkit.Windows.Resource {
     /// </summary>
     public class VersionResource : Resource {
         private FixedFileInfo _fixedfileinfo = new FixedFileInfo();
-        private ResourceTableHeader _header = new ResourceTableHeader("VS_VERSION_INFO");
-        private IDictionary<string, ResourceTableHeader> _resources = new Dictionary<string, ResourceTableHeader>();
 
         /// <summary>
         ///     An existing version resource.
@@ -60,35 +67,30 @@ namespace Toolkit.Windows.Resource {
         /// </summary>
         public VersionResource()
             : base(IntPtr.Zero, IntPtr.Zero, new ResourceId(ResourceTypes.RT_VERSION), new ResourceId(1), ResourceUtil.USENGLISHLANGID, 0) {
-            _header.Header = new ResourceHeader(_fixedfileinfo.Size);
+            Header.Header = new ResourceHeader(_fixedfileinfo.Size);
         }
 
         /// <summary>
         ///     The resource header.
         /// </summary>
-        public ResourceTableHeader Header {
-            get {
-                return _header;
-            }
-        }
+        public ResourceTableHeader Header {get;} = new ResourceTableHeader("VS_VERSION_INFO");
 
         /// <summary>
         ///     A dictionary of resource tables.
         /// </summary>
-        public IDictionary<string, ResourceTableHeader> Resources {
-            get {
-                return _resources;
-            }
-        }
+        public IDictionary<string, ResourceTableHeader> Resources {get;} = new Dictionary<string, ResourceTableHeader>();
 
         /// <summary>
         ///     String representation of the file version.
         /// </summary>
-        public string FileVersion {
-            get {
+        public string FileVersion
+        {
+            get
+            {
                 return _fixedfileinfo.FileVersion;
             }
-            set {
+            set
+            {
                 _fixedfileinfo.FileVersion = value;
             }
         }
@@ -96,11 +98,14 @@ namespace Toolkit.Windows.Resource {
         /// <summary>
         ///     String representation of the protect version.
         /// </summary>
-        public string ProductVersion {
-            get {
+        public string ProductVersion
+        {
+            get
+            {
                 return _fixedfileinfo.ProductVersion;
             }
-            set {
+            set
+            {
                 _fixedfileinfo.ProductVersion = value;
             }
         }
@@ -110,11 +115,14 @@ namespace Toolkit.Windows.Resource {
         /// </summary>
         /// <param name="key">Entry key.</param>
         /// <returns>A resource table.</returns>
-        public ResourceTableHeader this[string key] {
-            get {
+        public ResourceTableHeader this[string key]
+        {
+            get
+            {
                 return Resources[key];
             }
-            set {
+            set
+            {
                 Resources[key] = value;
             }
         }
@@ -126,18 +134,18 @@ namespace Toolkit.Windows.Resource {
         /// <param name="lpRes">Pointer to the beginning of the resource.</param>
         /// <returns>Pointer to the end of the resource.</returns>
         internal override IntPtr Read(IntPtr hModule, IntPtr lpRes) {
-            _resources.Clear();
+            Resources.Clear();
 
-            var pFixedFileInfo = _header.Read(lpRes);
+            var pFixedFileInfo = Header.Read(lpRes);
 
-            if (_header.Header.wValueLength != 0) {
+            if (Header.Header.wValueLength != 0) {
                 _fixedfileinfo = new FixedFileInfo();
                 _fixedfileinfo.Read(pFixedFileInfo);
             }
 
-            var pChild = ResourceUtil.Align(pFixedFileInfo.ToInt32() + _header.Header.wValueLength);
+            var pChild = ResourceUtil.Align(pFixedFileInfo.ToInt32() + Header.Header.wValueLength);
 
-            while (pChild.ToInt32() < (lpRes.ToInt32() + _header.Header.wLength)) {
+            while (pChild.ToInt32() < (lpRes.ToInt32() + Header.Header.wLength)) {
                 var rc = new ResourceTableHeader(pChild);
                 switch (rc.Key) {
                     case "StringFileInfo":
@@ -149,11 +157,11 @@ namespace Toolkit.Windows.Resource {
                         break;
                 }
 
-                _resources.Add(rc.Key, rc);
+                Resources.Add(rc.Key, rc);
                 pChild = ResourceUtil.Align(pChild.ToInt32() + rc.Header.wLength);
             }
 
-            return new IntPtr(lpRes.ToInt32() + _header.Header.wLength);
+            return new IntPtr(lpRes.ToInt32() + Header.Header.wLength);
         }
 
         /// <summary>
@@ -162,13 +170,13 @@ namespace Toolkit.Windows.Resource {
         /// <param name="w">Binary stream.</param>
         internal override void Write(BinaryWriter w) {
             var headerPos = w.BaseStream.Position;
-            _header.Write(w);
+            Header.Write(w);
 
             if (_fixedfileinfo != null) {
                 _fixedfileinfo.Write(w);
             }
 
-            var resourceEnum = _resources.GetEnumerator();
+            var resourceEnum = Resources.GetEnumerator();
             while (resourceEnum.MoveNext()) {
                 resourceEnum.Current.Value.Write(w);
             }
@@ -186,7 +194,7 @@ namespace Toolkit.Windows.Resource {
                 sb.Append(_fixedfileinfo);
             }
             sb.AppendLine("BEGIN");
-            var resourceEnum = _resources.GetEnumerator();
+            var resourceEnum = Resources.GetEnumerator();
             while (resourceEnum.MoveNext()) {
                 sb.Append(resourceEnum.Current.Value.ToString(1));
             }

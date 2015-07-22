@@ -1,29 +1,38 @@
-//-----------------------------------------------------------------------
-// <copyright company="CoApp Project">
-//     ResourceLib Original Code from http://resourcelib.codeplex.com
-//     Original Copyright (c) 2008-2009 Vestris Inc.
-//     Changes Copyright (c) 2011 Garrett Serack . All rights reserved.
-// </copyright>
-// <license>
-// MIT License
-// You may freely use and distribute this software under the terms of the following license agreement.
 // 
-// Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
-// documentation files (the "Software"), to deal in the Software without restriction, including without limitation 
-// the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and 
-// to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-// 
-// The above copyright notice and this permission notice shall be included in all copies or substantial portions of 
-// the Software.
-// 
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO 
-// THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE 
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, 
-// TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE
-// </license>
-//-----------------------------------------------------------------------
+//  Licensed under the Apache License, Version 2.0 (the "License");
+//  you may not use this file except in compliance with the License.
+//  You may obtain a copy of the License at
+//  http://www.apache.org/licenses/LICENSE-2.0
+//  
+//  Unless required by applicable law or agreed to in writing, software
+//  distributed under the License is distributed on an "AS IS" BASIS,
+//  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//  See the License for the specific language governing permissions and
+//  limitations under the License.
+//  
 
-namespace Toolkit.Windows.Resource {
+namespace FearTheCowboy.Windows.Resource {
+    //-----------------------------------------------------------------------
+    //     ResourceLib Original Code from http://resourcelib.codeplex.com
+    //     Original Copyright (c) 2008-2009 Vestris Inc.
+    // <license>
+    // MIT License
+    // You may freely use and distribute this software under the terms of the following license agreement.
+    // 
+    // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
+    // documentation files (the "Software"), to deal in the Software without restriction, including without limitation 
+    // the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and 
+    // to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+    // 
+    // The above copyright notice and this permission notice shall be included in all copies or substantial portions of 
+    // the Software.
+    // 
+    // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO 
+    // THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE 
+    // AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, 
+    // TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE
+    // </license>
+    //-----------------------------------------------------------------------
     using System;
     using System.Collections;
     using System.Collections.Generic;
@@ -37,24 +46,31 @@ namespace Toolkit.Windows.Resource {
     public class ResourceInfo : IEnumerable<Resource>, IDisposable {
         private IntPtr _hModule = IntPtr.Zero;
         private Exception _innerException;
-        private List<ResourceId> _resourceTypes;
-        private IDictionary<ResourceId, List<Resource>> _resources;
 
         /// <summary>
         ///     A dictionary of resources, the key is the resource type, eg. "REGISTRY" or "16" (version).
         /// </summary>
-        public IDictionary<ResourceId, List<Resource>> Resources {
-            get {
-                return _resources;
-            }
-        }
+        public IDictionary<ResourceId, List<Resource>> Resources {get; private set;}
 
         /// <summary>
         ///     A shortcut for available resource types.
         /// </summary>
-        public List<ResourceId> ResourceTypes {
-            get {
-                return _resourceTypes;
+        public List<ResourceId> ResourceTypes {get; private set;}
+
+        /// <summary>
+        ///     A collection of resources.
+        /// </summary>
+        /// <param name="type">Resource type.</param>
+        /// <returns>A collection of resources of a given type.</returns>
+        public List<Resource> this[ResourceTypes type]
+        {
+            get
+            {
+                return Resources[new ResourceId(type)];
+            }
+            set
+            {
+                Resources[new ResourceId(type)] = value;
             }
         }
 
@@ -63,26 +79,15 @@ namespace Toolkit.Windows.Resource {
         /// </summary>
         /// <param name="type">Resource type.</param>
         /// <returns>A collection of resources of a given type.</returns>
-        public List<Resource> this[ResourceTypes type] {
-            get {
-                return _resources[new ResourceId(type)];
+        public List<Resource> this[string type]
+        {
+            get
+            {
+                return Resources[new ResourceId(type)];
             }
-            set {
-                _resources[new ResourceId(type)] = value;
-            }
-        }
-
-        /// <summary>
-        ///     A collection of resources.
-        /// </summary>
-        /// <param name="type">Resource type.</param>
-        /// <returns>A collection of resources of a given type.</returns>
-        public List<Resource> this[string type] {
-            get {
-                return _resources[new ResourceId(type)];
-            }
-            set {
-                _resources[new ResourceId(type)] = value;
+            set
+            {
+                Resources[new ResourceId(type)] = value;
             }
         }
 
@@ -93,32 +98,6 @@ namespace Toolkit.Windows.Resource {
         /// </summary>
         public void Dispose() {
             Unload();
-        }
-
-        #endregion
-
-        #region IEnumerable<Resource> Members
-
-        /// <summary>
-        ///     Enumerates all resources within this resource info collection.
-        /// </summary>
-        /// <returns>Resources enumerator.</returns>
-        public IEnumerator<Resource> GetEnumerator() {
-            var resourceTypesEnumerator = _resources.GetEnumerator();
-            while (resourceTypesEnumerator.MoveNext()) {
-                var resourceEnumerator = resourceTypesEnumerator.Current.Value.GetEnumerator();
-                while (resourceEnumerator.MoveNext()) {
-                    yield return resourceEnumerator.Current;
-                }
-            }
-        }
-
-        /// <summary>
-        ///     Enumerates all resources within this resource info collection.
-        /// </summary>
-        /// <returns>Resources enumerator.</returns>
-        IEnumerator IEnumerable.GetEnumerator() {
-            return this.GetEnumerator();
         }
 
         #endregion
@@ -142,8 +121,8 @@ namespace Toolkit.Windows.Resource {
         public void Load(string filename) {
             Unload();
 
-            _resourceTypes = new List<ResourceId>();
-            _resources = new Dictionary<ResourceId, List<Resource>>();
+            ResourceTypes = new List<ResourceId>();
+            Resources = new Dictionary<ResourceId, List<Resource>>();
 
             // load DLL
             _hModule = Kernel32.LoadLibraryEx(filename, IntPtr.Zero, Kernel32.Constants.DONT_RESOLVE_DLL_REFERENCES | Kernel32.Constants.LOAD_LIBRARY_AS_DATAFILE);
@@ -174,7 +153,7 @@ namespace Toolkit.Windows.Resource {
         /// <returns>TRUE if successful.</returns>
         private bool EnumResourceTypesImpl(IntPtr hModule, IntPtr lpszType, IntPtr lParam) {
             var type = new ResourceId(lpszType);
-            _resourceTypes.Add(type);
+            ResourceTypes.Add(type);
 
             // enumerate resource names
             if (!Kernel32.EnumResourceNames(hModule, lpszType, EnumResourceNamesImpl, IntPtr.Zero)) {
@@ -253,9 +232,9 @@ namespace Toolkit.Windows.Resource {
         private bool EnumResourceLanguages(IntPtr hModule, IntPtr lpszType, IntPtr lpszName, UInt16 wIDLanguage, IntPtr lParam) {
             List<Resource> resources = null;
             var type = new ResourceId(lpszType);
-            if (!_resources.TryGetValue(type, out resources)) {
+            if (!Resources.TryGetValue(type, out resources)) {
                 resources = new List<Resource>();
-                _resources[type] = resources;
+                Resources[type] = resources;
             }
 
             var name = new ResourceId(lpszName);
@@ -280,5 +259,31 @@ namespace Toolkit.Windows.Resource {
         public void Save(string filename) {
             throw new NotImplementedException();
         }
+
+        #region IEnumerable<Resource> Members
+
+        /// <summary>
+        ///     Enumerates all resources within this resource info collection.
+        /// </summary>
+        /// <returns>Resources enumerator.</returns>
+        public IEnumerator<Resource> GetEnumerator() {
+            var resourceTypesEnumerator = Resources.GetEnumerator();
+            while (resourceTypesEnumerator.MoveNext()) {
+                var resourceEnumerator = resourceTypesEnumerator.Current.Value.GetEnumerator();
+                while (resourceEnumerator.MoveNext()) {
+                    yield return resourceEnumerator.Current;
+                }
+            }
+        }
+
+        /// <summary>
+        ///     Enumerates all resources within this resource info collection.
+        /// </summary>
+        /// <returns>Resources enumerator.</returns>
+        IEnumerator IEnumerable.GetEnumerator() {
+            return this.GetEnumerator();
+        }
+
+        #endregion
     }
 }

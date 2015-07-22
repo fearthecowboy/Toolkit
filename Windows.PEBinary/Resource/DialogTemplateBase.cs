@@ -1,29 +1,38 @@
-﻿//-----------------------------------------------------------------------
-// <copyright company="CoApp Project">
-//     ResourceLib Original Code from http://resourcelib.codeplex.com
-//     Original Copyright (c) 2008-2009 Vestris Inc.
-//     Changes Copyright (c) 2011 Garrett Serack . All rights reserved.
-// </copyright>
-// <license>
-// MIT License
-// You may freely use and distribute this software under the terms of the following license agreement.
-// 
-// Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
-// documentation files (the "Software"), to deal in the Software without restriction, including without limitation 
-// the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and 
-// to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-// 
-// The above copyright notice and this permission notice shall be included in all copies or substantial portions of 
-// the Software.
-// 
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO 
-// THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE 
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, 
-// TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE
-// </license>
-//-----------------------------------------------------------------------
+﻿// 
+//  Licensed under the Apache License, Version 2.0 (the "License");
+//  you may not use this file except in compliance with the License.
+//  You may obtain a copy of the License at
+//  http://www.apache.org/licenses/LICENSE-2.0
+//  
+//  Unless required by applicable law or agreed to in writing, software
+//  distributed under the License is distributed on an "AS IS" BASIS,
+//  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//  See the License for the specific language governing permissions and
+//  limitations under the License.
+//  
 
-namespace Toolkit.Windows.Resource {
+namespace FearTheCowboy.Windows.Resource {
+    //-----------------------------------------------------------------------
+    //     ResourceLib Original Code from http://resourcelib.codeplex.com
+    //     Original Copyright (c) 2008-2009 Vestris Inc.
+    // <license>
+    // MIT License
+    // You may freely use and distribute this software under the terms of the following license agreement.
+    // 
+    // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
+    // documentation files (the "Software"), to deal in the Software without restriction, including without limitation 
+    // the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and 
+    // to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+    // 
+    // The above copyright notice and this permission notice shall be included in all copies or substantial portions of 
+    // the Software.
+    // 
+    // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO 
+    // THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE 
+    // AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, 
+    // TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE
+    // </license>
+    //-----------------------------------------------------------------------
     using System;
     using System.Collections.Generic;
     using System.IO;
@@ -35,11 +44,7 @@ namespace Toolkit.Windows.Resource {
     ///     A dialog template.
     /// </summary>
     public abstract class DialogTemplateBase {
-        private string _caption;
-        private List<DialogTemplateControlBase> _controls = new List<DialogTemplateControlBase>();
         private ResourceId _menuId;
-        private UInt16 _pointSize;
-        private string _typeface;
         private ResourceId _windowClassId;
 
         /// <summary>
@@ -80,47 +85,29 @@ namespace Toolkit.Windows.Resource {
         /// <summary>
         ///     The name of the typeface for the font.
         /// </summary>
-        public String TypeFace {
-            get {
-                return _typeface;
-            }
-            set {
-                _typeface = value;
-            }
-        }
+        public String TypeFace {get; set;}
 
         /// <summary>
         ///     Point size of the font to use for the text in the dialog box and its controls.
         /// </summary>
-        public UInt16 PointSize {
-            get {
-                return _pointSize;
-            }
-            set {
-                _pointSize = value;
-            }
-        }
+        public UInt16 PointSize {get; set;}
 
         /// <summary>
         ///     Dialog caption.
         /// </summary>
-        public string Caption {
-            get {
-                return _caption;
-            }
-            set {
-                _caption = value;
-            }
-        }
+        public string Caption {get; set;}
 
         /// <summary>
         ///     Menu resource Id.
         /// </summary>
-        public ResourceId MenuId {
-            get {
+        public ResourceId MenuId
+        {
+            get
+            {
                 return _menuId;
             }
-            set {
+            set
+            {
                 _menuId = value;
             }
         }
@@ -128,11 +115,14 @@ namespace Toolkit.Windows.Resource {
         /// <summary>
         ///     Window class Id.
         /// </summary>
-        public ResourceId WindowClassId {
-            get {
+        public ResourceId WindowClassId
+        {
+            get
+            {
                 return _windowClassId;
             }
-            set {
+            set
+            {
                 _windowClassId = value;
             }
         }
@@ -140,14 +130,7 @@ namespace Toolkit.Windows.Resource {
         /// <summary>
         ///     Controls within this dialog.
         /// </summary>
-        public List<DialogTemplateControlBase> Controls {
-            get {
-                return _controls;
-            }
-            set {
-                _controls = value;
-            }
-        }
+        public List<DialogTemplateControlBase> Controls {get; set;} = new List<DialogTemplateControlBase>();
 
         /// <summary>
         ///     Dialog template representation in a standard text format.
@@ -167,12 +150,12 @@ namespace Toolkit.Windows.Resource {
                 sb.AppendLine("EXSTYLE " + exstyle);
             }
 
-            sb.AppendLine(string.Format("CAPTION \"{0}\"", _caption));
-            sb.AppendLine(string.Format("FONT {0}, \"{1}\"", _pointSize, _typeface));
+            sb.AppendLine(string.Format("CAPTION \"{0}\"", Caption));
+            sb.AppendLine(string.Format("FONT {0}, \"{1}\"", PointSize, TypeFace));
 
-            if (_controls.Count > 0) {
+            if (Controls.Count > 0) {
                 sb.AppendLine("{");
-                foreach (var control in _controls) {
+                foreach (var control in Controls) {
                     sb.AppendLine(" " + control);
                 }
                 sb.AppendLine("}");

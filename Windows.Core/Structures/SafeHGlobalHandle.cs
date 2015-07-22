@@ -1,15 +1,17 @@
-﻿//-----------------------------------------------------------------------
-// <copyright company="CoApp Project">
-//     Changes Copyright (c) 2011 Garrett Serack . All rights reserved.
-//     AlternateStreams Original Code from http://www.codeproject.com/KB/cs/ntfsstreams.aspx
-// </copyright>
-// <license>
-//     The software is licensed under the Apache 2.0 License (the "License")
-//     You may not use the software except in compliance with the License. 
-// </license>
-//-----------------------------------------------------------------------
+﻿// 
+//  Licensed under the Apache License, Version 2.0 (the "License");
+//  you may not use this file except in compliance with the License.
+//  You may obtain a copy of the License at
+//  http://www.apache.org/licenses/LICENSE-2.0
+//  
+//  Unless required by applicable law or agreed to in writing, software
+//  distributed under the License is distributed on an "AS IS" BASIS,
+//  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//  See the License for the specific language governing permissions and
+//  limitations under the License.
+//  
 
-namespace Toolkit.Windows.Structures {
+namespace FearTheCowboy.Windows.Structures {
     using System;
     using System.Runtime.ConstrainedExecution;
     using System.Runtime.InteropServices;
@@ -19,8 +21,6 @@ namespace Toolkit.Windows.Structures {
     /// </summary>
     public sealed class SafeHGlobalHandle : SafeHandle {
         #region Private Data
-
-        private readonly int _size;
 
         #endregion
 
@@ -33,7 +33,7 @@ namespace Toolkit.Windows.Structures {
         /// <param name="size"> The size of this memory block, in bytes. </param>
         [ReliabilityContract(Consistency.WillNotCorruptState, Cer.Success)]
         private SafeHGlobalHandle(IntPtr toManage, int size) : base(IntPtr.Zero, true) {
-            _size = size;
+            Size = size;
             base.SetHandle(toManage);
         }
 
@@ -53,8 +53,10 @@ namespace Toolkit.Windows.Structures {
         /// <value>
         ///     <see langword="true" /> if the handle value is invalid; otherwise, <see langword="false" /> .
         /// </value>
-        public override bool IsInvalid {
-            get {
+        public override bool IsInvalid
+        {
+            get
+            {
                 return IntPtr.Zero == base.handle;
             }
         }
@@ -63,11 +65,7 @@ namespace Toolkit.Windows.Structures {
         ///     Returns the size of this memory block.
         /// </summary>
         /// <value> The size of this memory block, in bytes. </value>
-        public int Size {
-            get {
-                return _size;
-            }
-        }
+        public int Size {get;}
 
         #endregion
 

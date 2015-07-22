@@ -1,29 +1,38 @@
-//-----------------------------------------------------------------------
-// <copyright company="CoApp Project">
-//     ResourceLib Original Code from http://resourcelib.codeplex.com
-//     Original Copyright (c) 2008-2009 Vestris Inc.
-//     Changes Copyright (c) 2011 Garrett Serack . All rights reserved.
-// </copyright>
-// <license>
-// MIT License
-// You may freely use and distribute this software under the terms of the following license agreement.
 // 
-// Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
-// documentation files (the "Software"), to deal in the Software without restriction, including without limitation 
-// the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and 
-// to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-// 
-// The above copyright notice and this permission notice shall be included in all copies or substantial portions of 
-// the Software.
-// 
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO 
-// THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE 
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, 
-// TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE
-// </license>
-//-----------------------------------------------------------------------
+//  Licensed under the Apache License, Version 2.0 (the "License");
+//  you may not use this file except in compliance with the License.
+//  You may obtain a copy of the License at
+//  http://www.apache.org/licenses/LICENSE-2.0
+//  
+//  Unless required by applicable law or agreed to in writing, software
+//  distributed under the License is distributed on an "AS IS" BASIS,
+//  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//  See the License for the specific language governing permissions and
+//  limitations under the License.
+//  
 
-namespace Toolkit.Windows.Resource {
+namespace FearTheCowboy.Windows.Resource {
+    //-----------------------------------------------------------------------
+    //     ResourceLib Original Code from http://resourcelib.codeplex.com
+    //     Original Copyright (c) 2008-2009 Vestris Inc.
+    // <license>
+    // MIT License
+    // You may freely use and distribute this software under the terms of the following license agreement.
+    // 
+    // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
+    // documentation files (the "Software"), to deal in the Software without restriction, including without limitation 
+    // the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and 
+    // to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+    // 
+    // The above copyright notice and this permission notice shall be included in all copies or substantial portions of 
+    // the Software.
+    // 
+    // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO 
+    // THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE 
+    // AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, 
+    // TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE
+    // </license>
+    //-----------------------------------------------------------------------
     using System;
     using System.ComponentModel;
     using System.Drawing.Imaging;
@@ -90,11 +99,14 @@ namespace Toolkit.Windows.Resource {
         /// <summary>
         ///     Hardware-independent icon directory header.
         /// </summary>
-        public GrpIconDirEntry Header {
-            get {
+        public GrpIconDirEntry Header
+        {
+            get
+            {
                 return _header;
             }
-            set {
+            set
+            {
                 _header = value;
             }
         }
@@ -102,11 +114,14 @@ namespace Toolkit.Windows.Resource {
         /// <summary>
         ///     Embedded icon Id.
         /// </summary>
-        public ushort Id {
-            get {
+        public ushort Id
+        {
+            get
+            {
                 return _header.nID;
             }
-            set {
+            set
+            {
                 _header.nID = value;
             }
         }
@@ -114,11 +129,14 @@ namespace Toolkit.Windows.Resource {
         /// <summary>
         ///     An icon image.
         /// </summary>
-        public DeviceIndependentBitmap Image {
-            get {
+        public DeviceIndependentBitmap Image
+        {
+            get
+            {
                 return _image;
             }
-            set {
+            set
+            {
                 _image = value;
             }
         }
@@ -126,11 +144,14 @@ namespace Toolkit.Windows.Resource {
         /// <summary>
         ///     Icon width in pixels.
         /// </summary>
-        public Byte Width {
-            get {
+        public Byte Width
+        {
+            get
+            {
                 return _header.bWidth;
             }
-            set {
+            set
+            {
                 _header.bWidth = value;
             }
         }
@@ -138,11 +159,14 @@ namespace Toolkit.Windows.Resource {
         /// <summary>
         ///     Icon height in pixels.
         /// </summary>
-        public Byte Height {
-            get {
+        public Byte Height
+        {
+            get
+            {
                 return _header.bHeight;
             }
-            set {
+            set
+            {
                 _header.bHeight = value;
             }
         }
@@ -150,11 +174,14 @@ namespace Toolkit.Windows.Resource {
         /// <summary>
         ///     Image size in bytes.
         /// </summary>
-        public UInt32 ImageSize {
-            get {
+        public UInt32 ImageSize
+        {
+            get
+            {
                 return _header.dwImageSize;
             }
-            set {
+            set
+            {
                 _header.dwImageSize = value;
             }
         }
@@ -162,8 +189,10 @@ namespace Toolkit.Windows.Resource {
         /// <summary>
         ///     Icon pixel format.
         /// </summary>
-        public PixelFormat PixelFormat {
-            get {
+        public PixelFormat PixelFormat
+        {
+            get
+            {
                 switch (_header.wBitsPerPixel) {
                     case 1:
                         return PixelFormat.Format1bppIndexed;
@@ -186,8 +215,10 @@ namespace Toolkit.Windows.Resource {
         /// <summary>
         ///     Icon pixel format English standard string.
         /// </summary>
-        public string PixelFormatString {
-            get {
+        public string PixelFormatString
+        {
+            get
+            {
                 switch (PixelFormat) {
                     case PixelFormat.Format1bppIndexed:
                         return "1-bit B/W";

@@ -11,7 +11,7 @@
 //  limitations under the License.
 //  
 
-namespace Toolkit.Windows.Enumerations {
+namespace FearTheCowboy.Windows.Enumerations {
     public enum DigitalSigningCertificateChoice : uint {
         Certificate = 0x01,
         Store = 0x02,

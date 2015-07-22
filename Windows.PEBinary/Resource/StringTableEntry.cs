@@ -1,29 +1,38 @@
-//-----------------------------------------------------------------------
-// <copyright company="CoApp Project">
-//     ResourceLib Original Code from http://resourcelib.codeplex.com
-//     Original Copyright (c) 2008-2009 Vestris Inc.
-//     Changes Copyright (c) 2011 Garrett Serack . All rights reserved.
-// </copyright>
-// <license>
-// MIT License
-// You may freely use and distribute this software under the terms of the following license agreement.
 // 
-// Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
-// documentation files (the "Software"), to deal in the Software without restriction, including without limitation 
-// the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and 
-// to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-// 
-// The above copyright notice and this permission notice shall be included in all copies or substantial portions of 
-// the Software.
-// 
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO 
-// THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE 
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, 
-// TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE
-// </license>
-//-----------------------------------------------------------------------
+//  Licensed under the Apache License, Version 2.0 (the "License");
+//  you may not use this file except in compliance with the License.
+//  You may obtain a copy of the License at
+//  http://www.apache.org/licenses/LICENSE-2.0
+//  
+//  Unless required by applicable law or agreed to in writing, software
+//  distributed under the License is distributed on an "AS IS" BASIS,
+//  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//  See the License for the specific language governing permissions and
+//  limitations under the License.
+//  
 
-namespace Toolkit.Windows.Resource {
+namespace FearTheCowboy.Windows.Resource {
+    //-----------------------------------------------------------------------
+    //     ResourceLib Original Code from http://resourcelib.codeplex.com
+    //     Original Copyright (c) 2008-2009 Vestris Inc.
+    // <license>
+    // MIT License
+    // You may freely use and distribute this software under the terms of the following license agreement.
+    // 
+    // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
+    // documentation files (the "Software"), to deal in the Software without restriction, including without limitation 
+    // the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and 
+    // to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+    // 
+    // The above copyright notice and this permission notice shall be included in all copies or substantial portions of 
+    // the Software.
+    // 
+    // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO 
+    // THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE 
+    // AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, 
+    // TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE
+    // </license>
+    //-----------------------------------------------------------------------
     using System;
     using System.IO;
     using System.Runtime.InteropServices;
@@ -38,7 +47,6 @@ namespace Toolkit.Windows.Resource {
     /// </summary>
     public class StringTableEntry {
         private ResourceHeader _header;
-        private string _key;
 
         /// <summary>
         ///     The value is always stored double-null-terminated.
@@ -50,7 +58,7 @@ namespace Toolkit.Windows.Resource {
         /// </summary>
         /// <param name="key">Key.</param>
         public StringTableEntry(string key) {
-            _key = key;
+            Key = key;
             _header.wType = 1;
             _header.wLength = 0;
             _header.wValueLength = 0;
@@ -67,8 +75,10 @@ namespace Toolkit.Windows.Resource {
         /// <summary>
         ///     String resource header.
         /// </summary>
-        public ResourceHeader Header {
-            get {
+        public ResourceHeader Header
+        {
+            get
+            {
                 return _header;
             }
         }
@@ -76,17 +86,15 @@ namespace Toolkit.Windows.Resource {
         /// <summary>
         ///     Key.
         /// </summary>
-        public string Key {
-            get {
-                return _key;
-            }
-        }
+        public string Key {get; private set;}
 
         /// <summary>
         ///     String value (removing the double-null-terminator).
         /// </summary>
-        public string StringValue {
-            get {
+        public string StringValue
+        {
+            get
+            {
                 if (_value == null) {
                     return _value;
                 }
@@ -98,11 +106,14 @@ namespace Toolkit.Windows.Resource {
         /// <summary>
         ///     Value.
         /// </summary>
-        public string Value {
-            get {
+        public string Value
+        {
+            get
+            {
                 return _value;
             }
-            set {
+            set
+            {
                 if (value == null) {
                     _value = null;
                     _header.wValueLength = 0;
@@ -126,9 +137,9 @@ namespace Toolkit.Windows.Resource {
             _header = (ResourceHeader)Marshal.PtrToStructure(lpRes, typeof (ResourceHeader));
 
             var pKey = new IntPtr(lpRes.ToInt32() + Marshal.SizeOf(_header));
-            _key = Marshal.PtrToStringUni(pKey);
+            Key = Marshal.PtrToStringUni(pKey);
 
-            var pValue = ResourceUtil.Align(pKey.ToInt32() + (_key.Length + 1)*Marshal.SystemDefaultCharSize);
+            var pValue = ResourceUtil.Align(pKey.ToInt32() + (Key.Length + 1)*Marshal.SystemDefaultCharSize);
             _value = ((_header.wValueLength > 0) ? Marshal.PtrToStringUni(pValue, _header.wValueLength) : null);
         }
 
@@ -146,7 +157,7 @@ namespace Toolkit.Windows.Resource {
             // wType
             w.Write(_header.wType);
             // szKey
-            w.Write(Encoding.Unicode.GetBytes(_key));
+            w.Write(Encoding.Unicode.GetBytes(Key));
             // null terminator
             w.Write((UInt16)0);
             // pad fixed info

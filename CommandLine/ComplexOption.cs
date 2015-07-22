@@ -11,7 +11,7 @@
 //  limitations under the License.
 //  
 
-namespace Toolkit.CommandLine {
+namespace FearTheCowboy.CommandLine {
     using System.Collections.Generic;
 
     /// <summary>

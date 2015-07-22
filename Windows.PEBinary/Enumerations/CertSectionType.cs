@@ -11,7 +11,7 @@
 //  limitations under the License.
 //  
 
-namespace Toolkit.Windows.Enumerations {
+namespace FearTheCowboy.Windows.Enumerations {
     public enum CertSectionType : uint {
         None = 0,
         Any = 0xff

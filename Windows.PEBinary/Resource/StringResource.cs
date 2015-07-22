@@ -1,29 +1,38 @@
-﻿//-----------------------------------------------------------------------
-// <copyright company="CoApp Project">
-//     ResourceLib Original Code from http://resourcelib.codeplex.com
-//     Original Copyright (c) 2008-2009 Vestris Inc.
-//     Changes Copyright (c) 2011 Garrett Serack . All rights reserved.
-// </copyright>
-// <license>
-// MIT License
-// You may freely use and distribute this software under the terms of the following license agreement.
-// 
-// Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
-// documentation files (the "Software"), to deal in the Software without restriction, including without limitation 
-// the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and 
-// to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-// 
-// The above copyright notice and this permission notice shall be included in all copies or substantial portions of 
-// the Software.
-// 
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO 
-// THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE 
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, 
-// TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE
-// </license>
-//-----------------------------------------------------------------------
+﻿// 
+//  Licensed under the Apache License, Version 2.0 (the "License");
+//  you may not use this file except in compliance with the License.
+//  You may obtain a copy of the License at
+//  http://www.apache.org/licenses/LICENSE-2.0
+//  
+//  Unless required by applicable law or agreed to in writing, software
+//  distributed under the License is distributed on an "AS IS" BASIS,
+//  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//  See the License for the specific language governing permissions and
+//  limitations under the License.
+//  
 
-namespace Toolkit.Windows.Resource {
+namespace FearTheCowboy.Windows.Resource {
+    //-----------------------------------------------------------------------
+    //     ResourceLib Original Code from http://resourcelib.codeplex.com
+    //     Original Copyright (c) 2008-2009 Vestris Inc.
+    // <license>
+    // MIT License
+    // You may freely use and distribute this software under the terms of the following license agreement.
+    // 
+    // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
+    // documentation files (the "Software"), to deal in the Software without restriction, including without limitation 
+    // the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and 
+    // to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+    // 
+    // The above copyright notice and this permission notice shall be included in all copies or substantial portions of 
+    // the Software.
+    // 
+    // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO 
+    // THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE 
+    // AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, 
+    // TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE
+    // </license>
+    //-----------------------------------------------------------------------
     using System;
     using System.Collections.Generic;
     using System.IO;
@@ -39,8 +48,6 @@ namespace Toolkit.Windows.Resource {
     ///     NULL terminating character. There may be no characters in text, in which case length is zero.
     /// </summary>
     public class StringResource : Resource {
-        private IDictionary<UInt16, string> _strings = new Dictionary<UInt16, string>();
-
         /// <summary>
         ///     A new string resource.
         /// </summary>
@@ -78,37 +85,36 @@ namespace Toolkit.Windows.Resource {
         /// <summary>
         ///     String collection in this resource.
         /// </summary>
-        public IDictionary<UInt16, string> Strings {
-            get {
-                return _strings;
-            }
-            set {
-                _strings = value;
-            }
-        }
+        public IDictionary<UInt16, string> Strings {get; set;} = new Dictionary<UInt16, string>();
 
         /// <summary>
         ///     Returns a string of a given Id.
         /// </summary>
         /// <param name="id">String Id.</param>
         /// <returns>A string of a given Id.</returns>
-        public string this[UInt16 id] {
-            get {
-                return _strings[id];
+        public string this[UInt16 id]
+        {
+            get
+            {
+                return Strings[id];
             }
-            set {
-                _strings[id] = value;
+            set
+            {
+                Strings[id] = value;
             }
         }
 
         /// <summary>
         ///     String table block id.
         /// </summary>
-        public UInt16 BlockId {
-            get {
+        public UInt16 BlockId
+        {
+            get
+            {
                 return (UInt16)Name.Id.ToInt32();
             }
-            set {
+            set
+            {
                 Name = new ResourceId(value);
             }
         }
@@ -134,7 +140,7 @@ namespace Toolkit.Windows.Resource {
                     var id = (UInt16)((BlockId - 1)*16 + i);
                     var lpString = new IntPtr(lpRes.ToInt32() + 2);
                     var s = Marshal.PtrToStringUni(lpString, len);
-                    _strings.Add(id, s);
+                    Strings.Add(id, s);
                 }
                 lpRes = new IntPtr(lpRes.ToInt32() + 2 + (len*Marshal.SystemDefaultCharSize));
             }
@@ -146,7 +152,7 @@ namespace Toolkit.Windows.Resource {
             for (var i = 0; i < 16; i++) {
                 var id = (UInt16)((BlockId - 1)*16 + i);
                 string s = null;
-                if (_strings.TryGetValue(id, out s)) {
+                if (Strings.TryGetValue(id, out s)) {
                     w.Write((UInt16)s.Length);
                     w.Write(Encoding.Unicode.GetBytes(s));
                 } else {
@@ -163,7 +169,7 @@ namespace Toolkit.Windows.Resource {
             var sb = new StringBuilder();
             sb.AppendLine("STRINGTABLE");
             sb.AppendLine("BEGIN");
-            var stringEnumerator = _strings.GetEnumerator();
+            var stringEnumerator = Strings.GetEnumerator();
             while (stringEnumerator.MoveNext()) {
                 sb.AppendLine(string.Format(" {0} {1}", stringEnumerator.Current.Key, stringEnumerator.Current.Value));
             }

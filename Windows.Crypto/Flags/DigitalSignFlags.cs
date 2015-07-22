@@ -11,7 +11,7 @@
 //  limitations under the License.
 //  
 
-namespace Toolkit.Windows.Flags {
+namespace FearTheCowboy.Windows.Flags {
     using System;
 
     [Flags]

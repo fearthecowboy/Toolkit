@@ -1,29 +1,38 @@
-//-----------------------------------------------------------------------
-// <copyright company="CoApp Project">
-//     ResourceLib Original Code from http://resourcelib.codeplex.com
-//     Original Copyright (c) 2008-2009 Vestris Inc.
-//     Changes Copyright (c) 2011 Garrett Serack . All rights reserved.
-// </copyright>
-// <license>
-// MIT License
-// You may freely use and distribute this software under the terms of the following license agreement.
 // 
-// Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
-// documentation files (the "Software"), to deal in the Software without restriction, including without limitation 
-// the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and 
-// to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-// 
-// The above copyright notice and this permission notice shall be included in all copies or substantial portions of 
-// the Software.
-// 
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO 
-// THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE 
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, 
-// TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE
-// </license>
-//-----------------------------------------------------------------------
+//  Licensed under the Apache License, Version 2.0 (the "License");
+//  you may not use this file except in compliance with the License.
+//  You may obtain a copy of the License at
+//  http://www.apache.org/licenses/LICENSE-2.0
+//  
+//  Unless required by applicable law or agreed to in writing, software
+//  distributed under the License is distributed on an "AS IS" BASIS,
+//  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//  See the License for the specific language governing permissions and
+//  limitations under the License.
+//  
 
-namespace Toolkit.Windows.Resource {
+namespace FearTheCowboy.Windows.Resource {
+    //-----------------------------------------------------------------------
+    //     ResourceLib Original Code from http://resourcelib.codeplex.com
+    //     Original Copyright (c) 2008-2009 Vestris Inc.
+    // <license>
+    // MIT License
+    // You may freely use and distribute this software under the terms of the following license agreement.
+    // 
+    // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
+    // documentation files (the "Software"), to deal in the Software without restriction, including without limitation 
+    // the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and 
+    // to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+    // 
+    // The above copyright notice and this permission notice shall be included in all copies or substantial portions of 
+    // the Software.
+    // 
+    // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO 
+    // THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE 
+    // AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, 
+    // TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE
+    // </license>
+    //-----------------------------------------------------------------------
     using System;
     using System.Collections.Generic;
     using System.IO;
@@ -37,8 +46,6 @@ namespace Toolkit.Windows.Resource {
     ///     http://msdn.microsoft.com/en-us/library/bb202818.aspx
     /// </summary>
     public class VarTable : ResourceTableHeader {
-        private IDictionary<UInt16, UInt16> _languages = new Dictionary<UInt16, UInt16>();
-
         /// <summary>
         ///     A new table of language and code page identifier pairs.
         /// </summary>
@@ -63,23 +70,22 @@ namespace Toolkit.Windows.Resource {
         /// <summary>
         ///     A dictionary of language and code page identifier pairs.
         /// </summary>
-        public IDictionary<UInt16, UInt16> Languages {
-            get {
-                return _languages;
-            }
-        }
+        public IDictionary<UInt16, UInt16> Languages {get;} = new Dictionary<UInt16, UInt16>();
 
         /// <summary>
         ///     Returns a code page identifier for a given language.
         /// </summary>
         /// <param name="key">Language ID.</param>
         /// <returns>Code page identifier.</returns>
-        public UInt16 this[UInt16 key] {
-            get {
-                return _languages[key];
+        public UInt16 this[UInt16 key]
+        {
+            get
+            {
+                return Languages[key];
             }
-            set {
-                _languages[key] = value;
+            set
+            {
+                Languages[key] = value;
             }
         }
 
@@ -89,12 +95,12 @@ namespace Toolkit.Windows.Resource {
         /// <param name="lpRes">Pointer to the beginning of the data.</param>
         /// <returns></returns>
         internal override IntPtr Read(IntPtr lpRes) {
-            _languages.Clear();
+            Languages.Clear();
             var pVar = base.Read(lpRes);
 
             while (pVar.ToInt32() < (lpRes.ToInt32() + _header.wLength)) {
                 var var = (VarHeader)Marshal.PtrToStructure(pVar, typeof (VarHeader));
-                _languages.Add(var.wLanguageIDMS, var.wCodePageIBM);
+                Languages.Add(var.wLanguageIDMS, var.wCodePageIBM);
                 pVar = new IntPtr(pVar.ToInt32() + Marshal.SizeOf(var));
             }
 
@@ -110,7 +116,7 @@ namespace Toolkit.Windows.Resource {
             var headerPos = w.BaseStream.Position;
             base.Write(w);
 
-            var languagesEnum = _languages.GetEnumerator();
+            var languagesEnum = Languages.GetEnumerator();
             var valuePos = w.BaseStream.Position;
             while (languagesEnum.MoveNext()) {
                 // id
@@ -132,7 +138,7 @@ namespace Toolkit.Windows.Resource {
         public override string ToString(int indent) {
             var sb = new StringBuilder();
             sb.AppendLine(string.Format("{0}BEGIN", new String(' ', indent)));
-            var languagesEnumerator = _languages.GetEnumerator();
+            var languagesEnumerator = Languages.GetEnumerator();
             while (languagesEnumerator.MoveNext()) {
                 sb.AppendLine(string.Format("{0}VALUE \"Translation\", 0x{1:x}, 0x{2:x}", new String(' ', indent + 1), languagesEnumerator.Current.Key,
                     languagesEnumerator.Current.Value));

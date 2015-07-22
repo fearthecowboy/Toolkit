@@ -11,7 +11,7 @@
 //  limitations under the License.
 //  
 
-namespace Toolkit.Windows.Enumerations {
+namespace FearTheCowboy.Windows.Enumerations {
     public enum DigitalSignSubjectChoice : uint {
         File = 0x01,
         Blob = 0x02

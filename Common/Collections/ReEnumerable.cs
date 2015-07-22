@@ -1,5 +1,4 @@
 // 
-//  Copyright (c) Microsoft Corporation. All rights reserved. 
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
 //  You may obtain a copy of the License at
@@ -12,21 +11,20 @@
 //  limitations under the License.
 //  
 
-namespace Common.Collections {
+namespace FearTheCowboy.Common.Collections {
     using System.Collections.Generic;
     using System.Linq;
 
     /// <summary>
-    /// A Enumerable wrapper that optimistically caches elements when enumerated
-    /// Permits the re-enumeration without re-running the original query.
+    ///     A Enumerable wrapper that optimistically caches elements when enumerated
+    ///     Permits the re-enumeration without re-running the original query.
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public class ReEnumerable<T> : MutableEnumerable<T> {
-        private IEnumerator<T> _sourceIterator;
         private readonly IEnumerable<T> _source;
+        private IEnumerator<T> _sourceIterator;
 
         /// <summary>
-        /// 
         /// </summary>
         /// <param name="source"></param>
         public ReEnumerable(IEnumerable<T> source) {
@@ -34,7 +32,6 @@ namespace Common.Collections {
         }
 
         /// <summary>
-        /// 
         /// </summary>
         /// <param name="sourceIterator"></param>
         public ReEnumerable(IEnumerator<T> sourceIterator) {
@@ -43,11 +40,12 @@ namespace Common.Collections {
         }
 
         /// <summary>
-        /// 
         /// </summary>
         /// <param name="index"></param>
-        public T this[int index] {
-            get {
+        public T this[int index]
+        {
+            get
+            {
                 if (ItemExists(index)) {
                     return List[index];
                 }
@@ -56,16 +54,16 @@ namespace Common.Collections {
         }
 
         /// <summary>
-        /// 
         /// </summary>
-        public int Count {
-            get {
+        public int Count
+        {
+            get
+            {
                 return this.Count();
             }
         }
 
         /// <summary>
-        /// 
         /// </summary>
         /// <param name="index"></param>
         /// <returns></returns>
@@ -96,7 +94,6 @@ namespace Common.Collections {
         }
 
         /// <summary>
-        /// 
         /// </summary>
         /// <param name="additionalItems"></param>
         /// <returns></returns>

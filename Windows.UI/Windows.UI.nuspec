@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
-    <id>FearTheCowboy.Toolkit.Windows.UI</id>
+    <id>FearTheCowboy.Windows.UI</id>
     <version>$version$</version>
     <title>FearTheCowboy's Incredibly Useful Toolkit (Windows UI APIs)</title>
     <authors>Garrett Serack</authors>
