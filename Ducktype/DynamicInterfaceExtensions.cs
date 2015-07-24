@@ -181,7 +181,7 @@ namespace FearTheCowboy.Ducktype {
         }
 
         internal static string ToSignatureString(this MethodInfo method) {
-            return "{0} {1}({2})".format(method.ReturnType.Name, method.Name, method.GetParameters().Select(each => "{0} {1}".format(each.ParameterType.NiceName(), each.Name)).JoinWithComma());
+            return $"{method.ReturnType.Name} {method.Name}({method.GetParameters().Select(each => $"{each.ParameterType.NiceName()} {each.Name}").JoinWithComma()})";
         }
 
         public static string NiceName(this Type type) {
@@ -190,7 +190,7 @@ namespace FearTheCowboy.Ducktype {
             }
             var typeName = type.GetGenericTypeDefinition().Name;
             typeName = typeName.Substring(0, typeName.IndexOf('`'));
-            return typeName + "<" + string.Join(",", type.GetGenericArguments().Select(NiceName).ToArray()) + ">";
+            return $"{typeName}<{string.Join(",", type.GetGenericArguments().Select(NiceName).ToArray())}>";
         }
 
         public static string FullNiceName(this Type type) {
@@ -199,7 +199,7 @@ namespace FearTheCowboy.Ducktype {
             }
             var typeName = type.GetGenericTypeDefinition().FullName;
             typeName = typeName.Substring(0, typeName.IndexOf('`'));
-            return typeName + "<" + string.Join(",", type.GetGenericArguments().Select(NiceName).ToArray()) + ">";
+            return $"{typeName}<{string.Join(",", type.GetGenericArguments().Select(NiceName).ToArray())}>";
         }
 
         internal static Func<string, bool> GenerateInstancesSupportsMethod(object[] actualInstance) {
@@ -232,7 +232,7 @@ namespace FearTheCowboy.Ducktype {
                     if (typeof (TInterface).IsDelegateAssignableFromDelegate(instance.GetType())) {
                         return ((Delegate)instance).CreateProxiedDelegate<TInterface>();
                     }
-                    throw new Exception("Delegate '{0}' can not be created from Delegate '{1}'.".format(typeof (TInterface).NiceName(), instance.GetType().NiceName()));
+                    throw new Exception($"Delegate '{typeof (TInterface).NiceName()}' can not be created from Delegate '{instance.GetType().NiceName()}'.");
                 }
 
                 var instanceSupportsMethod = GenerateInstanceSupportsMethod(instance);
@@ -243,7 +243,7 @@ namespace FearTheCowboy.Ducktype {
                 var instanceProperties = instanceType.GetPublicDelegateProperties();
 
                 if (!instanceSupportsMethod(typeof (TInterface).Name)) {
-                    throw new Exception("Generation of Delegate '{0}' not supported from object.".format(typeof (TInterface).NiceName()));
+                    throw new Exception($"Generation of Delegate '{typeof (TInterface).NiceName()}' not supported from object.");
                 }
 
                 var method = instanceMethods.FindMethod(typeof (TInterface));
@@ -272,15 +272,7 @@ namespace FearTheCowboy.Ducktype {
         }
 
         public static bool IsIEnumerableT(this Type t) {
-#if FRAMEWORKv45
             return t.IsConstructedGenericType && t.GetGenericTypeDefinition() == typeof (IEnumerable<>);
-#else
-            try {
-                return t.GetGenericTypeDefinition() == typeof (IEnumerable<>);
-            } catch {
-            }
-            return false;
-#endif
         }
 
         public static IEnumerable<Type> CreatableTypes(this Assembly assembly) {

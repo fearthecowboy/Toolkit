@@ -45,24 +45,12 @@ namespace FearTheCowboy.Windows.Resource {
         /// <summary>
         ///     Neutral language ID.
         /// </summary>
-        public static UInt16 NEUTRALLANGID
-        {
-            get
-            {
-                return MAKELANGID(Kernel32.Constants.LANG_NEUTRAL, Kernel32.Constants.SUBLANG_NEUTRAL);
-            }
-        }
+        public static UInt16 NEUTRALLANGID {get {return MAKELANGID(Kernel32.Constants.LANG_NEUTRAL, Kernel32.Constants.SUBLANG_NEUTRAL);}}
 
         /// <summary>
         ///     US-English language ID.
         /// </summary>
-        public static UInt16 USENGLISHLANGID
-        {
-            get
-            {
-                return MAKELANGID(Kernel32.Constants.LANG_ENGLISH, Kernel32.Constants.SUBLANG_ENGLISH_US);
-            }
-        }
+        public static UInt16 USENGLISHLANGID {get {return MAKELANGID(Kernel32.Constants.LANG_ENGLISH, Kernel32.Constants.SUBLANG_ENGLISH_US);}}
 
         /// <summary>
         ///     Align an address to a 4-byte boundary.

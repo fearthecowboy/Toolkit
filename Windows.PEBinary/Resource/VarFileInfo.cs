@@ -68,10 +68,8 @@ namespace FearTheCowboy.Windows.Resource {
         /// <summary>
         ///     The default language and code page identifier table.
         /// </summary>
-        public VarTable Default
-        {
-            get
-            {
+        public VarTable Default {
+            get {
                 var varsEnum = Vars.GetEnumerator();
                 if (varsEnum.MoveNext()) {
                     return varsEnum.Current.Value;
@@ -85,17 +83,7 @@ namespace FearTheCowboy.Windows.Resource {
         /// </summary>
         /// <param name="language">Language ID.</param>
         /// <returns>A language and code page identifier table.</returns>
-        public UInt16 this[UInt16 language]
-        {
-            get
-            {
-                return Default[language];
-            }
-            set
-            {
-                Default[language] = value;
-            }
-        }
+        public UInt16 this[UInt16 language] {get {return Default[language];} set {Default[language] = value;}}
 
         /// <summary>
         ///     Read a hardware independent dictionary of language and code page identifier tables.
@@ -138,11 +126,11 @@ namespace FearTheCowboy.Windows.Resource {
         /// <returns>String in the VarFileInfo format.</returns>
         public override string ToString(int indent) {
             var sb = new StringBuilder();
-            sb.AppendLine(string.Format("{0}BEGIN", new String(' ', indent)));
+            sb.AppendLine($"{new String(' ', indent)}BEGIN");
             foreach (var var in Vars.Values) {
                 sb.Append(var.ToString(indent + 1));
             }
-            sb.AppendLine(string.Format("{0}END", new String(' ', indent)));
+            sb.AppendLine($"{new String(' ', indent)}END");
             return sb.ToString();
         }
     }

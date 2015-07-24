@@ -101,11 +101,11 @@ namespace FearTheCowboy.Windows.Resource {
         public string ToString(int indent) {
             var sb = new StringBuilder();
             if (Count > 0) {
-                sb.AppendLine(string.Format("{0}BEGIN", new String(' ', indent)));
+                sb.AppendLine($"{new String(' ', indent)}BEGIN");
                 foreach (var child in this) {
                     sb.Append(child.ToString(indent + 1));
                 }
-                sb.AppendLine(string.Format("{0}END", new String(' ', indent)));
+                sb.AppendLine($"{new String(' ', indent)}END");
             }
             return sb.ToString();
         }

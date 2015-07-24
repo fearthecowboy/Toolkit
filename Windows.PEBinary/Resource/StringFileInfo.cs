@@ -68,10 +68,8 @@ namespace FearTheCowboy.Windows.Resource {
         /// <summary>
         ///     Default (first) string table.
         /// </summary>
-        public StringTable Default
-        {
-            get
-            {
+        public StringTable Default {
+            get {
                 var iter = Strings.GetEnumerator();
                 if (iter.MoveNext()) {
                     return iter.Current.Value;
@@ -85,17 +83,7 @@ namespace FearTheCowboy.Windows.Resource {
         /// </summary>
         /// <param name="key">Key.</param>
         /// <returns>A string table at a given index.</returns>
-        public string this[string key]
-        {
-            get
-            {
-                return Default[key];
-            }
-            set
-            {
-                Default[key] = value;
-            }
-        }
+        public string this[string key] {get {return Default[key];} set {Default[key] = value;}}
 
         /// <summary>
         ///     Read an existing string file-version resource.
@@ -139,12 +127,12 @@ namespace FearTheCowboy.Windows.Resource {
         /// <returns>String in the StringFileInfo format.</returns>
         public override string ToString(int indent) {
             var sb = new StringBuilder();
-            sb.AppendLine(string.Format("{0}BEGIN", new String(' ', indent)));
-            sb.AppendLine(string.Format("{0}BLOCK \"{1}\"", new String(' ', indent + 1), _key));
+            sb.AppendLine($"{new String(' ', indent)}BEGIN");
+            sb.AppendLine($"{new String(' ', indent + 1)}BLOCK \"{_key}\"");
             foreach (var stringTable in Strings.Values) {
                 sb.Append(stringTable.ToString(indent + 1));
             }
-            sb.AppendLine(string.Format("{0}END", new String(' ', indent)));
+            sb.AppendLine($"{new String(' ', indent)}END");
             return sb.ToString();
         }
     }

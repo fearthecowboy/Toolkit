@@ -82,7 +82,7 @@ namespace FearTheCowboy.Windows.Resource {
                     Menu = new MenuExTemplate();
                     break;
                 default:
-                    throw new NotSupportedException(string.Format("Unexpected menu header version {0}", version));
+                    throw new NotSupportedException($"Unexpected menu header version {version}");
             }
 
             return Menu.Read(lpRes);
@@ -101,7 +101,7 @@ namespace FearTheCowboy.Windows.Resource {
         /// </summary>
         /// <returns>String representation of the menu resource.</returns>
         public override string ToString() {
-            return string.Format("{0} {1}", Name, Menu);
+            return $"{Name} {Menu}";
         }
     }
 }

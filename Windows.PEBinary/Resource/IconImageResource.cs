@@ -99,100 +99,38 @@ namespace FearTheCowboy.Windows.Resource {
         /// <summary>
         ///     Hardware-independent icon directory header.
         /// </summary>
-        public GrpIconDirEntry Header
-        {
-            get
-            {
-                return _header;
-            }
-            set
-            {
-                _header = value;
-            }
-        }
+        public GrpIconDirEntry Header {get {return _header;} set {_header = value;}}
 
         /// <summary>
         ///     Embedded icon Id.
         /// </summary>
-        public ushort Id
-        {
-            get
-            {
-                return _header.nID;
-            }
-            set
-            {
-                _header.nID = value;
-            }
-        }
+        public ushort Id {get {return _header.nID;} set {_header.nID = value;}}
 
         /// <summary>
         ///     An icon image.
         /// </summary>
-        public DeviceIndependentBitmap Image
-        {
-            get
-            {
-                return _image;
-            }
-            set
-            {
-                _image = value;
-            }
-        }
+        public DeviceIndependentBitmap Image {get {return _image;} set {_image = value;}}
 
         /// <summary>
         ///     Icon width in pixels.
         /// </summary>
-        public Byte Width
-        {
-            get
-            {
-                return _header.bWidth;
-            }
-            set
-            {
-                _header.bWidth = value;
-            }
-        }
+        public Byte Width {get {return _header.bWidth;} set {_header.bWidth = value;}}
 
         /// <summary>
         ///     Icon height in pixels.
         /// </summary>
-        public Byte Height
-        {
-            get
-            {
-                return _header.bHeight;
-            }
-            set
-            {
-                _header.bHeight = value;
-            }
-        }
+        public Byte Height {get {return _header.bHeight;} set {_header.bHeight = value;}}
 
         /// <summary>
         ///     Image size in bytes.
         /// </summary>
-        public UInt32 ImageSize
-        {
-            get
-            {
-                return _header.dwImageSize;
-            }
-            set
-            {
-                _header.dwImageSize = value;
-            }
-        }
+        public UInt32 ImageSize {get {return _header.dwImageSize;} set {_header.dwImageSize = value;}}
 
         /// <summary>
         ///     Icon pixel format.
         /// </summary>
-        public PixelFormat PixelFormat
-        {
-            get
-            {
+        public PixelFormat PixelFormat {
+            get {
                 switch (_header.wBitsPerPixel) {
                     case 1:
                         return PixelFormat.Format1bppIndexed;
@@ -215,10 +153,8 @@ namespace FearTheCowboy.Windows.Resource {
         /// <summary>
         ///     Icon pixel format English standard string.
         /// </summary>
-        public string PixelFormatString
-        {
-            get
-            {
+        public string PixelFormatString {
+            get {
                 switch (PixelFormat) {
                     case PixelFormat.Format1bppIndexed:
                         return "1-bit B/W";
@@ -280,7 +216,7 @@ namespace FearTheCowboy.Windows.Resource {
         /// </summary>
         /// <returns>A string in a format of width x height followed by the pixel format.</returns>
         public override string ToString() {
-            return string.Format("{0}x{1} {2}", Width, Height, PixelFormatString);
+            return $"{Width}x{Height} {PixelFormatString}";
         }
 
         /// <summary>

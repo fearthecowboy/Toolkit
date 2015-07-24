@@ -99,10 +99,10 @@ namespace FearTheCowboy.Windows.Resource {
         /// <returns></returns>
         public override string ToString() {
             var sb = new StringBuilder();
-            sb.AppendLine(string.Format("{0} ACCELERATORS", Name));
+            sb.AppendLine($"{Name} ACCELERATORS");
             sb.AppendLine("BEGIN");
             foreach (var accelerator in Accelerators) {
-                sb.AppendLine(string.Format(" {0}", accelerator));
+                sb.AppendLine($" {accelerator}");
             }
             sb.AppendLine("END");
             return sb.ToString();

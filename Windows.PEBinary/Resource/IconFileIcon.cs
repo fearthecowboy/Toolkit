@@ -54,35 +54,17 @@ namespace FearTheCowboy.Windows.Resource {
         /// <summary>
         ///     Icon width.
         /// </summary>
-        public Byte Width
-        {
-            get
-            {
-                return Header.bWidth;
-            }
-        }
+        public Byte Width {get {return Header.bWidth;}}
 
         /// <summary>
         ///     Icon height.
         /// </summary>
-        public Byte Height
-        {
-            get
-            {
-                return Header.bHeight;
-            }
-        }
+        public Byte Height {get {return Header.bHeight;}}
 
         /// <summary>
         ///     Image size in bytes.
         /// </summary>
-        public UInt32 ImageSize
-        {
-            get
-            {
-                return Header.dwImageSize;
-            }
-        }
+        public UInt32 ImageSize {get {return Header.dwImageSize;}}
 
         /// <summary>
         ///     Read a single icon (.ico).
@@ -104,7 +86,7 @@ namespace FearTheCowboy.Windows.Resource {
         /// </summary>
         /// <returns>Icon size in the width x height format.</returns>
         public override string ToString() {
-            return string.Format("{0}x{1}", Width, Height);
+            return $"{Width}x{Height}";
         }
     }
 }

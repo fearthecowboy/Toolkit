@@ -53,13 +53,7 @@ namespace FearTheCowboy.Windows.Structures {
         /// <value>
         ///     <see langword="true" /> if the handle value is invalid; otherwise, <see langword="false" /> .
         /// </value>
-        public override bool IsInvalid
-        {
-            get
-            {
-                return IntPtr.Zero == base.handle;
-            }
-        }
+        public override bool IsInvalid {get {return IntPtr.Zero == base.handle;}}
 
         /// <summary>
         ///     Returns the size of this memory block.

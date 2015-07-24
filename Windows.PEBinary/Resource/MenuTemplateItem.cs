@@ -56,17 +56,7 @@ namespace FearTheCowboy.Windows.Resource {
         /// <summary>
         ///     Menu text.
         /// </summary>
-        public string MenuString
-        {
-            get
-            {
-                return _menuString;
-            }
-            set
-            {
-                _menuString = value;
-            }
-        }
+        public string MenuString {get {return _menuString;} set {_menuString = value;}}
 
         /// <summary>
         ///     Read the menu item.

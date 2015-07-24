@@ -99,21 +99,13 @@ namespace FearTheCowboy.Windows.Structures {
         /// <summary>
         ///     Returns the current bitmap compression.
         /// </summary>
-        public BitmapCompression BitmapCompression
-        {
-            get
-            {
-                return (BitmapCompression)biCompression;
-            }
-        }
+        public BitmapCompression BitmapCompression {get {return (BitmapCompression)biCompression;}}
 
         /// <summary>
         ///     Bitmap pixel format.
         /// </summary>
-        public PixelFormat PixelFormat
-        {
-            get
-            {
+        public PixelFormat PixelFormat {
+            get {
                 switch (biBitCount) {
                     case 1:
                         return PixelFormat.Format1bppIndexed;
@@ -136,10 +128,8 @@ namespace FearTheCowboy.Windows.Structures {
         /// <summary>
         ///     Bitmap pixel format English standard string.
         /// </summary>
-        public string PixelFormatString
-        {
-            get
-            {
+        public string PixelFormatString {
+            get {
                 switch (PixelFormat) {
                     case PixelFormat.Format1bppIndexed:
                         return "1-bit B/W";

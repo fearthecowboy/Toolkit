@@ -14,11 +14,10 @@
 namespace FearTheCowboy.Common.Core {
     using System;
     using System.Diagnostics;
-    using System.Globalization;
 
     public static class ExceptionExtensions {
         public static void Dump(this Exception e) {
-            var text = string.Format(CultureInfo.CurrentCulture, "{0}/{1}\r\n{2}", e.GetType().Name, e.Message, e.StackTrace);
+            var text = $"{e.GetType().Name}/{e.Message}\r\n{e.StackTrace}";
             Debug.WriteLine(text);
         }
 

@@ -49,21 +49,13 @@ namespace FearTheCowboy.Common.Collections {
 
             #region IEnumerator<Tt> Members
 
-            public TT Current {
-                get {
-                    return _collection.List[_index];
-                }
-            }
+            public TT Current {get {return _collection.List[_index];}}
 
             public void Dispose() {
                 _collection = null;
             }
 
-            object IEnumerator.Current {
-                get {
-                    return Current;
-                }
-            }
+            object IEnumerator.Current {get {return Current;}}
 
             public bool MoveNext() {
                 _index++;

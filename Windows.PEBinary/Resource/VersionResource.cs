@@ -83,49 +83,19 @@ namespace FearTheCowboy.Windows.Resource {
         /// <summary>
         ///     String representation of the file version.
         /// </summary>
-        public string FileVersion
-        {
-            get
-            {
-                return _fixedfileinfo.FileVersion;
-            }
-            set
-            {
-                _fixedfileinfo.FileVersion = value;
-            }
-        }
+        public string FileVersion {get {return _fixedfileinfo.FileVersion;} set {_fixedfileinfo.FileVersion = value;}}
 
         /// <summary>
         ///     String representation of the protect version.
         /// </summary>
-        public string ProductVersion
-        {
-            get
-            {
-                return _fixedfileinfo.ProductVersion;
-            }
-            set
-            {
-                _fixedfileinfo.ProductVersion = value;
-            }
-        }
+        public string ProductVersion {get {return _fixedfileinfo.ProductVersion;} set {_fixedfileinfo.ProductVersion = value;}}
 
         /// <summary>
         ///     Returns an entry within this resource table.
         /// </summary>
         /// <param name="key">Entry key.</param>
         /// <returns>A resource table.</returns>
-        public ResourceTableHeader this[string key]
-        {
-            get
-            {
-                return Resources[key];
-            }
-            set
-            {
-                Resources[key] = value;
-            }
-        }
+        public ResourceTableHeader this[string key] {get {return Resources[key];} set {Resources[key] = value;}}
 
         /// <summary>
         ///     Read a version resource from a previously loaded module.

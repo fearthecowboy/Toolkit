@@ -50,7 +50,7 @@ namespace FearTheCowboy.Ducktype {
             try {
                 return _func.Invoke(<#= param #>);
             } catch (Exception e) {
-                throw new Exception( string.Format(CultureInfo.InvariantCulture, "{0}/{1}\r\n{2}", e.GetType().Name, e.Message, e.StackTrace));
+                throw new Exception( $"{e.GetType().Name}/{e.Message}\r\n{e.StackTrace}");
             }
             // return default(TRet);
         }

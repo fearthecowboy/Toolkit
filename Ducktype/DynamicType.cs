@@ -44,11 +44,9 @@ namespace FearTheCowboy.Ducktype {
 
         internal static object Create(Type tInterface, OrderedDictionary<Type, List<MethodInfo, MethodInfo>> instanceMethods, List<Delegate, MethodInfo> delegateMethods, List<MethodInfo> stubMethods, List<Type, object> usedInstances) {
             // now we can calculate the key based on the content of the *Methods collections
-            var key = tInterface.Assembly.FullName + "::" + tInterface.Name + ":::" +
-                      instanceMethods.Keys.Select(each => each.Assembly.FullName + "." + each.FullName + "." + instanceMethods[each].Select(mi => mi.Value.ToSignatureString()).JoinWithComma()).JoinWith(";\r\n") +
-                      "::" + delegateMethods.Select(each => each.GetType().FullName).JoinWith(";\r\n") +
-                      "::" + stubMethods.Select(mi => mi.ToSignatureString()).JoinWithComma();
-            // + "!->" + (onUnhandledExceptionMethod == null ? (onUnhandledExceptionDelegate == null ? "GenerateOnUnhandledException" : onUnhandledExceptionDelegate.ToString()) : onUnhandledExceptionMethod.ToSignatureString());
+
+            var key =
+                $"{tInterface.Assembly.FullName}::{tInterface.Name}:::{instanceMethods.Keys.Select(each => $"{each.Assembly.FullName}.{each.FullName}.{instanceMethods[each].Select(mi => mi.Value.ToSignatureString()).JoinWithComma()}").JoinWith(";\r\n")}::{delegateMethods.Select(each => each.GetType().FullName).JoinWith(";\r\n")}::{stubMethods.Select(mi => mi.ToSignatureString()).JoinWithComma()}";
 
             return _proxyClassDefinitions.GetOrAdd(key, () => new DynamicType(tInterface, instanceMethods, delegateMethods, stubMethods)).CreateInstance(usedInstances, delegateMethods);
         }
@@ -63,7 +61,7 @@ namespace FearTheCowboy.Ducktype {
 
             foreach (var instanceType in methods.Keys) {
                 // generate storage for object
-                var field = _dynamicType.DefineField("_instance_{0}".format(++counter), instanceType, FieldAttributes.Private);
+                var field = _dynamicType.DefineField($"_instance_{++counter}", instanceType, FieldAttributes.Private);
                 _storageFields.Add(field);
 
                 // create methods
@@ -75,7 +73,7 @@ namespace FearTheCowboy.Ducktype {
             }
 
             foreach (var d in delegates) {
-                var field = _dynamicType.DefineField("_delegate_{0}".format(++counter), d.Key.GetType(), FieldAttributes.Private);
+                var field = _dynamicType.DefineField($"_delegate_{++counter}", d.Key.GetType(), FieldAttributes.Private);
                 _storageFields.Add(field);
                 _implementedMethods.Add(d.Value.Name);
 
@@ -95,10 +93,8 @@ namespace FearTheCowboy.Ducktype {
             DefineConstructor(interfaceType.IsInterface ? typeof (Object) : interfaceType);
         }
 
-        internal Type Type
-        {
-            get
-            {
+        internal Type Type {
+            get {
                 lock (_proxyClassDefinitions) {
                     try {
                         if (_type == null) {
@@ -130,7 +126,7 @@ namespace FearTheCowboy.Ducktype {
 
         private TypeBuilder DefineDynamicType(Type interfaceType) {
             lock (_proxyClassDefinitions) {
-                _proxyName = "{0}_proxy_{1}".format(interfaceType.NiceName().MakeSafeFileName(), _typeCounter++);
+                _proxyName = $"{interfaceType.NiceName().MakeSafeFileName()}_proxy_{_typeCounter++}";
             }
 #if DEEP_DEBUG
              _fullpath = (_proxyName + ".dll").GenerateTemporaryFilename();

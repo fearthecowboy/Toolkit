@@ -79,14 +79,9 @@ namespace FearTheCowboy.Windows.Resource {
         /// <summary>
         ///     Raw image data.
         /// </summary>
-        public byte[] Data
-        {
-            get
-            {
-                return _data;
-            }
-            set
-            {
+        public byte[] Data {
+            get {return _data;}
+            set {
                 _data = value;
 
                 var pData = Marshal.AllocHGlobal(Marshal.SizeOf(Header));
@@ -107,51 +102,25 @@ namespace FearTheCowboy.Windows.Resource {
         /// <summary>
         ///     Bitmap size in bytes.
         /// </summary>
-        public int Size
-        {
-            get
-            {
-                return _data.Length;
-            }
-        }
+        public int Size {get {return _data.Length;}}
 
         /// <summary>
         ///     Size of the image mask.
         /// </summary>
-        private Int32 MaskImageSize
-        {
-            get
-            {
-                return (Header.biHeight/2*GetDIBRowWidth(Header.biWidth));
-            }
-        }
+        private Int32 MaskImageSize {get {return (Header.biHeight/2*GetDIBRowWidth(Header.biWidth));}}
 
-        private Int32 XorImageSize
-        {
-            get
-            {
-                return (Header.biHeight/2*GetDIBRowWidth(Header.biWidth*Header.biBitCount*Header.biPlanes));
-            }
-        }
+        private Int32 XorImageSize {get {return (Header.biHeight/2*GetDIBRowWidth(Header.biWidth*Header.biBitCount*Header.biPlanes));}}
 
         /// <summary>
         ///     Position of the DIB bitmap bits within a DIB bitmap array.
         /// </summary>
-        private Int32 XorImageIndex
-        {
-            get
-            {
-                return (Int32)(Marshal.SizeOf(Header) + ColorCount*Marshal.SizeOf(new RgbQuad()));
-            }
-        }
+        private Int32 XorImageIndex {get {return (Int32)(Marshal.SizeOf(Header) + ColorCount*Marshal.SizeOf(new RgbQuad()));}}
 
         /// <summary>
         ///     Number of colors in the palette.
         /// </summary>
-        private UInt32 ColorCount
-        {
-            get
-            {
+        private UInt32 ColorCount {
+            get {
                 if (Header.biClrUsed != 0) {
                     return Header.biClrUsed;
                 }
@@ -164,21 +133,13 @@ namespace FearTheCowboy.Windows.Resource {
             }
         }
 
-        private Int32 MaskImageIndex
-        {
-            get
-            {
-                return XorImageIndex + XorImageSize;
-            }
-        }
+        private Int32 MaskImageIndex {get {return XorImageIndex + XorImageSize;}}
 
         /// <summary>
         ///     Bitmap monochrome mask.
         /// </summary>
-        public Bitmap Mask
-        {
-            get
-            {
+        public Bitmap Mask {
+            get {
                 if (_mask == null) {
                     var hdc = IntPtr.Zero;
                     var hBmp = IntPtr.Zero;
@@ -255,10 +216,8 @@ namespace FearTheCowboy.Windows.Resource {
         /// <summary>
         ///     Bitmap color (XOR) part of the image.
         /// </summary>
-        public Bitmap Color
-        {
-            get
-            {
+        public Bitmap Color {
+            get {
                 if (_color == null) {
                     var hdcDesktop = IntPtr.Zero;
                     var hdc = IntPtr.Zero;
@@ -331,10 +290,8 @@ namespace FearTheCowboy.Windows.Resource {
         /// <summary>
         ///     Complete image.
         /// </summary>
-        public Bitmap Image
-        {
-            get
-            {
+        public Bitmap Image {
+            get {
                 if (_image == null) {
                     var hDCScreen = IntPtr.Zero;
                     var bits = IntPtr.Zero;

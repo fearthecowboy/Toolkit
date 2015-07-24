@@ -10,6 +10,7 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 //  
+
 namespace FearTheCowboy.Common.Core {
     // 
     // EncodingUtility
@@ -50,17 +51,8 @@ namespace FearTheCowboy.Common.Core {
     using System.Text;
 
     public static class EncodingUtility {
-        #region Fields
-
-        private static Hashtable entities;
-        private static object lock_ = new object();
-
-        #endregion // Fields
-
-        private static Hashtable Entities
-        {
-            get
-            {
+        private static Hashtable Entities {
+            get {
                 lock (lock_) {
                     if (entities == null) {
                         InitEntities();
@@ -332,6 +324,43 @@ namespace FearTheCowboy.Common.Core {
         }
 
         #endregion // Constructors
+
+        /// <summary>
+        ///     Modified Base64 for URL applications ('base64url' encoding)
+        ///     See http://tools.ietf.org/html/rfc4648
+        ///     For more information see http://en.wikipedia.org/wiki/Base64
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns>Input byte array converted to a base64ForUrl encoded string</returns>
+        public static string ToBase64ForUrlString(byte[] input) {
+            var result = new StringBuilder(Convert.ToBase64String(input).TrimEnd('='));
+            result.Replace('+', '-');
+            result.Replace('/', '_');
+            return result.ToString();
+        }
+
+        /// <summary>
+        ///     Modified Base64 for URL applications ('base64url' encoding)
+        ///     See http://tools.ietf.org/html/rfc4648
+        ///     For more information see http://en.wikipedia.org/wiki/Base64
+        /// </summary>
+        /// <param name="base64ForUrlInput"></param>
+        /// <returns>Input base64ForUrl encoded string as the original byte array</returns>
+        public static byte[] FromBase64ForUrlString(string base64ForUrlInput) {
+            int padChars = (base64ForUrlInput.Length%4) == 0 ? 0 : (4 - (base64ForUrlInput.Length%4));
+            var result = new StringBuilder(base64ForUrlInput, base64ForUrlInput.Length + padChars);
+            result.Append(String.Empty.PadRight(padChars, '='));
+            result.Replace('-', '+');
+            result.Replace('_', '/');
+            return Convert.FromBase64String(result.ToString());
+        }
+
+        #region Fields
+
+        private static Hashtable entities;
+        private static object lock_ = new object();
+
+        #endregion // Fields
 
         #region Methods
 
@@ -1143,35 +1172,5 @@ namespace FearTheCowboy.Common.Core {
         }
 
         #endregion // Methods
-
-        /// <summary>
-        ///     Modified Base64 for URL applications ('base64url' encoding)
-        ///     See http://tools.ietf.org/html/rfc4648
-        ///     For more information see http://en.wikipedia.org/wiki/Base64
-        /// </summary>
-        /// <param name="input"></param>
-        /// <returns>Input byte array converted to a base64ForUrl encoded string</returns>
-        public static string ToBase64ForUrlString(byte[] input) {
-            var result = new StringBuilder(Convert.ToBase64String(input).TrimEnd('='));
-            result.Replace('+', '-');
-            result.Replace('/', '_');
-            return result.ToString();
-        }
-
-        /// <summary>
-        ///     Modified Base64 for URL applications ('base64url' encoding)
-        ///     See http://tools.ietf.org/html/rfc4648
-        ///     For more information see http://en.wikipedia.org/wiki/Base64
-        /// </summary>
-        /// <param name="base64ForUrlInput"></param>
-        /// <returns>Input base64ForUrl encoded string as the original byte array</returns>
-        public static byte[] FromBase64ForUrlString(string base64ForUrlInput) {
-            int padChars = (base64ForUrlInput.Length%4) == 0 ? 0 : (4 - (base64ForUrlInput.Length%4));
-            var result = new StringBuilder(base64ForUrlInput, base64ForUrlInput.Length + padChars);
-            result.Append(String.Empty.PadRight(padChars, '='));
-            result.Replace('-', '+');
-            result.Replace('_', '/');
-            return Convert.FromBase64String(result.ToString());
-        }
     }
 }

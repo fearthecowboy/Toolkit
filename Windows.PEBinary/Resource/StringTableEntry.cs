@@ -75,13 +75,7 @@ namespace FearTheCowboy.Windows.Resource {
         /// <summary>
         ///     String resource header.
         /// </summary>
-        public ResourceHeader Header
-        {
-            get
-            {
-                return _header;
-            }
-        }
+        public ResourceHeader Header {get {return _header;}}
 
         /// <summary>
         ///     Key.
@@ -91,10 +85,8 @@ namespace FearTheCowboy.Windows.Resource {
         /// <summary>
         ///     String value (removing the double-null-terminator).
         /// </summary>
-        public string StringValue
-        {
-            get
-            {
+        public string StringValue {
+            get {
                 if (_value == null) {
                     return _value;
                 }
@@ -106,14 +98,9 @@ namespace FearTheCowboy.Windows.Resource {
         /// <summary>
         ///     Value.
         /// </summary>
-        public string Value
-        {
-            get
-            {
-                return _value;
-            }
-            set
-            {
+        public string Value {
+            get {return _value;}
+            set {
                 if (value == null) {
                     _value = null;
                     _header.wValueLength = 0;

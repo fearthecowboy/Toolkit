@@ -49,107 +49,37 @@ namespace FearTheCowboy.Windows.Resource {
         /// <summary>
         ///     X-coordinate, in dialog box units, of the upper-left corner of the dialog box.
         /// </summary>
-        public override Int16 x
-        {
-            get
-            {
-                return _header.x;
-            }
-            set
-            {
-                _header.x = value;
-            }
-        }
+        public override Int16 x {get {return _header.x;} set {_header.x = value;}}
 
         /// <summary>
         ///     Y-coordinate, in dialog box units, of the upper-left corner of the dialog box.
         /// </summary>
-        public override Int16 y
-        {
-            get
-            {
-                return _header.y;
-            }
-            set
-            {
-                _header.y = value;
-            }
-        }
+        public override Int16 y {get {return _header.y;} set {_header.y = value;}}
 
         /// <summary>
         ///     Width, in dialog box units, of the dialog box.
         /// </summary>
-        public override Int16 cx
-        {
-            get
-            {
-                return _header.cx;
-            }
-            set
-            {
-                _header.cx = value;
-            }
-        }
+        public override Int16 cx {get {return _header.cx;} set {_header.cx = value;}}
 
         /// <summary>
         ///     Height, in dialog box units, of the dialog box.
         /// </summary>
-        public override Int16 cy
-        {
-            get
-            {
-                return _header.cy;
-            }
-            set
-            {
-                _header.cy = value;
-            }
-        }
+        public override Int16 cy {get {return _header.cy;} set {_header.cy = value;}}
 
         /// <summary>
         ///     Dialog style.
         /// </summary>
-        public override UInt32 Style
-        {
-            get
-            {
-                return _header.style;
-            }
-            set
-            {
-                _header.style = value;
-            }
-        }
+        public override UInt32 Style {get {return _header.style;} set {_header.style = value;}}
 
         /// <summary>
         ///     Extended dialog style.
         /// </summary>
-        public override UInt32 ExtendedStyle
-        {
-            get
-            {
-                return _header.exStyle;
-            }
-            set
-            {
-                _header.exStyle = value;
-            }
-        }
+        public override UInt32 ExtendedStyle {get {return _header.exStyle;} set {_header.exStyle = value;}}
 
         /// <summary>
         ///     Control identifier.
         /// </summary>
-        public Int32 Id
-        {
-            get
-            {
-                return _header.id;
-            }
-            set
-            {
-                _header.id = value;
-            }
-        }
+        public Int32 Id {get {return _header.id;} set {_header.id = value;}}
 
         /// <summary>
         ///     Read the dialog control.

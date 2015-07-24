@@ -49,103 +49,37 @@ namespace FearTheCowboy.Windows.Resource {
         /// <summary>
         ///     X-coordinate, in dialog box units, of the upper-left corner of the dialog box.
         /// </summary>
-        public override Int16 x
-        {
-            get
-            {
-                return _header.x;
-            }
-            set
-            {
-                _header.x = value;
-            }
-        }
+        public override Int16 x {get {return _header.x;} set {_header.x = value;}}
 
         /// <summary>
         ///     Y-coordinate, in dialog box units, of the upper-left corner of the dialog box.
         /// </summary>
-        public override Int16 y
-        {
-            get
-            {
-                return _header.y;
-            }
-            set
-            {
-                _header.y = value;
-            }
-        }
+        public override Int16 y {get {return _header.y;} set {_header.y = value;}}
 
         /// <summary>
         ///     Width, in dialog box units, of the dialog box.
         /// </summary>
-        public override Int16 cx
-        {
-            get
-            {
-                return _header.cx;
-            }
-            set
-            {
-                _header.cx = value;
-            }
-        }
+        public override Int16 cx {get {return _header.cx;} set {_header.cx = value;}}
 
         /// <summary>
         ///     Height, in dialog box units, of the dialog box.
         /// </summary>
-        public override Int16 cy
-        {
-            get
-            {
-                return _header.cy;
-            }
-            set
-            {
-                _header.cy = value;
-            }
-        }
+        public override Int16 cy {get {return _header.cy;} set {_header.cy = value;}}
 
         /// <summary>
         ///     Dialog style.
         /// </summary>
-        public override UInt32 Style
-        {
-            get
-            {
-                return _header.style;
-            }
-            set
-            {
-                _header.style = value;
-            }
-        }
+        public override UInt32 Style {get {return _header.style;} set {_header.style = value;}}
 
         /// <summary>
         ///     Extended dialog style.
         /// </summary>
-        public override UInt32 ExtendedStyle
-        {
-            get
-            {
-                return _header.dwExtendedStyle;
-            }
-            set
-            {
-                _header.dwExtendedStyle = value;
-            }
-        }
+        public override UInt32 ExtendedStyle {get {return _header.dwExtendedStyle;} set {_header.dwExtendedStyle = value;}}
 
         /// <summary>
         ///     Number of dialog items.
         /// </summary>
-        public override UInt16 ControlCount
-        {
-            get
-            {
-                return _header.cdit;
-            }
-        }
+        public override UInt16 ControlCount {get {return _header.cdit;}}
 
         /// <summary>
         ///     Read the dialog resource.
@@ -200,7 +134,7 @@ namespace FearTheCowboy.Windows.Resource {
         /// </summary>
         /// <returns>String in the DIALOG ... format.</returns>
         public override string ToString() {
-            return string.Format("DIALOG {0}", base.ToString());
+            return $"DIALOG {base.ToString()}";
         }
     }
 }

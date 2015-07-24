@@ -100,32 +100,12 @@ namespace FearTheCowboy.Windows.Resource {
         /// <summary>
         ///     Menu resource Id.
         /// </summary>
-        public ResourceId MenuId
-        {
-            get
-            {
-                return _menuId;
-            }
-            set
-            {
-                _menuId = value;
-            }
-        }
+        public ResourceId MenuId {get {return _menuId;} set {_menuId = value;}}
 
         /// <summary>
         ///     Window class Id.
         /// </summary>
-        public ResourceId WindowClassId
-        {
-            get
-            {
-                return _windowClassId;
-            }
-            set
-            {
-                _windowClassId = value;
-            }
-        }
+        public ResourceId WindowClassId {get {return _windowClassId;} set {_windowClassId = value;}}
 
         /// <summary>
         ///     Controls within this dialog.
@@ -138,25 +118,25 @@ namespace FearTheCowboy.Windows.Resource {
         /// <returns>Multiline string.</returns>
         public override string ToString() {
             var sb = new StringBuilder();
-            sb.AppendLine(string.Format("{0}, {1}, {2}, {3}", x, y, x + cx, y + cy));
+            sb.AppendLine($"{x}, {y}, {x + cx}, {y + cy}");
 
             var style = DialogTemplateUtil.StyleToString<WindowStyles, DialogStyles>(Style);
             if (!string.IsNullOrEmpty(style)) {
-                sb.AppendLine("STYLE " + style);
+                sb.AppendLine($"STYLE {style}");
             }
 
             var exstyle = DialogTemplateUtil.StyleToString<WindowStyles, ExtendedDialogStyles>(ExtendedStyle);
             if (!string.IsNullOrEmpty(exstyle)) {
-                sb.AppendLine("EXSTYLE " + exstyle);
+                sb.AppendLine($"EXSTYLE {exstyle}");
             }
 
-            sb.AppendLine(string.Format("CAPTION \"{0}\"", Caption));
-            sb.AppendLine(string.Format("FONT {0}, \"{1}\"", PointSize, TypeFace));
+            sb.AppendLine($"CAPTION \"{Caption}\"");
+            sb.AppendLine($"FONT {PointSize}, \"{TypeFace}\"");
 
             if (Controls.Count > 0) {
                 sb.AppendLine("{");
                 foreach (var control in Controls) {
-                    sb.AppendLine(" " + control);
+                    sb.AppendLine($" {control}");
                 }
                 sb.AppendLine("}");
             }

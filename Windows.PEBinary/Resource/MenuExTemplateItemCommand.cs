@@ -44,10 +44,8 @@ namespace FearTheCowboy.Windows.Resource {
         /// <summary>
         ///     Returns true if the item is a separator.
         /// </summary>
-        public bool IsSeparator
-        {
-            get
-            {
+        public bool IsSeparator {
+            get {
                 return _header.dwType == (uint)MenuFlags.MFT_SEPARATOR ||
                        ((_header.bResInfo == 0xFFFF || _header.bResInfo == 0) && _header.dwMenuId == 0 && _menuString == null);
             }
@@ -61,10 +59,9 @@ namespace FearTheCowboy.Windows.Resource {
         public override string ToString(int indent) {
             var sb = new StringBuilder();
             if (IsSeparator) {
-                sb.AppendLine(string.Format("{0}MENUITEM SEPARATOR", new String(' ', indent)));
+                sb.AppendLine($"{new String(' ', indent)}MENUITEM SEPARATOR");
             } else {
-                sb.AppendLine(string.Format("{0}MENUITEM \"{1}\", {2}", new String(' ', indent),
-                    _menuString == null ? string.Empty : _menuString.Replace("\t", @"\t"), _header.dwMenuId));
+                sb.AppendLine($"{new String(' ', indent)}MENUITEM \"{(_menuString == null ? string.Empty : _menuString.Replace("\t", @"\t"))}\", {_header.dwMenuId}");
             }
             return sb.ToString();
         }

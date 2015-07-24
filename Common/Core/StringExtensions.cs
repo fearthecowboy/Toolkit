@@ -14,59 +14,14 @@
 namespace FearTheCowboy.Common.Core {
     using System;
     using System.Collections.Generic;
-    using System.Globalization;
     using System.Linq;
     using System.Text.RegularExpressions;
     using Collections;
 
     public static class StringExtensions {
         // ReSharper disable InconsistentNaming
-        /// <summary>
-        ///     Formats the specified format string.
-        /// </summary>
-        /// <param name="formatString"> The format string. </param>
-        /// <param name="args"> The args. </param>
-        /// <returns> </returns>
-        /// <remarks>
-        /// </remarks>
-        public static string format(this string formatString, params object[] args) {
-            if (args == null || args.Length == 0) {
-                return formatString;
-            }
-
-            try {
-                var replacedByName = false;
-                // first, try to replace
-                formatString = new Regex(@"\$\{(?<macro>\w*?)\}").Replace(formatString, new MatchEvaluator((m) => {
-                    var key = m.Groups["macro"].Value;
-
-                    var p = args[0].GetType().GetProperty(key);
-                    if (p != null) {
-                        replacedByName = true;
-                        return p.GetValue(args[0], null).ToString();
-                    }
-                    return "${{" + m.Groups["macro"].Value + "}}";
-                }));
-
-                // if it looks like it doesn't take parameters, (and yet we have args!)
-                // let's return a fix-me-format string.
-                if (!replacedByName && formatString.IndexOf('{') < 0) {
-                    return FixMeFormat(formatString, args);
-                }
-
-                return String.Format(CultureInfo.CurrentCulture, formatString, args);
-            } catch (Exception) {
-                // if we got an exception, let's at least return a string that we can use to figure out what parameters should have been matched vs what was passed.
-                return FixMeFormat(formatString, args);
-            }
-        }
-
-        private static string FixMeFormat(string formatString, object[] args) {
-            return args.Aggregate(formatString.Replace('{', '\u00ab').Replace('}', '\u00bb'), (current, arg) => current + string.Format(CultureInfo.CurrentCulture, " \u00ab{0}\u00bb", arg));
-        }
-
         public static IEnumerable<string> Quote(this IEnumerable<string> items) {
-            return items.Select(each => "'" + each + "'");
+            return items.Select(each => "'{each}'");
         }
 
         public static string JoinWithComma(this IEnumerable<string> items) {

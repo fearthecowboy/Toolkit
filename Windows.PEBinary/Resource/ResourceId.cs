@@ -82,62 +82,31 @@ namespace FearTheCowboy.Windows.Resource {
         /// <remarks>
         ///     If the resource Id is a string, it will be copied.
         /// </remarks>
-        public IntPtr Id
-        {
-            get
-            {
-                return _name;
-            }
-            set
-            {
-                _name = IsIntResource(value) ? value : Marshal.StringToHGlobalUni(Marshal.PtrToStringUni(value));
-            }
-        }
+        public IntPtr Id {get {return _name;} set {_name = IsIntResource(value) ? value : Marshal.StringToHGlobalUni(Marshal.PtrToStringUni(value));}}
 
         /// <summary>
         ///     String representation of a resource type name.
         /// </summary>
-        public string TypeName
-        {
-            get
-            {
-                return IsIntResource() ? ResourceType.ToString() : Name;
-            }
-        }
+        public string TypeName {get {return IsIntResource() ? ResourceType.ToString() : Name;}}
 
         /// <summary>
         ///     An enumerated resource type for built-in resource types only.
         /// </summary>
-        public ResourceTypes ResourceType
-        {
-            get
-            {
+        public ResourceTypes ResourceType {
+            get {
                 if (IsIntResource()) {
                     return (ResourceTypes)_name;
                 }
                 return ResourceTypes.RT_OTHER;
                 // throw new InvalidCastException(string.Format("Resource {0} is not of built-in type.", Name));
             }
-            set
-            {
-                _name = (IntPtr)value;
-            }
+            set {_name = (IntPtr)value;}
         }
 
         /// <summary>
         ///     Resource Id in a string format.
         /// </summary>
-        public string Name
-        {
-            get
-            {
-                return IsIntResource() ? _name.ToString() : Marshal.PtrToStringUni(_name);
-            }
-            set
-            {
-                _name = Marshal.StringToHGlobalUni(value);
-            }
-        }
+        public string Name {get {return IsIntResource() ? _name.ToString() : Marshal.PtrToStringUni(_name);} set {_name = Marshal.StringToHGlobalUni(value);}}
 
         /// <summary>
         ///     Returns true if the resource is an integer resource.

@@ -57,12 +57,6 @@ namespace FearTheCowboy.Windows.Resource {
         /// <summary>
         ///     A combined message of the inner and outer exception.
         /// </summary>
-        public override string Message
-        {
-            get
-            {
-                return OuterException != null ? string.Format("{0} {1}.", base.Message, OuterException.Message) : base.Message;
-            }
-        }
+        public override string Message {get {return OuterException != null ? $"{base.Message} {OuterException.Message}." : base.Message;}}
     }
 }

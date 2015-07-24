@@ -39,7 +39,7 @@ namespace FearTheCowboy.Ducktype {
             types = types ?? new Type[0];
 
             if (!tInterface.GetVirtualMethods().Any()) {
-                throw new Exception("Interface Type '{0}' doesn not have any virtual or abstract methods".format(tInterface.FullNiceName()));
+                throw new Exception($"Interface Type '{tInterface.FullNiceName()}' doesn not have any virtual or abstract methods");
             }
 
             if (!tInterface.CanCreateFrom(types)) {
@@ -47,13 +47,10 @@ namespace FearTheCowboy.Ducktype {
                 var badctors = FilterOnMissingDefaultConstructors(types).ToArray();
 
                 var msg = badctors.Length == 0 ? ""
-                    : "\r\nTypes ({0}) do not support a Default Constructor\r\n".format(badctors.Select(each => each.FullName).Quote().JoinWithComma());
+                    : $"\r\nTypes ({badctors.Select(each => each.FullName).Quote().JoinWithComma()}) do not support a Default Constructor\r\n";
 
                 msg += missing.Length == 0 ? "" :
-                    "\r\nTypes ({0}) are missing the following methods from interface ('{1}'):\r\n  {2}".format(
-                        types.Select(each => each.FullName).Quote().JoinWithComma(),
-                        tInterface.FullNiceName(),
-                        missing.Select(each => each.ToSignatureString()).Quote().JoinWith("\r\n  "));
+                    $"\r\nTypes ({types.Select(each => each.FullName).Quote().JoinWithComma()}) are missing the following methods from interface ('{tInterface.FullNiceName()}'):\r\n  {missing.Select(each => each.ToSignatureString()).Quote().JoinWith("\r\n  ")}";
 
                 throw new Exception(msg);
             }
@@ -132,7 +129,7 @@ namespace FearTheCowboy.Ducktype {
             }
 
             if (!tInterface.GetVirtualMethods().Any()) {
-                throw new Exception("Interface Type '{0}' doesn not have any virtual or abstract methods".format(tInterface.FullNiceName()));
+                throw new Exception($"Interface Type '{tInterface.FullNiceName()}' doesn not have any virtual or abstract methods");
             }
             instances = Flatten(instances).ToArray();
 
@@ -147,9 +144,7 @@ namespace FearTheCowboy.Ducktype {
 
             if (!tInterface.CanDynamicCastFrom(instances)) {
                 var missing = GetMethodsMissingFromInstances(tInterface, instances);
-                var msg = "\r\nObjects are missing the following methods from interface ('{0}'):\r\n  {1}".format(
-                    tInterface.FullNiceName(),
-                    missing.Select(each => each.ToSignatureString()).Quote().JoinWith("\r\n  "));
+                var msg = $"\r\nObjects are missing the following methods from interface ('{tInterface.FullNiceName()}'):\r\n  {missing.Select(each => each.ToSignatureString()).Quote().JoinWith("\r\n  ")}";
 
                 throw new Exception(msg);
             }

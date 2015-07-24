@@ -206,12 +206,7 @@ ignore=bug
         }
 
         public static string ToCommandLine(this IEnumerable<string> args) {
-            return args.Aggregate((current, each) => current + string.Format(@"{0}{1}{2}{3}",
-                current.Length > 0 ? " " : "",
-                each.IndexOf(' ') > -1 ? @"""" : "",
-                each,
-                current.Length > 0 ? " " : ""
-                ));
+            return args.Aggregate((current, each) => current + $@"{(current.Length > 0 ? " " : "")}{(each.IndexOf(' ') > -1 ? @"""" : "")}{each}{(current.Length > 0 ? " " : "")}");
         }
     }
 }

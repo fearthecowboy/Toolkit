@@ -102,65 +102,27 @@ namespace FearTheCowboy.Windows.Resource {
         /// <summary>
         ///     Version resource size in bytes.
         /// </summary>
-        public int Size
-        {
-            get
-            {
-                return _size;
-            }
-        }
+        public int Size {get {return _size;}}
 
         /// <summary>
         ///     Language ID.
         /// </summary>
-        public UInt16 Language
-        {
-            get
-            {
-                return _language;
-            }
-            set
-            {
-                _language = value;
-            }
-        }
+        public UInt16 Language {get {return _language;} set {_language = value;}}
 
         /// <summary>
         ///     Resource type.
         /// </summary>
-        public ResourceId Type
-        {
-            get
-            {
-                return _type;
-            }
-        }
+        public ResourceId Type {get {return _type;}}
 
         /// <summary>
         ///     String representation of the resource type.
         /// </summary>
-        public string TypeName
-        {
-            get
-            {
-                return _type.TypeName;
-            }
-        }
+        public string TypeName {get {return _type.TypeName;}}
 
         /// <summary>
         ///     Resource name.
         /// </summary>
-        public ResourceId Name
-        {
-            get
-            {
-                return _name;
-            }
-            set
-            {
-                _name = value;
-            }
-        }
+        public ResourceId Name {get {return _name;} set {_name = value;}}
 
         /// <summary>
         ///     Lock and read the resource.

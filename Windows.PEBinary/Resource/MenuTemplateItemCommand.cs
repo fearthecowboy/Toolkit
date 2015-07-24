@@ -52,13 +52,7 @@ namespace FearTheCowboy.Windows.Resource {
         /// <summary>
         ///     Returns true if the item is a separator.
         /// </summary>
-        public bool IsSeparator
-        {
-            get
-            {
-                return ((_header.mtOption & (uint)MenuFlags.MF_SEPARATOR) > 0) || (_header.mtOption == 0 && _menuString == null && MenuId == 0);
-            }
-        }
+        public bool IsSeparator {get {return ((_header.mtOption & (uint)MenuFlags.MF_SEPARATOR) > 0) || (_header.mtOption == 0 && _menuString == null && MenuId == 0);}}
 
         /// <summary>
         ///     Read a command menu item.
@@ -96,10 +90,9 @@ namespace FearTheCowboy.Windows.Resource {
         public override string ToString(int indent) {
             var sb = new StringBuilder();
             if (IsSeparator) {
-                sb.AppendLine(string.Format("{0}MENUITEM SEPARATOR", new String(' ', indent)));
+                sb.AppendLine($"{new String(' ', indent)}MENUITEM SEPARATOR");
             } else {
-                sb.AppendLine(string.Format("{0}MENUITEM \"{1}\", {2}", new String(' ', indent),
-                    _menuString == null ? string.Empty : _menuString.Replace("\t", @"\t"), MenuId));
+                sb.AppendLine($"{new String(' ', indent)}MENUITEM \"{(_menuString == null ? string.Empty : _menuString.Replace("\t", @"\t"))}\", {MenuId}");
             }
             return sb.ToString();
         }

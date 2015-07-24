@@ -36,7 +36,6 @@ namespace FearTheCowboy.Windows.Resource {
     using System;
     using System.IO;
     using System.Runtime.InteropServices;
-    using System.Text;
     using Enumerations;
 
     /// <summary>
@@ -91,9 +90,7 @@ namespace FearTheCowboy.Windows.Resource {
         /// </summary>
         /// <returns>Multi-line string.</returns>
         public override string ToString() {
-            var sb = new StringBuilder();
-            sb.AppendFormat("{0} {1}", Name.IsIntResource() ? Name.ToString() : "\"" + Name + "\"", Template);
-            return sb.ToString();
+            return $"{(Name.IsIntResource() ? Name.ToString() : $"\"{Name}\"")} {Template}";
         }
     }
 }

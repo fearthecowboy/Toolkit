@@ -73,33 +73,11 @@ namespace FearTheCowboy.Common.Collections {
             return false;
         }
 
-        public TValue this[TKey key]
-        {
-            get
-            {
-                return (TValue)base[key];
-            }
-            set
-            {
-                base[key] = value;
-            }
-        }
+        public TValue this[TKey key] {get {return (TValue)base[key];} set {base[key] = value;}}
 
-        public new ICollection<TKey> Keys
-        {
-            get
-            {
-                return new KeyCollection(this);
-            }
-        }
+        public new ICollection<TKey> Keys {get {return new KeyCollection(this);}}
 
-        public new ICollection<TValue> Values
-        {
-            get
-            {
-                return new ValueCollection(this);
-            }
-        }
+        public new ICollection<TValue> Values {get {return new ValueCollection(this);}}
 
         internal class KeyCollection : ICollection<TKey> {
             private readonly OrderedDictionary _dictionary;
@@ -136,21 +114,9 @@ namespace FearTheCowboy.Common.Collections {
                 throw new NotImplementedException();
             }
 
-            public int Count
-            {
-                get
-                {
-                    return _dictionary.Keys.Count;
-                }
-            }
+            public int Count {get {return _dictionary.Keys.Count;}}
 
-            public bool IsReadOnly
-            {
-                get
-                {
-                    return true;
-                }
-            }
+            public bool IsReadOnly {get {return true;}}
         }
 
         internal class KvpEnumerator : IEnumerator<KeyValuePair<TKey, TValue>> {
@@ -171,21 +137,9 @@ namespace FearTheCowboy.Common.Collections {
                 _enumerator.Reset();
             }
 
-            public KeyValuePair<TKey, TValue> Current
-            {
-                get
-                {
-                    return new KeyValuePair<TKey, TValue>((TKey)_enumerator.Key, (TValue)_enumerator.Value);
-                }
-            }
+            public KeyValuePair<TKey, TValue> Current {get {return new KeyValuePair<TKey, TValue>((TKey)_enumerator.Key, (TValue)_enumerator.Value);}}
 
-            object IEnumerator.Current
-            {
-                get
-                {
-                    return Current;
-                }
-            }
+            object IEnumerator.Current {get {return Current;}}
         }
 
         internal class ValueCollection : ICollection<TValue> {
@@ -223,21 +177,9 @@ namespace FearTheCowboy.Common.Collections {
                 throw new NotImplementedException();
             }
 
-            public int Count
-            {
-                get
-                {
-                    return _dictionary.Values.Count;
-                }
-            }
+            public int Count {get {return _dictionary.Values.Count;}}
 
-            public bool IsReadOnly
-            {
-                get
-                {
-                    return true;
-                }
-            }
+            public bool IsReadOnly {get {return true;}}
         }
     }
 }

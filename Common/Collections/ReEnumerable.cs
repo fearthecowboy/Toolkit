@@ -42,10 +42,8 @@ namespace FearTheCowboy.Common.Collections {
         /// <summary>
         /// </summary>
         /// <param name="index"></param>
-        public T this[int index]
-        {
-            get
-            {
+        public T this[int index] {
+            get {
                 if (ItemExists(index)) {
                     return List[index];
                 }
@@ -55,13 +53,7 @@ namespace FearTheCowboy.Common.Collections {
 
         /// <summary>
         /// </summary>
-        public int Count
-        {
-            get
-            {
-                return this.Count();
-            }
-        }
+        public int Count {get {return this.Count();}}
 
         /// <summary>
         /// </summary>

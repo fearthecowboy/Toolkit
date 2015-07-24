@@ -18,8 +18,8 @@ namespace FearTheCowboy.Common.Collections {
     using System.Reflection;
 
     public static class Extensions {
-        private static readonly MethodInfo _castMethod = typeof(Enumerable).GetMethod("Cast");
-        private static readonly MethodInfo _toArrayMethod = typeof(Enumerable).GetMethod("ToArray");
+        private static readonly MethodInfo _castMethod = typeof (Enumerable).GetMethod("Cast");
+        private static readonly MethodInfo _toArrayMethod = typeof (Enumerable).GetMethod("ToArray");
         private static readonly IDictionary<Type, MethodInfo> _castMethods = new Dictionary<Type, MethodInfo>();
         private static readonly IDictionary<Type, MethodInfo> _toArrayMethods = new Dictionary<Type, MethodInfo>();
 
@@ -161,14 +161,12 @@ namespace FearTheCowboy.Common.Collections {
             }
         }
 
-        public static object ToIEnumerableT(this IEnumerable<object> enumerable, Type elementType)
-        {
-            return _castMethods.GetOrAdd(elementType, () => _castMethod.MakeGenericMethod(elementType)).Invoke(null, new object[] { enumerable });
+        public static object ToIEnumerableT(this IEnumerable<object> enumerable, Type elementType) {
+            return _castMethods.GetOrAdd(elementType, () => _castMethod.MakeGenericMethod(elementType)).Invoke(null, new object[] {enumerable});
         }
 
-        public static object ToArrayT(this IEnumerable<object> enumerable, Type elementType)
-        {
-            return _toArrayMethods.GetOrAdd(elementType, () => _toArrayMethod.MakeGenericMethod(elementType)).Invoke(null, new[] { enumerable.ToIEnumerableT(elementType) });
+        public static object ToArrayT(this IEnumerable<object> enumerable, Type elementType) {
+            return _toArrayMethods.GetOrAdd(elementType, () => _toArrayMethod.MakeGenericMethod(elementType)).Invoke(null, new[] {enumerable.ToIEnumerableT(elementType)});
         }
     }
 }

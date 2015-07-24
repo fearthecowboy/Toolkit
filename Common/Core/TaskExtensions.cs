@@ -12,19 +12,15 @@
 //  
 
 namespace FearTheCowboy.Common.Core {
-    using System.Text.RegularExpressions;
+    using System;
+    using System.Collections.Generic;
+    using System.Runtime.CompilerServices;
+    using System.Threading.Tasks;
 
-    /// <summary>
-    /// </summary>
-    public static class RegexExtensions {
-        /// <summary>
-        /// </summary>
-        /// <param name="match"></param>
-        /// <param name="group"></param>
-        /// <param name="_default"></param>
-        /// <returns></returns>
-        public static string GetValue(this Match match, string group, string _default = null) {
-            return (match.Groups[@group].Success ? match.Groups[@group].Captures[0].Value : _default ?? string.Empty).Trim('-', ' ');
-        }
+    public static class TaskExtensions {
+        public static TaskAwaiter GetAwaiter(this IEnumerable<Task> tasks) => Task.WhenAll(tasks).GetAwaiter();
+        public static TaskAwaiter GetAwaiter(this Action action) => Task.Run(action).GetAwaiter();
+        public static TaskAwaiter<T> GetAwaiter<T>(this Func<T> function) => Task.Run(function).GetAwaiter();
+        public static Task<T> ToResultTask<T>(this T obj) => Task.FromResult(obj);
     }
 }

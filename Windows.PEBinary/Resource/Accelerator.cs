@@ -28,10 +28,8 @@ namespace FearTheCowboy.Windows.Resource {
         /// <summary>
         ///     String representation of the accelerator key.
         /// </summary>
-        public string Key
-        {
-            get
-            {
+        public string Key {
+            get {
                 var key = Enum.GetName(typeof (VirtualKeys), _accel.key);
                 return string.IsNullOrEmpty(key) ? ((char)_accel.key).ToString() : key;
             }
@@ -40,17 +38,7 @@ namespace FearTheCowboy.Windows.Resource {
         /// <summary>
         ///     An unsigned integer value that identifies the accelerator.
         /// </summary>
-        public UInt32 Command
-        {
-            get
-            {
-                return _accel.cmd;
-            }
-            set
-            {
-                _accel.cmd = value;
-            }
-        }
+        public UInt32 Command {get {return _accel.cmd;} set {_accel.cmd = value;}}
 
         /// <summary>
         ///     Read the accelerator.
@@ -78,7 +66,7 @@ namespace FearTheCowboy.Windows.Resource {
         /// </summary>
         /// <returns>String representation of the accelerator.</returns>
         public override string ToString() {
-            return string.Format("{0}, {1}, {2}", Key, Command, ResourceUtil.FlagsToString<AcceleratorVirtualKey>(_accel.fVirt).Replace(" |", ","));
+            return $"{Key}, {Command}, {ResourceUtil.FlagsToString<AcceleratorVirtualKey>(_accel.fVirt).Replace(" |", ",")}";
         }
     }
 }

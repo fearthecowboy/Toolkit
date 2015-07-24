@@ -78,43 +78,17 @@ namespace FearTheCowboy.Windows.Resource {
         /// <summary>
         ///     Dialog caption.
         /// </summary>
-        public ResourceId CaptionId
-        {
-            get
-            {
-                return _captionId;
-            }
-            set
-            {
-                _captionId = value;
-            }
-        }
+        public ResourceId CaptionId {get {return _captionId;} set {_captionId = value;}}
 
         /// <summary>
         ///     Window class Id.
         /// </summary>
-        public ResourceId ControlClassId
-        {
-            get
-            {
-                return _controlClassId;
-            }
-            set
-            {
-                _controlClassId = value;
-            }
-        }
+        public ResourceId ControlClassId {get {return _controlClassId;} set {_controlClassId = value;}}
 
         /// <summary>
         ///     Window class of the control.
         /// </summary>
-        public DialogItemClass ControlClass
-        {
-            get
-            {
-                return (DialogItemClass)ControlClassId.Id;
-            }
-        }
+        public DialogItemClass ControlClass {get {return (DialogItemClass)ControlClassId.Id;}}
 
         /// <summary>
         ///     Additional creation data.

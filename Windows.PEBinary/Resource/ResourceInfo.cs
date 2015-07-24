@@ -62,34 +62,14 @@ namespace FearTheCowboy.Windows.Resource {
         /// </summary>
         /// <param name="type">Resource type.</param>
         /// <returns>A collection of resources of a given type.</returns>
-        public List<Resource> this[ResourceTypes type]
-        {
-            get
-            {
-                return Resources[new ResourceId(type)];
-            }
-            set
-            {
-                Resources[new ResourceId(type)] = value;
-            }
-        }
+        public List<Resource> this[ResourceTypes type] {get {return Resources[new ResourceId(type)];} set {Resources[new ResourceId(type)] = value;}}
 
         /// <summary>
         ///     A collection of resources.
         /// </summary>
         /// <param name="type">Resource type.</param>
         /// <returns>A collection of resources of a given type.</returns>
-        public List<Resource> this[string type]
-        {
-            get
-            {
-                return Resources[new ResourceId(type)];
-            }
-            set
-            {
-                Resources[new ResourceId(type)] = value;
-            }
-        }
+        public List<Resource> this[string type] {get {return Resources[new ResourceId(type)];} set {Resources[new ResourceId(type)] = value;}}
 
         #region IDisposable Members
 
@@ -140,7 +120,7 @@ namespace FearTheCowboy.Windows.Resource {
                     throw new Win32Exception(Marshal.GetLastWin32Error());
                 }
             } catch (Exception ex) {
-                throw new LoadException(string.Format("Error loading '{0}'.", filename), _innerException, ex);
+                throw new LoadException($"Error loading '{filename}'.", _innerException, ex);
             }
         }
 
@@ -245,7 +225,7 @@ namespace FearTheCowboy.Windows.Resource {
             try {
                 resources.Add(CreateResource(hModule, hResourceGlobal, type, name, wIDLanguage, size));
             } catch (Exception ex) {
-                _innerException = new Exception(string.Format("Error loading resource '{0}' {1} ({2}).", name, type.TypeName, wIDLanguage), ex);
+                _innerException = new Exception($"Error loading resource '{name}' {type.TypeName} ({wIDLanguage}).", ex);
                 throw ex;
             }
 

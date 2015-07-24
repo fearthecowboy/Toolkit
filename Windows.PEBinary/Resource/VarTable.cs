@@ -77,17 +77,7 @@ namespace FearTheCowboy.Windows.Resource {
         /// </summary>
         /// <param name="key">Language ID.</param>
         /// <returns>Code page identifier.</returns>
-        public UInt16 this[UInt16 key]
-        {
-            get
-            {
-                return Languages[key];
-            }
-            set
-            {
-                Languages[key] = value;
-            }
-        }
+        public UInt16 this[UInt16 key] {get {return Languages[key];} set {Languages[key] = value;}}
 
         /// <summary>
         ///     Read a table of language and code page identifier pairs.
@@ -137,13 +127,12 @@ namespace FearTheCowboy.Windows.Resource {
         /// <returns>String representation of the var table.</returns>
         public override string ToString(int indent) {
             var sb = new StringBuilder();
-            sb.AppendLine(string.Format("{0}BEGIN", new String(' ', indent)));
+            sb.AppendLine($"{new String(' ', indent)}BEGIN");
             var languagesEnumerator = Languages.GetEnumerator();
             while (languagesEnumerator.MoveNext()) {
-                sb.AppendLine(string.Format("{0}VALUE \"Translation\", 0x{1:x}, 0x{2:x}", new String(' ', indent + 1), languagesEnumerator.Current.Key,
-                    languagesEnumerator.Current.Value));
+                sb.AppendLine($"{new String(' ', indent + 1)}VALUE \"Translation\", 0x{languagesEnumerator.Current.Key:x}, 0x{languagesEnumerator.Current.Value:x}");
             }
-            sb.AppendLine(string.Format("{0}END", new String(' ', indent)));
+            sb.AppendLine($"{new String(' ', indent)}END");
             return sb.ToString();
         }
     }

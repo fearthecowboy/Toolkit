@@ -75,17 +75,7 @@ namespace FearTheCowboy.Windows.Resource {
         /// <summary>
         ///     Type of the group icon resource.
         /// </summary>
-        public GroupType Type
-        {
-            get
-            {
-                return (GroupType)_header.wType;
-            }
-            set
-            {
-                _header.wType = (byte)value;
-            }
-        }
+        public GroupType Type {get {return (GroupType)_header.wType;} set {_header.wType = (byte)value;}}
 
         /// <summary>
         ///     Collection of icons in an .ico file.

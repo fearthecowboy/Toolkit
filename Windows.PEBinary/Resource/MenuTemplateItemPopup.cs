@@ -78,7 +78,7 @@ namespace FearTheCowboy.Windows.Resource {
         /// <returns>String representation.</returns>
         public override string ToString(int indent) {
             var sb = new StringBuilder();
-            sb.AppendLine(string.Format("{0}POPUP \"{1}\"", new String(' ', indent), _menuString == null ? string.Empty : _menuString.Replace("\t", @"\t")));
+            sb.AppendLine($"{new String(' ', indent)}POPUP \"{(_menuString == null ? string.Empty : _menuString.Replace("\t", @"\t"))}\"");
             sb.Append(SubMenuItems.ToString(indent));
             return sb.ToString();
         }

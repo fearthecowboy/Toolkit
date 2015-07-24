@@ -78,18 +78,15 @@ namespace FearTheCowboy.Windows.Resource {
             : base(IntPtr.Zero, IntPtr.Zero, new ResourceId(ResourceTypes.RT_MANIFEST), new ResourceId((uint)manifestType), Kernel32.Constants.LANG_NEUTRAL, 0
                 ) {
             _manifest = new XmlDocument();
-            _manifest.LoadXml("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>" +
-                              "<assembly xmlns=\"urn:schemas-microsoft-com:asm.v1\" manifestVersion=\"1.0\" />");
+            _manifest.LoadXml(@"<?xml version=""1.0"" encoding=""UTF-8"" standalone=""yes""?><assembly xmlns=""urn:schemas-microsoft-com:asm.v1"" manifestVersion=""1.0"" />");
             _size = Encoding.UTF8.GetBytes(_manifest.OuterXml).Length;
         }
 
         /// <summary>
         ///     Embedded XML manifest.
         /// </summary>
-        public XmlDocument Manifest
-        {
-            get
-            {
+        public XmlDocument Manifest {
+            get {
                 if (_manifest == null && _data != null) {
                     var unicodeBOM = (_data.Length >= 3 && _data[0] == utf8_bom[0] && _data[1] == utf8_bom[1] && _data[2] == utf8_bom[2]);
 
@@ -101,8 +98,7 @@ namespace FearTheCowboy.Windows.Resource {
 
                 return _manifest;
             }
-            set
-            {
+            set {
                 _manifest = value;
                 _data = null;
                 _size = PrettyManifestXml().Length;
@@ -112,14 +108,9 @@ namespace FearTheCowboy.Windows.Resource {
         /// <summary>
         ///     Embedded XML manifest.
         /// </summary>
-        public string ManifestText
-        {
-            get
-            {
-                return Manifest.OuterXml;
-            }
-            set
-            {
+        public string ManifestText {
+            get {return Manifest.OuterXml;}
+            set {
                 _manifest = new XmlDocument();
                 _manifest.LoadXml(value);
                 _data = null;
@@ -130,17 +121,7 @@ namespace FearTheCowboy.Windows.Resource {
         /// <summary>
         ///     Manifest type.
         /// </summary>
-        public ManifestType ManifestType
-        {
-            get
-            {
-                return (ManifestType)_name.Id;
-            }
-            set
-            {
-                _name = new ResourceId((IntPtr)value);
-            }
-        }
+        public ManifestType ManifestType {get {return (ManifestType)_name.Id;} set {_name = new ResourceId((IntPtr)value);}}
 
         /// <summary>
         ///     Read the resource.

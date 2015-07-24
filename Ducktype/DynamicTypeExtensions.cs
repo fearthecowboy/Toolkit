@@ -23,13 +23,7 @@ namespace FearTheCowboy.Ducktype {
 
         private static MethodInfo _asMethod;
 
-        private static MethodInfo AsMethod
-        {
-            get
-            {
-                return _asMethod ?? (_asMethod = typeof (DynamicInterfaceExtensions).GetMethod("As", BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic, null, new Type[] {typeof (Object)}, null));
-            }
-        }
+        private static MethodInfo AsMethod {get {return _asMethod ?? (_asMethod = typeof (DynamicInterfaceExtensions).GetMethod("As", BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic, null, new Type[] {typeof (Object)}, null));}}
 
         internal static void OverrideInitializeLifetimeService(this TypeBuilder dynamicType) {
             // add override of InitLifetimeService so this object doesn't fall prey to timeouts

@@ -81,10 +81,8 @@ namespace FearTheCowboy.Windows.Resource {
         /// <summary>
         ///     Returns the type of the resource in this group.
         /// </summary>
-        public ResourceTypes ResourceType
-        {
-            get
-            {
+        public ResourceTypes ResourceType {
+            get {
                 switch (_header.wType) {
                     case 1:
                         return ResourceTypes.RT_ICON;

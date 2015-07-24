@@ -92,32 +92,12 @@ namespace FearTheCowboy.Windows.Resource {
         /// </summary>
         /// <param name="id">String Id.</param>
         /// <returns>A string of a given Id.</returns>
-        public string this[UInt16 id]
-        {
-            get
-            {
-                return Strings[id];
-            }
-            set
-            {
-                Strings[id] = value;
-            }
-        }
+        public string this[UInt16 id] {get {return Strings[id];} set {Strings[id] = value;}}
 
         /// <summary>
         ///     String table block id.
         /// </summary>
-        public UInt16 BlockId
-        {
-            get
-            {
-                return (UInt16)Name.Id.ToInt32();
-            }
-            set
-            {
-                Name = new ResourceId(value);
-            }
-        }
+        public UInt16 BlockId {get {return (UInt16)Name.Id.ToInt32();} set {Name = new ResourceId(value);}}
 
         /// <summary>
         ///     A string with ID, stringId, is located in the block with ID given by the following formula.
@@ -171,7 +151,7 @@ namespace FearTheCowboy.Windows.Resource {
             sb.AppendLine("BEGIN");
             var stringEnumerator = Strings.GetEnumerator();
             while (stringEnumerator.MoveNext()) {
-                sb.AppendLine(string.Format(" {0} {1}", stringEnumerator.Current.Key, stringEnumerator.Current.Value));
+                sb.AppendLine($" {stringEnumerator.Current.Key} {stringEnumerator.Current.Value}");
             }
             sb.AppendLine("END");
             return sb.ToString();

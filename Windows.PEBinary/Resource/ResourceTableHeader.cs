@@ -78,28 +78,12 @@ namespace FearTheCowboy.Windows.Resource {
         /// <summary>
         ///     Resource table key.
         /// </summary>
-        public string Key
-        {
-            get
-            {
-                return _key;
-            }
-        }
+        public string Key {get {return _key;}}
 
         /// <summary>
         ///     Resource header.
         /// </summary>
-        public ResourceHeader Header
-        {
-            get
-            {
-                return _header;
-            }
-            set
-            {
-                _header = value;
-            }
-        }
+        public ResourceHeader Header {get {return _header;} set {_header = value;}}
 
         /// <summary>
         ///     Read the resource header, return a pointer to the end of it.

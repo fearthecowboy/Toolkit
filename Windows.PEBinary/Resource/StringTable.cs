@@ -77,39 +77,29 @@ namespace FearTheCowboy.Windows.Resource {
         ///     Each Microsoft Standard Language identifier contains two parts: the low-order 10 bits
         ///     specify the major language, and the high-order 6 bits specify the sublanguage.
         /// </summary>
-        public UInt16 LanguageID
-        {
-            get
-            {
+        public UInt16 LanguageID {
+            get {
                 if (string.IsNullOrEmpty(_key)) {
                     return 0;
                 }
 
                 return Convert.ToUInt16(_key.Substring(0, 4), 16);
             }
-            set
-            {
-                _key = string.Format("{0:x4}{1:x4}", value, CodePage);
-            }
+            set {_key = $"{value:x4}{CodePage:x4}";}
         }
 
         /// <summary>
         ///     The four least significant digits of the key represent the code page for which the data is formatted.
         /// </summary>
-        public UInt16 CodePage
-        {
-            get
-            {
+        public UInt16 CodePage {
+            get {
                 if (string.IsNullOrEmpty(_key)) {
                     return 0;
                 }
 
                 return Convert.ToUInt16(_key.Substring(4, 4), 16);
             }
-            set
-            {
-                _key = string.Format("{0:x4}{1:x4}", LanguageID, value);
-            }
+            set {_key = $"{LanguageID:x4}{value:x4}";}
         }
 
         /// <summary>
@@ -117,15 +107,12 @@ namespace FearTheCowboy.Windows.Resource {
         /// </summary>
         /// <param name="key">Key.</param>
         /// <returns>An entry within the string table.</returns>
-        public string this[string key]
-        {
-            get
-            {
+        public string this[string key] {
+            get {
                 var v = Strings[key];
                 return v == null ? null : Strings[key].Value;
             }
-            set
-            {
+            set {
                 StringTableEntry sr = null;
                 if (!Strings.TryGetValue(key, out sr)) {
                     sr = new StringTableEntry(key);
@@ -182,14 +169,14 @@ namespace FearTheCowboy.Windows.Resource {
         /// <returns>String representation of the strings table.</returns>
         public override string ToString(int indent) {
             var sb = new StringBuilder();
-            sb.AppendLine(string.Format("{0}BEGIN", new String(' ', indent)));
-            sb.AppendLine(string.Format("{0}BLOCK \"{1}\"", new String(' ', indent + 1), _key));
-            sb.AppendLine(string.Format("{0}BEGIN", new String(' ', indent + 1)));
+            sb.AppendLine($"{new String(' ', indent)}BEGIN");
+            sb.AppendLine($"{new String(' ', indent + 1)}BLOCK \"{_key}\"");
+            sb.AppendLine($"{new String(' ', indent + 1)}BEGIN");
             foreach (var stringResource in Strings.Values) {
-                sb.AppendLine(string.Format("{0}VALUE \"{1}\", \"{2}\"", new String(' ', indent + 2), stringResource.Key, stringResource.StringValue));
+                sb.AppendLine($"{new String(' ', indent + 2)}VALUE \"{stringResource.Key}\", \"{stringResource.StringValue}\"");
             }
-            sb.AppendLine(string.Format("{0}END", new String(' ', indent + 1)));
-            sb.AppendLine(string.Format("{0}END", new String(' ', indent)));
+            sb.AppendLine($"{new String(' ', indent + 1)}END");
+            sb.AppendLine($"{new String(' ', indent)}END");
             return sb.ToString();
         }
     }

@@ -74,17 +74,7 @@ namespace FearTheCowboy.Windows.Resource {
         /// <summary>
         ///     Raw resource data.
         /// </summary>
-        public byte[] Data
-        {
-            get
-            {
-                return _data;
-            }
-            set
-            {
-                _data = value;
-            }
-        }
+        public byte[] Data {get {return _data;} set {_data = value;}}
 
         /// <summary>
         ///     Read a generic resource.
