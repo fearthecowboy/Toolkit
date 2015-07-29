@@ -2,13 +2,13 @@
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Release</Configuration>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{BB17618D-C23E-452D-A1A3-E0E8DAA74FCE}</ProjectGuid>
+    <ProjectGuid>{4E0B1CFC-F3EA-45A1-8B77-AD4147D09260}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>FearTheCowboy.Common</RootNamespace>
-    <AssemblyName>FearTheCowboy.Common</AssemblyName>
+    <RootNamespace>FearTheCowboy.MessagePack</RootNamespace>
+    <AssemblyName>FearTheCowboy.MessagePack</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -18,6 +18,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
+    <OutputPath Condition=" '$(OutputPath)'=='' ">$(SolutionDir)output\$(Configuration)\</OutputPath>
     <DefineConstants>$(DefineConstants);DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -25,6 +26,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
+    <OutputPath Condition=" '$(OutputPath)'=='' ">$(SolutionDir)output\$(Configuration)\</OutputPath>
     <DefineConstants>$(DefineConstants);TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -35,36 +37,56 @@
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Collections\Extensions.cs" />
-    <Compile Include="Collections\List.cs" />
-    <Compile Include="Collections\MutableEnumerable.cs" />
-    <Compile Include="Collections\OrderedDictionary.cs" />
-    <Compile Include="Collections\ReEnumerable.cs" />
-    <Compile Include="Core\CompareExtensions.cs" />
-    <Compile Include="Core\Comparer.cs" />
-    <Compile Include="Core\EncodingExtensions.cs" />
-    <Compile Include="Core\EqualityComparer.cs" />
-    <Compile Include="Core\ExceptionExtensions.cs" />
-    <Compile Include="Core\RegexExtensions.cs" />
-    <Compile Include="Core\StringExtensions.cs" />
-    <Compile Include="Core\TaskExtensions.cs" />
-    <Compile Include="Core\Tasks.cs" />
+    <Compile Include="Persistence\PersistenceExtensions.cs" />
+    <Compile Include="Types\Array.cs" />
+    <Compile Include="Utility\BigEndianBitConverter.cs" />
+    <Compile Include="Types\Binary.cs" />
+    <Compile Include="Types\Boolean.cs" />
+    <Compile Include="Utility\ChildMessageBuffer.cs" />
+    <Compile Include="Types\ContainerMessage.cs" />
+    <Compile Include="Types\ExtBinary.cs" />
+    <Compile Include="Types\Float32.cs" />
+    <Compile Include="Types\Float64.cs" />
+    <Compile Include="Types\Format.cs" />
+    <Compile Include="Types\Int16.cs" />
+    <Compile Include="Types\Int32.cs" />
+    <Compile Include="Types\Int64.cs" />
+    <Compile Include="Types\Int8.cs" />
+    <Compile Include="Types\Map.cs" />
+    <Compile Include="Message.cs" />
+    <Compile Include="Utility\Extensions.cs" />
+    <Compile Include="Utility\MessageBuffer.cs" />
+    <Compile Include="Utility\MessageStream.cs" />
+    <Compile Include="Types\Nil.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utility\StaticMessageBuffer.cs" />
+    <Compile Include="Types\String.cs" />
+    <Compile Include="Types\UInt16.cs" />
+    <Compile Include="Types\UInt32.cs" />
+    <Compile Include="Types\UInt64.cs" />
+    <Compile Include="Types\UInt8.cs" />
+    <Compile Include="Types\Unused.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Common.nuspec" />
+    <None Include="MessagePack.nuspec">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Persistence\" />
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{BB17618D-C23E-452D-A1A3-E0E8DAA74FCE}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), solution.targets))\solution.targets" Condition="Exists('$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), solution.targets))\solution.targets')" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
   </Target>

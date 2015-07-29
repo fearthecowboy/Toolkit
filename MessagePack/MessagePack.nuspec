@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>FearTheCowboy.MessagePack</id>
+    <version>$version$</version>
+    <title>FearTheCowboy's Incredibly Useful Toolkit (MessagePack)</title>
+    <authors>Garrett Serack</authors>
+    <owners>Garrett Serack</owners>
+    <licenseUrl>http://opensource.org/licenses/Apache-2.0</licenseUrl>
+    <projectUrl>http://github.com/fearthecowboy/toolkit</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>
+      A MessagePack implementation focused on speed.
+    </description>
+    <summary>MessagePack Deserializer.</summary>
+    <releaseNotes></releaseNotes>
+    <copyright>Copyright 2015</copyright>
+    <tags>Toolkit</tags>
+  </metadata>
+</package>

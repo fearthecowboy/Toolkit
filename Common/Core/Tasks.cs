@@ -13,37 +13,43 @@
 
 namespace FearTheCowboy.Common.Core {
     using System;
+    using System.Collections.Concurrent;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Runtime.CompilerServices;
     using System.Threading.Tasks;
 
     public class Tasks {
-        private readonly List<Task> _tasks = new List<Task>();
+        private ConcurrentBag<Task> _tasks = new ConcurrentBag<Task>();
         public TaskAwaiter GetAwaiter() => Task.WhenAll(_tasks).GetAwaiter();
 
         public static Tasks operator +(Tasks tasks, Task task) {
             tasks._tasks.Add(task);
+            tasks.Collect();
             return tasks;
         }
 
-        /// <summary>
-        ///     Starts the action as a background task, and adds it to the collection
-        ///     of tasks.
-        /// </summary>
-        /// <param name="tasks"></param>
-        /// <param name="action"></param>
-        /// Example:
-        /// var tasks = new Tasks();
-        /// tasks += () => {
-        /// // this runs in an alternate thread!
-        /// Thread.Sleep(1000);
-        /// };
-        /// 
-        /// await tasks;
-        /// <returns></returns>
         public static Tasks operator +(Tasks tasks, Action action) {
-            tasks._tasks.Add(Task.Factory.StartNew(action));
+            tasks._tasks.Add(Task.Run(action));
+            tasks.Collect();
             return tasks;
+        }
+
+        private void Collect() {
+            // if there are more than 10 tasks, let's clean it up.
+            if(_tasks.Count > 10) {
+                // create a new bag.
+                var newtasks = new ConcurrentBag<Task>();
+                var oldTasks = _tasks;
+                newtasks.Add(Task.Run(() => {
+                    // copy items over from the old bag that are still running.
+                    foreach(var t in oldTasks.Where(each => !each.IsCompleted)) {
+                        newtasks.Add(t);
+                    }
+                }));
+                // use the new bag from here on.
+                _tasks = newtasks;
+            }
         }
     }
 }
