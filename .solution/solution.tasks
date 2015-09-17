@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <UsingTask TaskName="RegexUpdateFile" TaskFactory="CodeTaskFactory" AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.v4.0.dll">
+    <ParameterGroup>
+        <Files ParameterType="Microsoft.Build.Framework.ITaskItem[]" Required="true" />
+        <Regex ParameterType="System.String" Required="true" />
+        <ReplacementText ParameterType="System.String" Required="true" />
+    </ParameterGroup>
+    <Task>
+        <Reference Include="System.Core" />
+        <Using Namespace="System" />
+        <Using Namespace="System.IO" />
+        <Using Namespace="System.Text.RegularExpressions" />
+        <Using Namespace="Microsoft.Build.Framework" />
+        <Using Namespace="Microsoft.Build.Utilities" />
+        <Code Type="Fragment" Language="cs">
+            <![CDATA[
+            try {
+                var rx = new System.Text.RegularExpressions.Regex(this.Regex);
+                for (int i = 0; i < Files.Length; ++i)
+                {
+                    var path = Files[i].GetMetadata("FullPath");
+                    if (!File.Exists(path)) continue;
+
+                    var j = 0;
+                    while( j < 10 ) {
+                        try {
+                            var txt = File.ReadAllText(path);
+                            txt = rx.Replace(txt, this.ReplacementText);
+                            File.WriteAllText(path, txt);
+                            break;
+                        } catch  {
+                            j++;
+                        }
+                    }
+                }
+                return true;
+            }
+            catch (Exception ex) {
+                Log.LogErrorFromException(ex);
+                // BEEEP
+                System.Console.Beep(200,200);
+                return false;
+            }
+        ]]>
+        </Code>
+    </Task>
+  </UsingTask>
+
+  <UsingTask TaskName="PowerShell" TaskFactory="CodeTaskFactory" AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.core.dll">
+    <ParameterGroup>
+      <ScriptBlock ParameterType="System.String" Required="true" />
+    </ParameterGroup>
+    <Task>
+      <Reference Include="$(MSBuildToolsPath)\Microsoft.Build.Tasks.core.dll" />
+      <Code Type="Class" Language="cs"><![CDATA[
+            public class PowerShell : Microsoft.Build.Tasks.Exec {public string ScriptBlock {set { EchoOff=true; Command = @"@powershell ""Invoke-Command -ScriptBlock { $errorActionPreference='Stop'; "+value.Replace("\"","\\\"").Replace("\r\n",";").Replace("\n",";").Replace("\r",";")+@" ; exit $LASTEXITCODE } """; } }
+      }]]></Code>
+    </Task>
+  </UsingTask>
+
+</Project> 

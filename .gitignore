@@ -108,4 +108,6 @@ manifests/
 xunit-test-results.xml
 signed/
 .vs/
-log.txt
+log.txt*.nuget.props
+*.nuget.targets
+*.lock.json

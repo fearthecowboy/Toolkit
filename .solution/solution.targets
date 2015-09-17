@@ -1,66 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(SolutionDir)\.solution\solution.tasks" />
 
-<PropertyGroup>
+  <PropertyGroup>
     <CompileDependsOn>
         CommonBuildDefineModifiedAssemblyVersion;
         $(CompileDependsOn);
     </CompileDependsOn>
-</PropertyGroup>
-
-<UsingTask TaskName="RegexUpdateFile" TaskFactory="CodeTaskFactory" AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.v4.0.dll">
-    <ParameterGroup>
-        <Files ParameterType="Microsoft.Build.Framework.ITaskItem[]" Required="true" />
-        <Regex ParameterType="System.String" Required="true" />
-        <ReplacementText ParameterType="System.String" Required="true" />
-    </ParameterGroup>
-    <Task>
-        <Reference Include="System.Core" />
-        <Using Namespace="System" />
-        <Using Namespace="System.IO" />
-        <Using Namespace="System.Text.RegularExpressions" />
-        <Using Namespace="Microsoft.Build.Framework" />
-        <Using Namespace="Microsoft.Build.Utilities" />
-        <Code Type="Fragment" Language="cs">
-            <![CDATA[
-            Exception ex1 = null;
-            
-            for(int x = 0; x< 5 ; x++ ) {
-                try {
-                    var rx = new System.Text.RegularExpressions.Regex(this.Regex);
-                    for (int i = 0; i < Files.Length; ++i)
-                    {
-                        var path = Files[i].GetMetadata("FullPath");
-                        if (!File.Exists(path)) continue;
-
-                        var txt = File.ReadAllText(path);
-                        txt = rx.Replace(txt, this.ReplacementText);
-                        File.WriteAllText(path, txt);
-                    }
-                    return true;
-                }
-                catch (Exception ex) {
-                    ex1 = ex;
-                    // return false;
-                    // try again in 500ms...
-                    System.Console.Beep(100,500);
-                }
-            }
-            if( ex1 != null ) {
-                Log.LogErrorFromException(ex1);
-                return false;
-            }
-        ]]>
-        </Code>
-    </Task>
-  </UsingTask>
+  </PropertyGroup>
   
   <!--
     Creates modified version of AssemblyInfo.cs, replaces [AssemblyVersion] attribute with the one specifying actual build version (from MSBuild properties), and includes that file instead of the original AssemblyInfo.cs in the compilation.
 
     Works with both, .cs and .vb version of the AssemblyInfo file, meaning it supports C# and VB.Net projects simultaneously.
 -->
-<Target Name="CommonBuildDefineModifiedAssemblyVersion" Condition="'$(VersionAssembly)' != ''">
+  <Target Name="CommonBuildDefineModifiedAssemblyVersion" Condition="'$(VersionAssembly)' != ''">
     <!-- Find AssemblyInfo.cs or AssemblyInfo.vb in the "Compile" Items. Remove it from "Compile" Items because we will use a modified version instead. -->
     <ItemGroup>
         <OriginalAssemblyInfo Include="@(Compile)" Condition="%(Filename) == 'AssemblyInfo' And (%(Extension) == '.vb' Or %(Extension) == '.cs')" />
@@ -82,5 +36,22 @@
     <ItemGroup>
         <Compile Include="@(ModifiedAssemblyInfo)" />
     </ItemGroup>
-</Target>
+  </Target>
+
+  <Target Name="PackageAfterBuild" AfterTargets="AfterBuild" Condition="Exists('$(MSBuildProjectDirectory)\$(MSBuildProjectName).nuspec') and Exists('$(SolutionDir)\.solution\nuget.exe')">
+    <Message Text="Building NuGet packages" Importance="High" />
+    
+    <PropertyGroup>
+        <NuGetExe>&quot;$(SolutionDir).solution\nuget.exe&quot;</NuGetExe>
+    </PropertyGroup>
+    
+    <!-- build the package  -->
+    <Exec Command="$(NuGetExe) pack $(MSBuildProjectFullPath) -symbols -properties Configuration=$(Configuration)" WorkingDirectory="$(OutputPath)" />
+
+    <!-- copy the nupkg files to the repository directory  -->
+    <Copy Condition="$(LocalNugetRepository) != '' AND Exists('$(LocalNugetRepository)') AND Exists('$(OutputPath)\$(AssemblyName).$(VersionAssembly).nupkg')" SourceFiles="$(OutputPath)\$(AssemblyName).$(VersionAssembly).nupkg" DestinationFolder="$(LocalNugetRepository)" ContinueOnError="true" />
+    <Copy Condition="$(LocalNugetRepository) != '' AND Exists('$(LocalNugetRepository)') AND Exists('$(OutputPath)\$(AssemblyName).$(VersionAssembly).symbols.nupkg')" SourceFiles="$(OutputPath)\$(AssemblyName).$(VersionAssembly).symbols.nupkg" DestinationFolder="$(LocalNugetRepository)" ContinueOnError="true" />
+    
+    <Exec Condition="$(PublishPackage) == 'true' AND Exists('$(OutputPath)\$(AssemblyName).$(VersionAssembly).nupkg')" Command="$(NuGetExe) push &quot;$(OutputPath)$(AssemblyName).$(VersionAssembly).nupkg&quot;" />
+  </Target>
 </Project> 

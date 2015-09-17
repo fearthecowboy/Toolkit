@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" InitialTargets="InitializeSolution" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <SolutionDir Condition=" '$(SolutionDir)'=='' ">$(MSBuildThisFileDirectory)..\</SolutionDir>
+    <VersionAssembly Condition=" '$(VersionAssembly)'=='' AND Exists('$(SolutionDir)\version.txt') ">$([System.IO.File]::ReadAllText('$(SolutionDir)version.txt').Trim())</VersionAssembly>
+    <VersionAssembly Condition=" '$(VersionAssembly)'=='' ">0.0.0.1</VersionAssembly>
+    
+    <LocalNugetRepository Condition="'$(LocalNugetRepository )'=='' AND Exists('$(SolutionDir)..\repo')" >$(SolutionDir)..\repo</LocalNugetRepository>
+    
+    <OutputPath>$(SolutionDir)output\$(Configuration)\</OutputPath> 
+    <BaseIntermediateOutputPath>$(SolutionDir)intermediate\$(Configuration)\$(AssemblyName)\</BaseIntermediateOutputPath>
+    <IntermediateOutputPath>$(BaseIntermediateOutputPath)</IntermediateOutputPath> 
+    <DocumentationFile>$(OutputPath)$(AssemblyName).XML</DocumentationFile> 
+    <NoWarn>1591,3002,3003,3008,3009</NoWarn>
+    <DefineConstants>USES_WIN32_API</DefineConstants>
+  </PropertyGroup>
+  
+  <Target Name="InitializeSolution" >
+    <!-- this runs the given msbuild script once per build at the beginning regardless of project order -->
+    <MSBuild Projects="$(SolutionDir).solution\initialize.proj" />
+    
+    <!-- and this ensures that we're getting the latest version from the text file (after updating)-->
+    <PropertyGroup>
+        <VersionAssembly Condition=" Exists('$(SolutionDir)\version.txt') ">$([System.IO.File]::ReadAllText('$(SolutionDir)version.txt').Trim())</VersionAssembly>
+    </PropertyGroup>
+  </Target>
+  
+</Project> 
