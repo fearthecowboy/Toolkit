@@ -16,6 +16,8 @@ namespace FearTheCowboy.Common.Collections {
     using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
+    using System.Threading.Tasks;
+    using Core;
 
     public static class Extensions {
         private static readonly MethodInfo _castMethod = typeof (Enumerable).GetMethod("Cast");
@@ -167,6 +169,72 @@ namespace FearTheCowboy.Common.Collections {
 
         public static object ToArrayT(this IEnumerable<object> enumerable, Type elementType) {
             return _toArrayMethods.GetOrAdd(elementType, () => _toArrayMethod.MakeGenericMethod(elementType)).Invoke(null, new[] {enumerable.ToIEnumerableT(elementType)});
+        }
+        public static void ParallelForEach<T>(this IEnumerable<T> enumerable, Action<T> action) {
+            var items = enumerable.ReEnumerable();
+            object first = items.FirstOrDefault();
+            if(first != null) {
+                object second = items.Skip(1).FirstOrDefault();
+                if(second != null) {
+                    Parallel.ForEach(items, new ParallelOptions {
+                        MaxDegreeOfParallelism = -1,
+                        TaskScheduler = new ThreadPerTaskScheduler()
+                    }, action);
+                } else {
+                    action(items.FirstOrDefault());
+                }
+            }
+        }
+
+        public static void SerialForEach<T>(this IEnumerable<T> enumerable, Action<T> action) {
+            var items = enumerable.ReEnumerable();
+            object first = items.FirstOrDefault();
+            if(first != null) {
+                object second = items.Skip(1).FirstOrDefault();
+                if(second != null) {
+                    foreach(var item in items) {
+                        action(item);
+                    }
+                } else {
+                    action(items.FirstOrDefault());
+                }
+            }
+        }
+
+        public static Dictionary<TKey, TElement> ToDictionaryNicely<TSource, TKey, TElement>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector, IEqualityComparer<TKey> comparer) {
+            if(source == null) {
+                throw new ArgumentNullException("source");
+            }
+            if(keySelector == null) {
+                throw new ArgumentNullException("keySelector");
+            }
+            if(elementSelector == null) {
+                throw new ArgumentNullException("elementSelector");
+            }
+
+            var d = new Dictionary<TKey, TElement>(comparer);
+            foreach(var element in source) {
+                d.AddOrSet(keySelector(element), elementSelector(element));
+            }
+            return d;
+        }
+
+        public static Dictionary<TKey, TElement> ToDictionaryNicely<TSource, TKey, TElement>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector) {
+            if(source == null) {
+                throw new ArgumentNullException("source");
+            }
+            if(keySelector == null) {
+                throw new ArgumentNullException("keySelector");
+            }
+            if(elementSelector == null) {
+                throw new ArgumentNullException("elementSelector");
+            }
+
+            var d = new Dictionary<TKey, TElement>();
+            foreach(var element in source) {
+                d.AddOrSet(keySelector(element), elementSelector(element));
+            }
+            return d;
         }
     }
 }

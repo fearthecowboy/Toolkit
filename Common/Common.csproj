@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Collections\BlockingCollection.cs" />
     <Compile Include="Collections\Extensions.cs" />
     <Compile Include="Collections\List.cs" />
     <Compile Include="Collections\MutableEnumerable.cs" />
@@ -51,13 +52,16 @@
     <Compile Include="Core\EqualityComparer.cs" />
     <Compile Include="Core\ExceptionExtensions.cs" />
     <Compile Include="Core\RegexExtensions.cs" />
+    <Compile Include="Core\Singleon.cs" />
     <Compile Include="Core\StringExtensions.cs" />
     <Compile Include="Core\TaskExtensions.cs" />
     <Compile Include="Core\Tasks.cs" />
+    <Compile Include="Core\ThreadPerTaskScheduler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Common.nuspec" />
+    <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Persistence\" />

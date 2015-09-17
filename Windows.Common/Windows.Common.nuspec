@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>FearTheCowboy.Windows.Common</id>
+    <version>$version$</version>
+    <title>FearTheCowboy's Incredibly Useful Toolkit (Windows-specific Common)</title>
+    <authors>Garrett Serack</authors>
+    <owners>Garrett Serack</owners>
+    <licenseUrl>http://opensource.org/licenses/Apache-2.0</licenseUrl>
+    <projectUrl>http://github.com/fearthecowboy/toolkit</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>
+      A lot of the useful stuff I've developed over the years distilled down into some sharable libraries.
+      This contains a lot of functions specific to .NET on Windows
+    </description>
+    <summary>My incredibly useful common classes that make .NET that much better (Windows Common).</summary>
+    <releaseNotes></releaseNotes>
+    <copyright>Copyright 2015</copyright>
+    <tags>Toolkit</tags>
+  </metadata>
+</package>

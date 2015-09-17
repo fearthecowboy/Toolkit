@@ -29,6 +29,15 @@ namespace FearTheCowboy.Common.Core {
             return tasks;
         }
 
+        public static Tasks operator +(Tasks tasks, IEnumerable<Task> manytasks) {
+            foreach (var t in manytasks) {
+                tasks._tasks.Add(t);
+            }
+            tasks.Collect();
+            return tasks;
+        }
+
+
         public static Tasks operator +(Tasks tasks, Action action) {
             tasks._tasks.Add(Task.Run(action));
             tasks.Collect();

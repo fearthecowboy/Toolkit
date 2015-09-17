@@ -4,14 +4,13 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{4E0B1CFC-F3EA-45A1-8B77-AD4147D09260}</ProjectGuid>
+    <ProjectGuid>{45466923-4E98-4DD3-9A2E-E16BFD7A55F2}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>FearTheCowboy.MessagePack</RootNamespace>
-    <AssemblyName>FearTheCowboy.MessagePack</AssemblyName>
+    <RootNamespace>FearTheCowboy.AsyncCmdlet</RootNamespace>
+    <AssemblyName>FearTheCowboy.AsyncCmdlet</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), solution.props))\solution.props" Condition="Exists('$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), solution.props))\solution.props')" />
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -34,53 +33,27 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
+    <Reference Include="System.Management.Automation, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\WindowsPowerShell\3.0\System.Management.Automation.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Persistence\PersistenceExtensions.cs" />
-    <Compile Include="Types\Array.cs" />
-    <Compile Include="Utility\BigEndianBitConverter.cs" />
-    <Compile Include="Types\Binary.cs" />
-    <Compile Include="Types\Boolean.cs" />
-    <Compile Include="Utility\ChildMessageBuffer.cs" />
-    <Compile Include="Types\ContainerMessage.cs" />
-    <Compile Include="Types\ExtBinary.cs" />
-    <Compile Include="Types\Float32.cs" />
-    <Compile Include="Types\Float64.cs" />
-    <Compile Include="Types\Format.cs" />
-    <Compile Include="Types\Int16.cs" />
-    <Compile Include="Types\Int32.cs" />
-    <Compile Include="Types\Int64.cs" />
-    <Compile Include="Types\Int8.cs" />
-    <Compile Include="Types\Map.cs" />
-    <Compile Include="Message.cs" />
-    <Compile Include="Utility\Extensions.cs" />
-    <Compile Include="Utility\MessageBuffer.cs" />
-    <Compile Include="Utility\MessageStream.cs" />
-    <Compile Include="Types\Nil.cs" />
+    <Compile Include="AsyncCmdlet.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Utility\StaticMessageBuffer.cs" />
-    <Compile Include="Types\String.cs" />
-    <Compile Include="Types\UInt16.cs" />
-    <Compile Include="Types\UInt32.cs" />
-    <Compile Include="Types\UInt64.cs" />
-    <Compile Include="Types\UInt8.cs" />
-    <Compile Include="Types\Unused.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="MessagePack.nuspec">
-      <SubType>Designer</SubType>
-    </None>
+    <None Include="AsyncCmdlet.nuspec" />
+    <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj">
-      <Project>{BB17618D-C23E-452D-A1A3-E0E8DAA74FCE}</Project>
+      <Project>{bb17618d-c23e-452d-a1a3-e0e8daa74fce}</Project>
       <Name>Common</Name>
     </ProjectReference>
   </ItemGroup>

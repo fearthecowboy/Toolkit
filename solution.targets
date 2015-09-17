@@ -23,21 +23,31 @@
         <Using Namespace="Microsoft.Build.Utilities" />
         <Code Type="Fragment" Language="cs">
             <![CDATA[
-            try {
-                var rx = new System.Text.RegularExpressions.Regex(this.Regex);
-                for (int i = 0; i < Files.Length; ++i)
-                {
-                    var path = Files[i].GetMetadata("FullPath");
-                    if (!File.Exists(path)) continue;
+            Exception ex1 = null;
+            
+            for(int x = 0; x< 5 ; x++ ) {
+                try {
+                    var rx = new System.Text.RegularExpressions.Regex(this.Regex);
+                    for (int i = 0; i < Files.Length; ++i)
+                    {
+                        var path = Files[i].GetMetadata("FullPath");
+                        if (!File.Exists(path)) continue;
 
-                    var txt = File.ReadAllText(path);
-                    txt = rx.Replace(txt, this.ReplacementText);
-                    File.WriteAllText(path, txt);
+                        var txt = File.ReadAllText(path);
+                        txt = rx.Replace(txt, this.ReplacementText);
+                        File.WriteAllText(path, txt);
+                    }
+                    return true;
                 }
-                return true;
+                catch (Exception ex) {
+                    ex1 = ex;
+                    // return false;
+                    // try again in 500ms...
+                    System.Console.Beep(100,500);
+                }
             }
-            catch (Exception ex) {
-                Log.LogErrorFromException(ex);
+            if( ex1 != null ) {
+                Log.LogErrorFromException(ex1);
                 return false;
             }
         ]]>

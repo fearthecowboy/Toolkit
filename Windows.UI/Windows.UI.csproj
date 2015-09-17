@@ -59,6 +59,7 @@
     <Folder Include="Flags\" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="project.json" />
     <None Include="Windows.UI.nuspec" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
